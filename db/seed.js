@@ -23,20 +23,21 @@ async function createTables() {
   await client.query(`
     CREATE TABLE users(
       id SERIAL PRIMARY KEY,
-      username varchar(255) UNIQUE NOT NULL,
-      password varchar(255) NOT NULL
+      username  VARCHAR(255) UNIQUE NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      is_admin BOOLEAN DEFAULT false
     );
     CREATE TABLE orders(
       id SERIAL PRIMARY KEY,
       user_id INTEGER REFERENCES users(id),
       cost INTEGER NOT NULL,
-      order_number varchar(255) UNIQUE NOT NULL
+      order_number VARCHAR(255) UNIQUE NOT NULL
     );
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
-      name varchar(255) UNIQUE NOT NULL,
+      name VARCHAR(255) UNIQUE NOT NULL,
       price INTEGER,
-      description varchar(255),
+      description VARCHAR(255),
       sport_id INTEGER REFERENCES sport(id)
     );
     CREATE TABLE orders_products(
@@ -46,8 +47,8 @@ async function createTables() {
     )
     CREATE TABLE sports(
       id SERIAL PRIMARY KEY,
-      name varchar(255) UNIQUE NOT NULL,
-      description varchar(255)
+      name VARCHAR(255) UNIQUE NOT NULL,
+      description VARCHAR(255)
     )
   `)
   console.log("Finished creating tables");
