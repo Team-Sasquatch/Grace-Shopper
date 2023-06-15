@@ -43,7 +43,8 @@ async function createTables() {
     CREATE TABLE orders_products(
       id SERIAL PRIMARY KEY,
       order_id INTEGER REFERENCES orders(id),
-      product_id INTEGER REFERENCES products(id)
+      product_id INTEGER REFERENCES products(id),
+      quantity
     )
     CREATE TABLE sports(
       id SERIAL PRIMARY KEY,
