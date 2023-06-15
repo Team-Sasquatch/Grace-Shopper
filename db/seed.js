@@ -1,15 +1,15 @@
 const client = require("./client");
-
-const{users,orders,products,order_products,sport} = require("./seedData");
+const {addProductToOrder,getOrderProductsById,getOrderProductsByOrder,updateOrderProducts,destroyOrderProducts} = require('./adapters/order_products');
+const{users,orders,products,order_products,sports} = require("./seedData");
 
 async function dropTables() {
   console.log("Dropping tables...");
   await client.query(`
-    DROP TABLE IF EXISTS sports;
-    DROP TABLE IF EXISTS order_products;
-    DROP TABLE IF EXISTS products;
-    DROP TABLE IF EXISTS orders;
-    DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS sports CASCADE;
+    DROP TABLE IF EXISTS order_products CASCADE;
+    DROP TABLE IF EXISTS products CASCADE;
+    DROP TABLE IF EXISTS orders CASCADE;
+    DROP TABLE IF EXISTS users CASCADE;
   `)
   console.log("Finished dropping tables");
   try {
@@ -33,24 +33,24 @@ async function createTables() {
       cost INTEGER NOT NULL,
       order_number VARCHAR(255) UNIQUE NOT NULL
     );
+    CREATE TABLE sports(
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(255) UNIQUE NOT NULL,
+      description VARCHAR(255)
+    );
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
       name VARCHAR(255) UNIQUE NOT NULL,
       price INTEGER,
       description VARCHAR(255),
-      sport_id INTEGER REFERENCES sport(id)
+      sport_id INTEGER REFERENCES sports(id)
     );
-    CREATE TABLE orders_products(
+    CREATE TABLE order_products(
       id SERIAL PRIMARY KEY,
       order_id INTEGER REFERENCES orders(id),
       product_id INTEGER REFERENCES products(id),
-      quantity
-    )
-    CREATE TABLE sports(
-      id SERIAL PRIMARY KEY,
-      name VARCHAR(255) UNIQUE NOT NULL,
-      description VARCHAR(255)
-    )
+      quantity INTEGER NOT NULL
+    );
   `)
   console.log("Finished creating tables");
   try {
@@ -63,6 +63,16 @@ async function populateTables() {
   console.log("Populating tables...");
   try {
     
+    for (const order_product of order_products){
+      const createdOrderProduct = await addProductToOrder(order_product);
+      console.log("Order_Products being created: ", createdOrderProduct);
+    }
+    console.log("Getting orderproduct by id(1): ", await getOrderProductsById(1));
+    console.log("Updating orderproduct by id(1): ", await updateOrderProducts(1,1337));
+    console.log("Getting orderproduct by orderId()", await getOrderProductsByOrder(1));
+    await (destroyOrderProducts(1));
+    console.log("Getting orderproduct by id(1) (should be destroyed): ", await getOrderProductsById(1));
+
   } catch (error) {
     console.error(error);
   }
