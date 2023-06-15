@@ -1,6 +1,7 @@
 // Create some seed data and export it from this file
 const users = [{username:'test1',password:12345678},
-    {username:'test2',password:12345678}];
+    {username:'test2',password:12345678},
+    {username:'admin',password:12345678,is_admin:true}];
 
 const products = [{name: 'supplement1',price:'1',description:'gets you jacked'},
     {name: 'tank top',price:'12',description:'gets you jacked2'},
