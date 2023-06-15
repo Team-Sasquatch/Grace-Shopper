@@ -3,7 +3,7 @@ const client = require("../client");
 async function addProductToOrder({order_id,product_id,quantity}){
     try {
         const {rows:[order_product]} = await client.query(`
-        INSERT INTO order_products(order_id,product_id)
+        INSERT INTO order_products(order_id,product_id,quantity)
         VALUES ($1,$2,$3)
         RETURNING *;
         `,[order_id,product_id,quantity]);
@@ -14,13 +14,13 @@ async function addProductToOrder({order_id,product_id,quantity}){
     }    
 }
 
-async function getOrderProductsById(orderProductsId){
+async function getOrderProductsById(orderProductId){
     try {
         const {rows:[order_product]} = await client.query(`
             SELECT *
             FROM order_products
             WHERE id=$1;
-        `,[orderProductsId]);
+        `,[orderProductId]);
         return order_product;
     } catch (error) {
         console.error('Error getting order_products by id');
@@ -30,7 +30,7 @@ async function getOrderProductsById(orderProductsId){
 
 async function updateOrderProducts(orderProductId,quantity){
     try {
-        const setString = Object.keys({count}).map((key,index)=>`"${key}=$${index+1}`).join(', ');
+        const setString = Object.keys({quantity}).map((key,index)=>`"${key}=$${index+1}`).join(', ');
         if (setString.length===0)
             return;
         const {rows:[order_product]} = await client.query(`
