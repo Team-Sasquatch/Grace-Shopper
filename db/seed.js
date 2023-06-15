@@ -1,5 +1,5 @@
 const client = require("./client");
-
+const {addProductToOrder,getOrderProductsById,getOrderProductsByOrder,updateOrderProducts,destroyOrderProducts} = require('./adapters/order_products');
 const{users,orders,products,order_products,sport} = require("./seedData");
 
 async function dropTables() {
@@ -63,6 +63,16 @@ async function populateTables() {
   console.log("Populating tables...");
   try {
     
+    for (const order_product of order_products){
+      const createdOrderProduct = await addProductToOrder(order_product);
+      console.log("Order_Products being created: ", createdOrderProduct);
+    }
+    console.log("Getting orderproduct by id(1): ", await getOrderProductsById(1));
+    console.log("Updating orderproduct by id(1): ", await updateOrderProducts(1,1337));
+    console.log("Getting orderproduct by orderId()", await getOrderProductsByOrder(1));
+    await (destroyOrderProducts(1));
+    console.log("Getting orderproduct by id(1) (should be destroyed): ", await getOrderProductsById(1));
+
   } catch (error) {
     console.error(error);
   }

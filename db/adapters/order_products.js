@@ -1,12 +1,12 @@
 const client = require("../client");
 
-async function addOrderToProducts({order_id,product_id}){
+async function addProductToOrder({order_id,product_id,quantity}){
     try {
         const {rows:[order_product]} = await client.query(`
         INSERT INTO order_products(order_id,product_id)
-        VALUES ($1,$2)
+        VALUES ($1,$2,$3)
         RETURNING *;
-        `,[order_id,product_id]);
+        `,[order_id,product_id,quantity]);
         return order_product;
     } catch (error) {
         console.error('Error creating order_products');
@@ -73,4 +73,4 @@ async function destroyOrderProducts(orderProductId){
     }
 }
 
-module.exports={addOrderToProducts,getOrderProductsById,updateOrderProducts,getOrderProductsByOrder,destroyOrderProducts};
+module.exports={addProductToOrder,getOrderProductsById,updateOrderProducts,getOrderProductsByOrder,destroyOrderProducts};
