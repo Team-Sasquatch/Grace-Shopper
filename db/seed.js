@@ -1,5 +1,5 @@
 const { createProduct } = require("./adapters/products");
-const client = require("./client");
+const { client } = require("./client");
 
 const {
   users,
@@ -27,37 +27,50 @@ async function dropTables() {
 
 async function createTables() {
   console.log("Creating tables...");
+
   await client.query(`
-    CREATE TABLE users(
-      id SERIAL PRIMARY KEY,
-      username  VARCHAR(255) UNIQUE NOT NULL,
-      password VARCHAR(255) NOT NULL,
-      is_admin BOOLEAN DEFAULT false
-    );
-    CREATE TABLE orders(
-      id SERIAL PRIMARY KEY,
-      user_id INTEGER REFERENCES users(id),
-      cost INTEGER NOT NULL,
-      order_number VARCHAR(255) UNIQUE NOT NULL
-    );
-    CREATE TABLE products(
-      id SERIAL PRIMARY KEY,
-      name VARCHAR(255) UNIQUE NOT NULL,
-      price INTEGER,
-      description VARCHAR(255),
-      sport_id INTEGER REFERENCES sport(id)
-    );
-    CREATE TABLE orders_products(
-      id SERIAL PRIMARY KEY,
-      order_id INTEGER REFERENCES orders(id),
-      product_id INTEGER REFERENCES products(id)
-    )
-    CREATE TABLE sports(
-      id SERIAL PRIMARY KEY,
-      name VARCHAR(255) UNIQUE NOT NULL,
-      description VARCHAR(255)
-    )
-  `);
+      CREATE TABLE IF NOT EXISTS users(
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        is_admin BOOLEAN DEFAULT false
+      )
+    `);
+
+  await client.query(`
+      CREATE TABLE IF NOT EXISTS orders(
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id),
+        cost INTEGER NOT NULL,
+        order_number VARCHAR(255) UNIQUE NOT NULL
+      )
+    `);
+
+  await client.query(`
+      CREATE TABLE IF NOT EXISTS products(
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) UNIQUE NOT NULL,
+        price INTEGER,
+        description VARCHAR(255),
+        sport_id INTEGER REFERENCES sports(id)
+      )
+    `);
+
+  await client.query(`
+      CREATE TABLE IF NOT EXISTS orders_products(
+        id SERIAL PRIMARY KEY,
+        order_id INTEGER REFERENCES orders(id),
+        product_id INTEGER REFERENCES products(id)
+      )
+    `);
+
+  await client.query(`
+      CREATE TABLE IF NOT EXISTS sports(
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) UNIQUE NOT NULL,
+        description VARCHAR(255)
+      )
+    `);
   console.log("Finished creating tables");
   try {
   } catch (error) {
