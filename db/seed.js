@@ -1,6 +1,13 @@
+const { createProduct } = require("./adapters/products");
 const client = require("./client");
 
-const{users,orders,products,order_products,sport} = require("./seedData");
+const {
+  users,
+  orders,
+  products,
+  order_products,
+  sport,
+} = require("./seedData");
 
 async function dropTables() {
   console.log("Dropping tables...");
@@ -10,7 +17,7 @@ async function dropTables() {
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS orders;
     DROP TABLE IF EXISTS users;
-  `)
+  `);
   console.log("Finished dropping tables");
   try {
   } catch (error) {
@@ -50,18 +57,22 @@ async function createTables() {
       name VARCHAR(255) UNIQUE NOT NULL,
       description VARCHAR(255)
     )
-  `)
+  `);
   console.log("Finished creating tables");
   try {
   } catch (error) {
-    console.log(error);
+    console.error("Error creating tables!");
   }
 }
 
 async function populateTables() {
   console.log("Populating tables...");
   try {
-    
+    console.log("populating products table...");
+    for (const product of products) {
+      await createProduct(product);
+    }
+    console.log("...products table populated");
   } catch (error) {
     console.error(error);
   }
