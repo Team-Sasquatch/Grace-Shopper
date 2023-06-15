@@ -31,7 +31,8 @@ async function createTables() {
       id SERIAL PRIMARY KEY,
       user_id INTEGER REFERENCES users(id),
       cost INTEGER NOT NULL,
-      order_number VARCHAR(255) UNIQUE NOT NULL
+      order_number VARCHAR(255) UNIQUE NOT NULL,
+      status VARCHAR(255) NOT NULL
     );
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
