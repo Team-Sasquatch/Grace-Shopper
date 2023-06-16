@@ -62,7 +62,8 @@ async function createTables() {
 async function populateTables() {
   console.log("Populating tables...");
   try {
-    
+    //create functions go here once implemented in all adapters
+    //holding off on orders until users is created
   } catch (error) {
     console.error(error);
   }

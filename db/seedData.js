@@ -8,9 +8,10 @@ const products = [{name: 'supplement1',price:'1',description:'gets you jacked'},
     {name: 'soccer ball',price:'31',description:'gets you jacked3',sport_id:1},
     {name: 'supplement2',price:'144',description:'gets you jacked4'}];
 
-const orders = [{user_id: 1,cost:'1222',order_number:'1'},
-    {user_id: 1,cost:'1332',order_number:'2'},
-    {user_id: 2,cost:'1442',order_number:'3'}]
+const orders = [{user_id: 1,cost:1222, order_number: 1, status: 'Created'},
+    {user_id: 1,cost:1332, order_number:2, status: 'Processing'},
+    {user_id: 2,cost:1442, order_number:3, status: 'Completed'},
+    {user_id: 2,cost:30, order_number:4, status: 'Cancelled'}]
 
 const order_products = [{order_id: 1, product_id:1},
     {order_id: 2, product_id:2},

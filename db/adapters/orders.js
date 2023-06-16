@@ -53,15 +53,15 @@ const client = require("../client");
     return rows;
   }
 
-  async function updateOrderStatus({id, status}) {
+  async function updateOrderStatus({id, userId, cost, orderNumber, status}) {
     const {
         rows: [order],
     } = await client.query(
         `
-        update orders set status = $1
-        where id = $2
+        update orders set user_id = $1, cost = $2, order_number = $3, status = $4
+        where id = $5
       `,
-      [status, id]
+      [userId, cost, orderNumber, status, id]
     );
     return order;
   }
