@@ -1,8 +1,8 @@
-
 const { createProduct } = require("./adapters/products");
 const { client } = require("./client");
 const {addProductToOrder,getOrderProductsById,getOrderProductsByOrder,updateOrderProducts,destroyOrderProducts} = require('./adapters/order_products');
 const{users,orders,products,order_products,sports} = require("./seedData");
+const { createSport, getSportById, getAllSports, updateSport, destroySport } = require("./adapters/sports");
 
 
 async function dropTables() {
@@ -25,33 +25,6 @@ async function dropTables() {
 
 async function createTables() {
   console.log("Creating tables...");
-
-  //Users Table
-  console.log("Creating Users tables...");
-  await client.query(`
-      CREATE TABLE  users(
-        id SERIAL PRIMARY KEY,
-        username VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL,
-        is_admin BOOLEAN DEFAULT false
-      )
-    `);
-  console.log("...User table created");
-
-  //Orders Table
-  console.log("Creating Orders tables...");
-  await client.query(`
-      CREATE TABLE  orders(
-        id SERIAL PRIMARY KEY,
-        user_id INTEGER REFERENCES users(id),
-        cost INTEGER NOT NULL,
-        order_number VARCHAR(255) UNIQUE NOT NULL
-      )
-    `);
-  console.log("...Orders table created");
-
-  //Sports Table
-  console.log("Creating Sports tables...");
   await client.query(`
 
     CREATE TABLE users(
@@ -96,6 +69,16 @@ async function createTables() {
 async function populateTables() {
   console.log("Populating tables...");
   try {
+    console.log("populating sports...");
+    for (const sport of sports){
+      await createSport(sport);
+    }
+    console.log("...sports populated");
+    console.log("Getting sportById(1)", await getSportById(1));
+    console.log("Getting allSports",await getAllSports());
+    console.log("Updating Sport(1)", await updateSport(1,'rock climbing','climbing rocks!'));
+    await destroySport(3);
+    console.log("Getting all Sports, second iteration", await getAllSports());
 
     console.log("populating products table...");
     for (const product of products) {
@@ -103,6 +86,8 @@ async function populateTables() {
     }
     console.log("...products table populated");
 
+    console.log("Getting sportById(1)", await getSportById(1));
+    console.log("Getting all Sports, second iteration", await getAllSports());
     
     for (const order_product of order_products){
       const createdOrderProduct = await addProductToOrder(order_product);
