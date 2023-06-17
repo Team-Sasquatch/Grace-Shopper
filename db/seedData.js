@@ -3,18 +3,18 @@
 const users = [
   { username: "test1", password: 12345678 },
   { username: "test2", password: 12345678 },
+  { username: "admin", password: 12345678, is_admin:true },
 ];
 
+const sports = [{ name: "soccer", description: "you sock a ball" },
+  { name: "basketball", description: "you basket a ball" },
+  { name: "football", description: "you don't foot the ball often" }];
+
 const products = [
-  { name: "supplement1", price: "1", description: "gets you jacked" },
-  { name: "tank top", price: "12", description: "gets you jacked2" },
-  {
-    name: "soccer ball",
-    price: "31",
-    description: "gets you jacked3",
-    sport_id: 1,
-  },
-  { name: "supplement2", price: "144", description: "gets you jacked4" },
+  { name: "supplement1", price: "1", description: "gets you jacked",sport_id: null },
+  { name: "tank top", price: "12", description: "gets you jacked2",sport_id: 2 },
+  {name: "soccer ball",price: "31",description: "gets you jacked3",sport_id: 1},
+  { name: "supplement2", price: "144", description: "gets you jacked4" ,sport_id:1},
 ];
 
 const orders = [
@@ -22,9 +22,6 @@ const orders = [
   { user_id: 1, cost: "1332", order_number: "2" },
   { user_id: 2, cost: "1442", order_number: "3" },
 ];
-
-
-const sports = [{ name: "soccer", description: "you sock a ball" }];
 
 
 const order_products = [{order_id: 1, product_id:1, quantity:1},

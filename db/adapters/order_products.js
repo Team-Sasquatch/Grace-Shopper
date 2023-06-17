@@ -1,11 +1,11 @@
-const client = require("../client");
+const {client} = require("../client");
 
 async function addProductToOrder({order_id,product_id,quantity}){
     try {
         const {rows:[order_product]} = await client.query(`
-        INSERT INTO order_products(order_id,product_id,quantity)
-        VALUES ($1,$2,$3)
-        RETURNING *;
+            INSERT INTO order_products(order_id,product_id,quantity)
+            VALUES ($1,$2,$3)
+            RETURNING *;
         `,[order_id,product_id,quantity]);
         return order_product;
     } catch (error) {
