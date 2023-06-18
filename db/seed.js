@@ -37,7 +37,8 @@ async function createTables() {
       id SERIAL PRIMARY KEY,
       user_id INTEGER REFERENCES users(id),
       cost INTEGER NOT NULL,
-      order_number VARCHAR(255) UNIQUE NOT NULL
+      order_number VARCHAR(255) UNIQUE NOT NULL,
+      status VARCHAR(255) NOT NULL
     );
     CREATE TABLE sports(
       id SERIAL PRIMARY KEY,
@@ -69,6 +70,7 @@ async function createTables() {
 async function populateTables() {
   console.log("Populating tables...");
   try {
+
     console.log("populating sports...");
     for (const sport of sports){
       await createSport(sport);
@@ -98,8 +100,6 @@ async function populateTables() {
     console.log("Getting orderproduct by orderId()", await getOrderProductsByOrder(1));
     await (destroyOrderProducts(1));
     console.log("Getting orderproduct by id(1) (should be destroyed): ", await getOrderProductsById(1));
-
-
   } catch (error) {
     console.error(error);
   }
