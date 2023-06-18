@@ -7,4 +7,7 @@ router.get("/health", (req, res, next) => {
   });
 });
 
+const productsRouter = require("./products");
+router.use("/products", productsRouter);
+
 module.exports = router;
