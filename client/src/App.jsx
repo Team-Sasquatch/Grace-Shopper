@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div>
-      <h1>Welcome to Grace Shopper</h1>
+      <h1>Sasquatch Sports</h1>
       {healthMsg && <p>{healthMsg}</p>}
       {err && <p>{err}</p>}
     </div>
