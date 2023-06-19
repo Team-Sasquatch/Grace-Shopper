@@ -24,12 +24,6 @@ const products = [
   { name: "supplement2", price: "144", description: "gets you jacked4" ,sport_id:1},
 ];
 
-const orders = [
-  { user_id: 1, cost: "1222", order_number: "1" },
-  { user_id: 1, cost: "1332", order_number: "2" },
-  { user_id: 2, cost: "1442", order_number: "3" },
-];
-
 
 const order_products = [{order_id: 1, product_id:1, quantity:1},
     {order_id: 2, product_id:2, quantity:2},

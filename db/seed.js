@@ -3,6 +3,8 @@ const { client } = require("./client");
 const {addProductToOrder,getOrderProductsById,getOrderProductsByOrder,updateOrderProducts,destroyOrderProducts} = require('./adapters/order_products');
 const{users,orders,products,order_products,sports} = require("./seedData");
 const { createSport, getSportById, getAllSports, updateSport, destroySport } = require("./adapters/sports");
+const { createOrder } = require("./adapters/orders");
+const { createUser } = require("./adapters/users");
 
 
 async function dropTables() {
@@ -90,6 +92,21 @@ async function populateTables() {
 
     console.log("Getting sportById(1)", await getSportById(1));
     console.log("Getting all Sports, second iteration", await getAllSports());
+
+
+    // ----------------------- Added by Daven for Testing---------------------------
+    console.log("populating users table...")
+    for (const user of users){
+      await createUser(user);
+    }
+    console.log("finished populating users table")
+    console.log("populating orders table...")
+    for (const order of orders){
+      await createOrder(order);
+    }
+    console.log("...finished populating orders table")
+    // -----------------------------------------------------------------------------
+
     
     for (const order_product of order_products){
       const createdOrderProduct = await addProductToOrder(order_product);
