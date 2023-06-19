@@ -30,7 +30,7 @@ async function getOrderProductsById(orderProductId){
 
 async function updateOrderProducts(orderProductId,quantity){
     try {
-        const setString = Object.keys({quantity}).map((key,index)=>`"${key}=$${index+1}`).join(', ');
+        const setString = Object.keys({quantity}).map((key,index)=>`"${key}"=$${index+1}`).join(', ');
         if (setString.length===0)
             return;
         const {rows:[order_product]} = await client.query(`
