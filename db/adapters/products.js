@@ -11,7 +11,7 @@ async function createProduct({ name, price, description, sport_id }) {
             ON CONFLICT (name) DO NOTHING
             RETURNING *
             `,
-      [name, price, description,sport_id]
+      [name, price, description, sport_id]
     );
     return product;
   } catch (error) {
@@ -23,7 +23,7 @@ async function getAllProducts() {
   const { rows } = await client.query(`
     SELECT * FROM products
     INNER JOIN sports
-    ON products.sport_id = sport.id
+    ON products.sport_id = sports.id
     `);
   return rows;
 }
