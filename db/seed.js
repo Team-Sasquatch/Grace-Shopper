@@ -3,8 +3,8 @@ const { client } = require("./client");
 const {addProductToOrder,getOrderProductsById,getOrderProductsByOrder,updateOrderProducts,destroyOrderProducts} = require('./adapters/order_products');
 const{users,orders,products,order_products,sports} = require("./seedData");
 const { createSport, getSportById, getAllSports, updateSport, destroySport } = require("./adapters/sports");
-const { createOrder } = require("./adapters/orders");
-const { createUser } = require("./adapters/users");
+const { createOrder, getAllOrders, getAllOrdersByUserId, getOrderById, getOrdersByStatus, updateOrderStatus } = require("./adapters/orders");
+const { createUser, getUser, getUserById, getUserByUsername } = require("./adapters/users");
 
 
 async function dropTables() {
@@ -100,11 +100,21 @@ async function populateTables() {
       await createUser(user);
     }
     console.log("finished populating users table")
+    console.log("Getting user validation,", await getUser({username: "test1", password: 12345678}));
+    console.log("Getting user by id user[1], ", await getUserById(1));
+    console.log("Getting user by username, ", await getUserByUsername('test2'));
+
     console.log("populating orders table...")
     for (const order of orders){
       await createOrder(order);
     }
-    console.log("...finished populating orders table")
+    console.log("...finished populating orders table");
+    console.log("getting all orders, ",await getAllOrders());
+    console.log("getAllOrdersByUserId, ", await getAllOrdersByUserId(1));
+    console.log("getting order by id[1], ",await getOrderById(1));
+    console.log("getting orders by status[Processing]", await getOrdersByStatus("Processing"));
+    console.log("updating order status, ", await updateOrderStatus({id:2,userId: 3, cost:6666, orderNumber:321, status: "Completed"}));
+    console.log("gettingAllOrders 2, ", await getAllOrders());
     // -----------------------------------------------------------------------------
 
     

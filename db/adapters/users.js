@@ -20,16 +20,8 @@ async function createUser({ username, password }) {
 
 async function getUser({ username, password }) {
   try {
-    const {
-      rows: [user],
-    } = await client.query(
-      `
-          SELECT * FROM users
-          WHERE username=$1
-          `,
-      [username]
-    );
-    const res = bcrypt.compareSync(password, user.password);
+    const user = await getUserByUsername(username);
+    const res = await bcrypt.compare(password.toString(), user.password);
 
     if (res) {
       return user;
@@ -59,7 +51,7 @@ async function getUserById(id) {
   }
 }
 
-async function getUserByUsername (username){
+async function getUserByUsername(username){
 try {
     const {
       rows: [user],
