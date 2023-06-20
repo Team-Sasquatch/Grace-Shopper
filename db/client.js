@@ -1,10 +1,10 @@
 const { Client } = require("pg");
 
-const dbName = `your-db-name`;
+const dbName = `grace-shopper`;
 
 const client = new Client({
   connectionString:
     process.env.DATABASE_URL || `postgres://localhost:5432/${dbName}`,
 });
 
-module.exports = client;
+module.exports = { client };
