@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
+import Home from "./Home";
 //comment
 //comment 2
 function App() {
@@ -29,6 +31,9 @@ function App() {
       <h1>Sasquatch Sports</h1>
       {healthMsg && <p>{healthMsg}</p>}
       {err && <p>{err}</p>}
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
     </div>
   );
 }
