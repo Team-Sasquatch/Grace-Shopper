@@ -22,13 +22,35 @@ async function createProduct({ name, price, description, sport_id }) {
 async function getAllProducts() {
   const { rows } = await client.query(`
     SELECT * FROM products
-    INNER JOIN sports
-    ON products.sport_id = sports.id
     `);
+  return rows;
+}
+
+async function getProductById(id) {
+  const { rows } = await client.query(
+    `
+    SELECT * FROM products
+    WHERE id = $1
+    `,
+    [id]
+  );
+  return rows;
+}
+
+async function getProductsByUser(username) {
+  const { rows } = await client.query(
+    `
+    SELECT * FROM products
+    WHERE username = $1
+    `,
+    [username]
+  );
   return rows;
 }
 
 module.exports = {
   createProduct,
   getAllProducts,
+  getProductById,
+  getProductsByUser,
 };
