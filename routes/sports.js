@@ -14,6 +14,18 @@ sportsRouter.get('/',async(req,res,next)=>{
     }
 });
 
+sportsRouter.get('/:sportId',async(req,res,next)=>{
+    try {
+        const {sportId} = req.params;
+        const sport = await getSportById(sportId);
+        res.send({
+            sport
+        })
+    } catch (error) {
+        next(error);
+    }
+})
+
 sportsRouter.post('/',authRequired,async(req,res,next)=>{
     try {
         const {name,description} = req.body;
