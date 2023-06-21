@@ -7,91 +7,96 @@ const {
   getUserById,
   getUserByUsername,
 } = require("../db/adapters/users");
+const {getAllOrdersByUserId} = require("../db/adapters/orders");
 
 usersRouter.post("/register", async (req, res, next) => {
-  const { username, password } = req.body;
-  if (password.length < 8) {
-    next({
-      name: "Password Error",
-      message: "Password must be over 8 characters",
-    });
-    return;
-  }
-  try {
-    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-    const user = await createUser(username, hashedPassword);
-    delete user.password;
-
-    res.cookie("token", token, {
-      sameSite: "strict",
-      httpOnly: true,
-      signed: true,
-    });
-    res.send({
-      message: "Registration Successful",
-      data: "user",
-    });
-  } catch (error) {
-    next({
-      name: "Username Already Taken",
-      message: "That username is already being used",
-      data: null,
-    });
-  }
+  const {username, password} = req.body;
+    if (password.length < 8){
+        next({
+            name: "PasswordError",
+            message: "Please supply a password that's over 8 characters"
+        });
+    }
+    else{
+        try {
+            const _user = await getUserByUsername(username);
+            if (_user){
+                next({
+                    name: 'UserExistsError',
+                    message: 'A user by that username already exists'
+                });
+            }
+            const user = await createUser({username,password});
+            res.send({
+                message: 'Register Successful',
+                user
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
 });
 
 usersRouter.post("/login", async (req, res, next) => {
-  const { username, password } = req.body;
-
-  try {
-    const user = await getUser(username, password);
-    delete user.password;
-
-    const token = jwt.sign(user, process.env.JWT_SECRET);
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      signed: true,
-    });
-
-    res.send({ message: "Successfully logged in", data: user });
-  } catch (error) {
-    next({
-      name: "Invalid Login Info",
-      message: "The username or password is incorrect",
-      data: null,
-    });
-  }
+  const {username, password} = req.body;
+    if (!username || !password) {
+        next({
+          name: "MissingCredentialsError",
+          message: "Please supply both a username and password"
+        });
+      }
+    else{
+        try{
+            const _user = await getUserByUsername(username);
+            if (!_user){
+                next({
+                    name: 'UserDoesNotExistError',
+                    message: 'A user by that username does not exist'
+                });
+            }
+            const user = await getUser({username,password});
+            if (user){
+                const token = jwt.sign( user, process.env.JWT_SECRET,{expiresIn: '2w'});
+                res.cookie("token", token,{
+                    sameSite: 'strict',
+                    httpOnly: true,
+                    signed: true,
+                })
+                res.send({
+                    message: 'Login Successful',
+                    user
+                });
+            }
+            else{
+                next({
+                   name: 'IncorrectCredentialsError',
+                   message: 'Username or password is incorrect' 
+                });
+            }
+        } catch (error) {
+            next(error);
+        }
+    } 
 });
 
-usersRouter.get("/id", async (req, res, next) => {
+usersRouter.get("/id/:userId", async (req, res, next) => {
   const { userId } = req.params;
   try {
-    const user = await getUserById(userID);
+    const user = await getUserById(userId);
     res.send({
-      message: "Getting user by Id is successful",
-      data: "user",
+      user
     });
   } catch (error) {
     next(error);
   }
 });
 
-usersRouter.get("/me", authRequired, async (req, res, next) => {
-  try {
-    const token = req.signedCookies.token;
-    const verify = jwt.verify(token, process.env.JWT_SECRET);
-
-    const user = await getUserByUsername(verify.username);
-
-    res.send({ message: "Successfully got user data", data: user });
-  } catch (error) {
-    next({
-      name: "Incorrect Information",
-      message: "The login information provided is not correct",
-      data: null,
-    });
-  }
+usersRouter.get('/me', authRequired,async(req,res,next)=>{
+    try {
+        res.send(req.user);
+    } catch (error) {
+        next(error);
+    }
 });
 
 usersRouter.get("/logout", authRequired, async (req, res, next) => {
@@ -109,5 +114,17 @@ usersRouter.get("/logout", authRequired, async (req, res, next) => {
     next(error);
   }
 });
+
+usersRouter.get("/:userId/orders", async(req,res,next)=>{
+  const {userId} = req.params;
+  try {
+    const orders = await getAllOrdersByUserId(userId);
+    res.send({
+      orders
+    })
+  } catch (error) {
+    next(error);
+  }
+})
 
 module.exports = usersRouter;

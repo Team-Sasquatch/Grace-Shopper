@@ -5,6 +5,7 @@ const SALT_ROUNDS = 10;
 async function createUser({ username, password }) {
   try {
     const hashedPassword = await bcrypt.hash(password.toString(), SALT_ROUNDS);
+    delete password;
     const { rows: [user] } = await client.query(
       `INSERT INTO users(username, password)
         VALUES ($1, $2)
@@ -24,6 +25,7 @@ async function getUser({ username, password }) {
     const res = await bcrypt.compare(password.toString(), user.password);
 
     if (res) {
+      delete user.password;
       return user;
     } else {
       throw error;
