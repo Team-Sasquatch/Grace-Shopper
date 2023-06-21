@@ -11,7 +11,7 @@ async function createProduct({ name, price, description, sport_id }) {
             ON CONFLICT (name) DO NOTHING
             RETURNING *
             `,
-      [name, price, description,sport_id]
+      [name, price, description, sport_id]
     );
     return product;
   } catch (error) {
@@ -22,13 +22,35 @@ async function createProduct({ name, price, description, sport_id }) {
 async function getAllProducts() {
   const { rows } = await client.query(`
     SELECT * FROM products
-    INNER JOIN sports
-    ON products.sport_id = sport.id
     `);
+  return rows;
+}
+
+async function getProductById(id) {
+  const { rows } = await client.query(
+    `
+    SELECT * FROM products
+    WHERE id = $1
+    `,
+    [id]
+  );
+  return rows;
+}
+
+async function getProductsByUser(username) {
+  const { rows } = await client.query(
+    `
+    SELECT * FROM products
+    WHERE username = $1
+    `,
+    [username]
+  );
   return rows;
 }
 
 module.exports = {
   createProduct,
   getAllProducts,
+  getProductById,
+  getProductsByUser,
 };
