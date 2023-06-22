@@ -1,0 +1,24 @@
+.image-carousel {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.carousel-image img {
+  width: 100%;
+  height: auto;
+}
+
+.carousel-controls {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.carousel-controls button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  font-size: 20px;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+}

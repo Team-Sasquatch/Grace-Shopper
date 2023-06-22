@@ -33,12 +33,11 @@ function App() {
       <h1>Sasquatch Sports</h1>
       {healthMsg && <p>{healthMsg}</p>}
       {err && <p>{err}</p>}
-
+      <Nav />
+      <LoginButton />
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
-      <Nav />
-      <LoginButton />
     </div>
   );
 }
