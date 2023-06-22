@@ -32,38 +32,39 @@ export default function AuthForm() {
       console.log("Error with registration: ", error);
     }
   }
+
+  return (
+    <div>
+      {pathname === "/register" ? (
+        <div>
+          <h1>Registering a new user</h1>
+          <h3>Enter new user info</h3>
+        </div>
+      ) : (
+        <div>
+          <h1>Log in</h1>
+          <h3>Enter user info</h3>
+        </div>
+      )}
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input
+            type="text"
+            name="username"
+            placeholder="username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="text"
+            name="password"
+            placeholder="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button>Submit</button>
+        {error ? <p style={{ color: "light blue" }}>{error}</p> : null}
+        <Link to="/">Return to Login Page</Link>
+      </form>
+    </div>
+  );
 }
-return (
-  <div>
-    {pathname === "/register" ? (
-      <div>
-        <h1>Registering a new user</h1>
-        <h3>Enter new user info</h3>
-      </div>
-    ) : (
-      <div>
-        <h1>Log in</h1>
-        <h3>Enter user info</h3>
-      </div>
-    )}
-    <form onSubmit={handleSubmit}>
-      <div>
-        <input
-          type="text"
-          name="username"
-          placeholder="username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="text"
-          name="password"
-          placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <button>Submit</button>
-      {error ? <p style={{ color: "light blue" }}>{error}</p> : null}
-      <Link to="/">Return to Login Page</Link>
-    </form>
-  </div>
-);
