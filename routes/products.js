@@ -43,14 +43,16 @@ productsRouter.get("/:id", async (req, res, next) => {
   }
 });
 
-productsRouter.get("/:username/products", async (req, res, next) => {
-  try {
-    const username = req.params.username;
-    const productByUser = await getProductsByUser(username);
-    res.send({ productByUser });
-  } catch (error) {
-    next(error);
-  }
-});
+
+//Commented out since it's not needed
+// productsRouter.get("/:username/products", async (req, res, next) => {
+//   try {
+//     const username = req.params.username;
+//     const productByUser = await getProductsByUser(username);
+//     res.send({ productByUser });
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 module.exports = productsRouter;

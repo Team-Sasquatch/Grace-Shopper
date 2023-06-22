@@ -1,36 +1,98 @@
 const {client} = require("../client");
   
   async function getAllOrders() {
-    const {rows} = await client.query(
-        `
-        select * from orders
-      `
-    );
-    return rows;
+    try {
+      const {rows:order} = await client.query(`
+      SELECT
+        orders.id as id,
+        orders.user_id as user_id,
+        orders.cost as cost,
+        orders.order_number as order_number,
+        orders.status as status,
+      CASE WHEN order_products.order_id IS NULL THEN '[]'::json
+      ELSE
+      JSON_AGG(
+        JSON_BUILD_OBJECT(
+          'id', products.id,
+          'price', products.price,
+          'description', products.description,
+          'sport_id', products.sport_id
+        )
+      ) END AS products
+      FROM orders
+      LEFT JOIN order_products ON orders.id = order_products.order_id
+      LEFT JOIN products ON order_products.product_id = products.id
+      GROUP BY orders.id, order_products.order_id;
+      `);
+      return order;
+    } catch (error) {
+      throw error;
+    }
+    
   }
 
   async function getAllOrdersByUserId(userId) {
-    const {rows} = await client.query(
-        `
-        select * from orders where user_id = $1
-      `,
-      [userId]
-    );
-    return rows;
+    try{
+      const {rows:order} = await client.query(`
+      SELECT
+        orders.id as id,
+        orders.user_id as user_id,
+        orders.cost as cost,
+        orders.order_number as order_number,
+        orders.status as status,
+      CASE WHEN order_products.order_id IS NULL THEN '[]'::json
+      ELSE
+      JSON_AGG(
+        JSON_BUILD_OBJECT(
+          'id', products.id,
+          'price', products.price,
+          'description', products.description,
+          'sport_id', products.sport_id
+        )
+      ) END AS products
+      FROM orders
+      LEFT JOIN order_products ON orders.id = order_products.order_id
+      LEFT JOIN products ON order_products.product_id = products.id
+      WHERE orders.user_id = $1
+      GROUP BY orders.id, order_products.order_id;
+      `,[userId]);
+      return order;
+    } catch (error){
+      throw error;
+    }
+    
   }
   
-  async function getOrderById(id) {
-    const {rows: [order]} = await client.query(
-        `
-        select * from orders where id = $1
-      `,
-      [id]
-    );
-    return order;
+  async function getOrderById(orderId) {
+    try {
+      const {rows:[order]} = await client.query(`
+            SELECT *
+            FROM orders
+            WHERE id = $1;
+        `,[orderId]);
+        if(!order){
+            throw{
+                name:"OrderNotFoundError",
+                message:"Could not find order with that orderId"
+            };
+        }
+        const {rows:[products]} = await client.query(`
+            SELECT products.*
+            FROM products
+            JOIN order_products ON products.id=order_products.product_id
+            WHERE order_products.order_id=$1;
+        `,[orderId]);
+        order.products = products;
+      return order;
+    } catch (error) {
+      throw error;
+    }
+    
   }
   
   async function createOrder({user_id, cost, order_number, status}) {
-    const {
+    try {
+      const {
         rows: [order],
     } = await client.query(
         `
@@ -41,29 +103,61 @@ const {client} = require("../client");
         [user_id, cost, order_number, status]
     );
     return order;
+    } catch (error) {
+      throw error;
+    }
+    
   }
   
   async function getOrdersByStatus(status) {
-    const {rows} = await client.query(
-        `
-        select * from orders where status = $1
-      `,
-      [status]
-    );
-    return rows;
+    try {
+      const {rows:order} = await client.query(`
+      SELECT
+        orders.id as id,
+        orders.user_id as user_id,
+        orders.cost as cost,
+        orders.order_number as order_number,
+        orders.status as status,
+      CASE WHEN order_products.order_id IS NULL THEN '[]'::json
+      ELSE
+      JSON_AGG(
+        JSON_BUILD_OBJECT(
+          'id', products.id,
+          'price', products.price,
+          'description', products.description,
+          'sport_id', products.sport_id
+        )
+      ) END AS products
+      FROM orders
+      LEFT JOIN order_products ON orders.id = order_products.order_id
+      LEFT JOIN products ON order_products.product_id = products.id
+      WHERE orders.status = $1
+      GROUP BY orders.id, order_products.order_id;
+      `,[status]);
+      return order;
+    } catch (error) {
+      throw error;
+    }
+    
   }
 
-  async function updateOrderStatus({id, userId, cost, orderNumber, status}) {
-    const {
-        rows: [order],
-    } = await client.query(
-        `
-        update orders set user_id = $1, cost = $2, order_number = $3, status = $4
-        where id = $5
-      `,
-      [userId, cost, orderNumber, status, id]
-    );
-    return order;
+  async function updateOrderStatus({id, user_id, cost, status}) {
+    const setString = Object.keys({user_id,cost,status}).map((key,index)=>`"${key}"=$${index+1}`).join(', ');
+    if (setString.length === 0){
+        return;
+    }
+    try {
+        const {rows:[order]} = await client.query(`
+            UPDATE orders
+            SET ${setString}
+            WHERE id=${id}
+            RETURNING *;
+        `,Object.values({user_id,cost,status}));
+        return order;
+    } catch (error) {
+      throw error;
+    }
+    
   }
   
   
