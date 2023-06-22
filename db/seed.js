@@ -1,17 +1,18 @@
 const { createProduct } = require("./adapters/products");
 const { client } = require("./client");
 const {addProductToOrder,getOrderProductsById,getOrderProductsByOrder,updateOrderProducts,destroyOrderProducts} = require('./adapters/order_products');
-const{users,orders,products,order_products,sports} = require("./seedData");
+const{users,orders,products,order_products,sports,reviews} = require("./seedData");
 const { createSport, getSportById, getAllSports, updateSport, destroySport } = require("./adapters/sports");
 const { createOrder, getAllOrders, getAllOrdersByUserId, getOrderById, getOrdersByStatus, updateOrderStatus } = require("./adapters/orders");
 const { createUser, getUser, getUserById, getUserByUsername } = require("./adapters/users");
-
+const {createReview,getAllReviews, getReviewById, updateReview, destroyReview} = require("./adapters/reviews");
 
 async function dropTables() {
   console.log("Dropping tables...");
   await client.query(`
 
     DROP TABLE IF EXISTS sports CASCADE;
+    DROP TABLE IF EXISTS reviews CASCADE;
     DROP TABLE IF EXISTS order_products CASCADE;
     DROP TABLE IF EXISTS products CASCADE;
     DROP TABLE IF EXISTS orders CASCADE;
@@ -59,6 +60,13 @@ async function createTables() {
       order_id INTEGER REFERENCES orders(id),
       product_id INTEGER REFERENCES products(id),
       quantity INTEGER NOT NULL
+    );
+    CREATE TABLE reviews(
+      id SERIAL PRIMARY KEY,
+      product_id INTEGER REFERENCES products(id) NOT NULL,
+      user_id INTEGER REFERENCES users(id) NOT NULL,
+      rating INTEGER NOT NULL,
+      comment VARCHAR(255) NOT NULL
     );
   `)
 
@@ -130,6 +138,16 @@ async function populateTables() {
     console.log("getAllOrdersByUserId, ", await getAllOrdersByUserId(1));
     console.log("getting order by id[1], ",await getOrderById(1));
     console.log("getting orders by status[Completed]", await getOrdersByStatus("Completed"));
+
+    for (const review of reviews){
+      await createReview(review);
+    }
+    console.log("Getting all reviews", await getAllReviews());
+    console.log("Getting Reviews by reviewId[1],", await getReviewById(1));
+    console.log("updating review by id[2]",await updateReview({id:2,rating: 2,comment:'eh'}))
+    console.log("Destroying review[3]", await destroyReview(3))
+    console.log("Getting all reviews", await getAllReviews());
+
   } catch (error) {
     console.error(error);
   }

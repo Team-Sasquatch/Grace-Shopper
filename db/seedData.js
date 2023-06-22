@@ -30,8 +30,11 @@ const order_products = [{order_id: 1, product_id:1, quantity:1},
     {order_id: 2, product_id:3, quantity:3},
     {order_id: 1, product_id:4, quantity:4}];
 
+const reviews = [{product_id:1,user_id:1,rating:5,comment:"this is bangin'"},
+  {product_id:2,user_id:3,rating:4,comment:"it aight'"},
+  {product_id:3,user_id:2,rating:5,comment:"does anyone even look at reviews anyways?"},
+  {product_id:1,user_id:1,rating:1,comment:"wack"}];
 
 
 
-
-module.exports = { users, products, orders, order_products, sports };
+module.exports = { users, products, orders, order_products, sports,reviews };

@@ -34,7 +34,7 @@ orderProductsRouter.post('/',async(req,res,next)=>{
     }
 })
 
-orderProductsRouter.patch('/:orderProductId',async(req,res,next)=>{
+orderProductsRouter.patch('/:orderProductId',authRequired,async(req,res,next)=>{
     try {
         const {orderProductId} = req.params;
         const {quantity} = req.body;
@@ -66,7 +66,7 @@ orderProductsRouter.patch('/:orderProductId',async(req,res,next)=>{
     }
 })
 
-orderProductsRouter.delete('/:orderProductId',async(req,res,next)=>{
+orderProductsRouter.delete('/:orderProductId',authRequired,async(req,res,next)=>{
     const {orderProductId} = req.params;
     const orderProduct = await getOrderProductsById(orderProductId);
     const order = await getOrderById(orderProduct.order_id);

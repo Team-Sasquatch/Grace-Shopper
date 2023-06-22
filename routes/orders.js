@@ -55,12 +55,10 @@ ordersRouter.get('/user/:id', async (req, res, next) => {
     }
 });
 
-
-//---------------------------------------------------------Not working-------------------
 // GET /orders/:id - Get orders by status
 ordersRouter.get('/status/:status', async (req, res, next) => {
     try {
-        const status = req.params;
+        const {status} = req.params;
         const orders = await getOrdersByStatus(status);
 
         if (orders) {
