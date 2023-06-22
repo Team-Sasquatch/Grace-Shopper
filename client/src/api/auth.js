@@ -81,5 +81,8 @@ export async function logOut() {
     return {
       success,
       message,
-    }
+    };
+  } catch (error) {
+    throw error;
   }
+}
