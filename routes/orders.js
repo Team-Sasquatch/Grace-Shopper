@@ -55,8 +55,6 @@ ordersRouter.get('/user/:id', async (req, res, next) => {
     }
 });
 
-
-//---------------------------------------------------------Not working-------------------
 // GET /orders/:id - Get orders by status
 ordersRouter.get('/status/:status', async (req, res, next) => {
     try {
