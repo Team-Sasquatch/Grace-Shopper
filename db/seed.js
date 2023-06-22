@@ -110,11 +110,10 @@ async function populateTables() {
     }
     console.log("...finished populating orders table");
     console.log("getting all orders, ",await getAllOrders());
-    console.log("getAllOrdersByUserId, ", await getAllOrdersByUserId(1));
+    console.log("getAllOrdersByUserId, ", await getAllOrdersByUserId(2));
     console.log("getting order by id[1], ",await getOrderById(1));
     console.log("getting orders by status[Processing]", await getOrdersByStatus("Processing"));
-    console.log("updating order status, ", await updateOrderStatus({id:2,userId: 3, cost:6666, orderNumber:321, status: "Completed"}));
-    console.log("gettingAllOrders 2, ", await getAllOrders());
+    console.log("updating order status, ", await updateOrderStatus({id:2,user_id: 3, cost:6666, order_number:321, status: "Completed"}));
     // -----------------------------------------------------------------------------
 
     
@@ -127,6 +126,10 @@ async function populateTables() {
     console.log("Getting orderproduct by orderId()", await getOrderProductsByOrder(1));
     await (destroyOrderProducts(1));
     console.log("Getting orderproduct by id(1) (should be destroyed): ", await getOrderProductsById(1));
+    console.log("gettingAllOrders 2, ", await getAllOrders());
+    console.log("getAllOrdersByUserId, ", await getAllOrdersByUserId(1));
+    console.log("getting order by id[1], ",await getOrderById(1));
+    console.log("getting orders by status[Completed]", await getOrdersByStatus("Completed"));
   } catch (error) {
     console.error(error);
   }

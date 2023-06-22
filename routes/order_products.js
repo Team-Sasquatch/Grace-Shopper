@@ -8,14 +8,15 @@ orderProductsRouter.post('/',async(req,res,next)=>{
         const {order_id,product_id,quantity} = req.body;
         const order = await getOrderById(order_id);
         let duplicate = false;
-        if (order.products.length > 0){
-            for (let i=0;i<order.products.length;i++){
-                if (order_id === order.id && product_id === order.products[i].id){
-                    duplicate = true;
+        if (typeof order.products !== 'undefined')
+            if (order.products.length > 0){
+                for (let i=0;i<order.products.length;i++){
+                    if (order_id === order.id && product_id === order.products[i].id){
+                        duplicate = true;
+                    }
+                    break;
                 }
-                break;
             }
-        }
         if (duplicate === false){
             const orderProduct = await addProductToOrder({order_id,product_id,quantity});
             res.send({
