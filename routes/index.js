@@ -22,4 +22,6 @@ router.use("/sports", sportsRouter);
 const usersRouter = require("./users");
 router.use("/users", usersRouter);
 
+router.use("/reviews",require("./reviews"));
+
 module.exports = router;

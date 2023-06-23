@@ -66,7 +66,8 @@ async function createTables() {
       product_id INTEGER REFERENCES products(id) NOT NULL,
       user_id INTEGER REFERENCES users(id) NOT NULL,
       rating INTEGER NOT NULL,
-      comment VARCHAR(255) NOT NULL
+      comment VARCHAR(255) NOT NULL,
+      edited BOOLEAN DEFAULT false
     );
   `)
 
@@ -144,7 +145,7 @@ async function populateTables() {
     }
     console.log("Getting all reviews", await getAllReviews());
     console.log("Getting Reviews by reviewId[1],", await getReviewById(1));
-    console.log("updating review by id[2]",await updateReview({id:2,rating: 2,comment:'eh'}))
+    console.log("updating review by id[2]",await updateReview({id:2,rating: 2,comment:'eh', edited: false}))
     console.log("Destroying review[3]", await destroyReview(3))
     console.log("Getting all reviews", await getAllReviews());
 
