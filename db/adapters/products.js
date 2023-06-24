@@ -48,9 +48,28 @@ async function getProductsByUser(username) {
   return rows;
 }
 
+async function updateProduct({id,name, price, description, sport_id}){
+  const setString = Object.keys({name,price,description,sport_id}).map((key,index)=>`"${key}"=$${index+1}`).join(', ');
+  if (setString.length === 0){
+      return;
+  }
+  try {
+      const {rows:[product]} = await client.query(`
+          UPDATE products
+          SET ${setString}
+          WHERE id=${id}
+          RETURNING *;
+      `,Object.values({name,price,description,sport_id}));
+      return product;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createProduct,
   getAllProducts,
   getProductById,
   getProductsByUser,
+  updateProduct
 };
