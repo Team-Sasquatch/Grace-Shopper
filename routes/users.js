@@ -10,7 +10,7 @@ const {
 const {getAllOrdersByUserId} = require("../db/adapters/orders");
 
 usersRouter.post("/register", async (req, res, next) => {
-  const {username, password} = req.body;
+  const {username, password,is_admin} = req.body;
     if (password.length < 8){
         next({
             name: "PasswordError",
@@ -26,7 +26,7 @@ usersRouter.post("/register", async (req, res, next) => {
                     message: 'A user by that username already exists'
                 });
             }
-            const user = await createUser({username,password});
+            const user = await createUser({username,password,is_admin});
             res.send({
                 message: 'Register Successful',
                 user

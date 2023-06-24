@@ -6,28 +6,36 @@ const {getOrderById} = require('../db/adapters/orders');
 orderProductsRouter.post('/',async(req,res,next)=>{
     try {
         const {order_id,product_id,quantity} = req.body;
-        const order = await getOrderById(order_id);
-        let duplicate = false;
-        if (typeof order.products !== 'undefined')
-            if (order.products.length > 0){
-                for (let i=0;i<order.products.length;i++){
-                    if (order_id === order.id && product_id === order.products[i].id){
-                        duplicate = true;
+        if (req.user.is_admin){
+            const order = await getOrderById(order_id);
+            let duplicate = false;
+            if (typeof order.products !== 'undefined')
+                if (order.products.length > 0){
+                    for (let i=0;i<order.products.length;i++){
+                        if (order_id === order.id && product_id === order.products[i].id){
+                            duplicate = true;
+                        }
+                        break;
                     }
-                    break;
                 }
+            if (duplicate === false){
+                const orderProduct = await addProductToOrder({order_id,product_id,quantity});
+                res.send({
+                    orderProduct
+                });
             }
-        if (duplicate === false){
-            const orderProduct = await addProductToOrder({order_id,product_id,quantity});
-            res.send({
-                orderProduct
-            });
+            else{
+                next({
+                    name: 'DuplicateOrderPorductError',
+                    message: 'Order Id and Product Id pair already matches in the system'
+                });
+            }
         }
         else{
             next({
-                name: 'DuplicateOrderPorductError',
-                message: 'Order Id and Product Id pair already matches in the system'
-            });
+                name: 'UserNotAdminError',
+                message: 'The user is not an admin and cannot perform this task'
+            })
         }
     } catch (error) {
         next(error);
@@ -37,28 +45,36 @@ orderProductsRouter.post('/',async(req,res,next)=>{
 orderProductsRouter.patch('/:orderProductId',authRequired,async(req,res,next)=>{
     try {
         const {orderProductId} = req.params;
-        const {quantity} = req.body;
-        const orderProduct = await getOrderProductsById(orderProductId);
-        const order = await getOrderById(orderProduct.order_id);
-        if (req.user.id === order.user_id){
-            if (!orderProduct){
-                next({
-                    name: "IdNotFoundError",
-                    message: "Order Product ID was not found"
-                })
+        if (req.user.is_admin){
+            const {quantity} = req.body;
+            const orderProduct = await getOrderProductsById(orderProductId);
+            const order = await getOrderById(orderProduct.order_id);
+            if (req.user.id === order.user_id){
+                if (!orderProduct){
+                    next({
+                        name: "IdNotFoundError",
+                        message: "Order Product ID was not found"
+                    })
+                }
+                else{
+                    const updatedOrderProduct = await updateOrderProducts(orderProductId,quantity);
+                    res.send({
+                        message: "Updating Routine Activity is Successful",
+                        updatedOrderProduct
+                    })
+                }
             }
             else{
-                const updatedOrderProduct = await updateOrderProducts(orderProductId,quantity);
-                res.send({
-                    message: "Updating Routine Activity is Successful",
-                    updatedOrderProduct
+                next({
+                    name: "IdMatchError",
+                    message: "User Id does not match the Order's User Id"
                 })
             }
         }
         else{
             next({
-                name: "IdMatchError",
-                message: "User Id does not match the Order's User Id"
+                name: 'UserNotAdminError',
+                message: 'The user is not an admin and cannot perform this task'
             })
         }
     } catch (error) {
@@ -68,27 +84,35 @@ orderProductsRouter.patch('/:orderProductId',authRequired,async(req,res,next)=>{
 
 orderProductsRouter.delete('/:orderProductId',authRequired,async(req,res,next)=>{
     const {orderProductId} = req.params;
-    const orderProduct = await getOrderProductsById(orderProductId);
-    const order = await getOrderById(orderProduct.order_id);
-    if (req.user.id === order.user_id){
-        if (!orderProduct){
-            next({
-                name: 'IdNotFoundError',
-                message: 'Order Product ID was not found'
-            })
+    if (req.user.is_admin){
+        const orderProduct = await getOrderProductsById(orderProductId);
+        const order = await getOrderById(orderProduct.order_id);
+        if (req.user.id === order.user_id){
+            if (!orderProduct){
+                next({
+                    name: 'IdNotFoundError',
+                    message: 'Order Product ID was not found'
+                })
+            }
+            else{
+                const destroyedOrderProduct = await destroyOrderProducts(orderProductId);
+                res.send({
+                    message: 'Destroying Order Product is Successful',
+                    destroyedOrderProduct
+                })
+            }
         }
         else{
-            const destroyedOrderProduct = await destroyOrderProducts(orderProductId);
-            res.send({
-                message: 'Destroying Order Product is Successful',
-                destroyedOrderProduct
+            next({
+                name: "IdMatchError",
+                message: "User Id does not match the Order's User Id"
             })
         }
     }
     else{
         next({
-            name: "IdMatchError",
-            message: "User Id does not match the Order's User Id"
+            name: 'UserNotAdminError',
+            message: 'The user is not an admin and cannot perform this task'
         })
     }
 })
