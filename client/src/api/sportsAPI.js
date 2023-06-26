@@ -6,5 +6,5 @@ export default async function getSports() {
   } catch (error) {
     console.error(error);
   }
-  getRoutines();
+  getSports();
 }
