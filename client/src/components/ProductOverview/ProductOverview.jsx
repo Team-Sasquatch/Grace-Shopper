@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 
-export function ProductOverview() {
+export default function ProductOverview() {
     const rows = [];
     for (let i = 0; i < 3; i++) {
         rows.push( <Grid xs={12} md={4}>

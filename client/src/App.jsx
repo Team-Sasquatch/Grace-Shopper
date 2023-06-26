@@ -8,6 +8,7 @@ import AuthForm from "./components/AuthForm";
 import SportsComponent from "./components/Sports";
 import SupplementsComponent from "./components/Supplements";
 import AllProductsComponent from "./components/AllProducts";
+import ProductOverview from "./components/ProductOverview/ProductOverview";
 
 //comment
 //comment 2
@@ -46,6 +47,7 @@ function App() {
         <Route path="/login" element={<AuthForm />} />
         <Route path="/sports" element={<SportsComponent />} />
         <Route path="/supplements" element={<SupplementsComponent />} />
+        <Route path="/overview" element={<ProductOverview />} />
       </Routes>
     </div>
   );

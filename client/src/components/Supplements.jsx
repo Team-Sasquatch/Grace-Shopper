@@ -1,4 +1,3 @@
-import getSports from "../api/sportsAPI";
 import { useState, useEffect } from "react";
 
 const SupplementsComponent = () => {

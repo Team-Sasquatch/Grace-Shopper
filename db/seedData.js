@@ -18,10 +18,10 @@ const sports = [{ name: "soccer", description: "you sock a ball" },
 
 
 const products = [
-  { name: "supplement1", price: "1", description: "gets you jacked",sport_id: null },
-  { name: "tank top", price: "12", description: "gets you jacked2",sport_id: 2 },
-  {name: "soccer ball",price: "31",description: "gets you jacked3",sport_id: 1},
-  { name: "supplement2", price: "144", description: "gets you jacked4" ,sport_id:1},
+  { name: "supplement1", price: "1", description: "gets you jacked",sport_id: null, category: "supplement",flavor:"strawberry"},
+  { name: "tank top", price: "12", description: "gets you jacked2",sport_id: 2 ,category: "apparel"},
+  {name: "soccer ball",price: "31",description: "gets you jacked3",sport_id: 1, category: "equipment"},
+  { name: "supplement2", price: "144", description: "gets you jacked4" ,sport_id:1, category:"supplement",flavor:"mocha"},
 ];
 
 

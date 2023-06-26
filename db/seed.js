@@ -1,4 +1,4 @@
-const { createProduct } = require("./adapters/products");
+const { createProduct, getAllProducts } = require("./adapters/products");
 const { client } = require("./client");
 const {addProductToOrder,getOrderProductsById,getOrderProductsByOrder,updateOrderProducts,destroyOrderProducts} = require('./adapters/order_products');
 const{users,orders,products,order_products,sports,reviews} = require("./seedData");
@@ -50,10 +50,12 @@ async function createTables() {
     );
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
+      sport_id INTEGER REFERENCES sports(id),
       name VARCHAR(255) UNIQUE NOT NULL,
       price INTEGER,
       description VARCHAR(255),
-      sport_id INTEGER REFERENCES sports(id)
+      category VARCHAR(255),
+      flavor VARCHAR(255)
     );
     CREATE TABLE order_products(
       id SERIAL PRIMARY KEY,
@@ -97,6 +99,7 @@ async function populateTables() {
     for (const product of products) {
       await createProduct(product);
     }
+    console.log("all products: ",await getAllProducts());
     console.log("...products table populated");
 
     console.log("Getting sportById(1)", await getSportById(1));
