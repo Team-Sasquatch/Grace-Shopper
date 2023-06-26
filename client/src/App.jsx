@@ -9,6 +9,8 @@ import SportsComponent from "./components/Sports";
 import SupplementsComponent from "./components/Supplements";
 import AllProductsComponent from "./components/AllProducts";
 import ProductOverview from "./components/ProductOverview/ProductOverview";
+import Checkout from "./components/Checkout";
+import CheckoutButton from "./components/CheckoutButton";
 
 //comment
 //comment 2
@@ -40,14 +42,19 @@ function App() {
       {healthMsg && <p>{healthMsg}</p>}
       {err && <p>{err}</p>}
       <Nav />
+      <CheckoutButton/>
       <LoginButton />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<AllProductsComponent />} />
         <Route path="/login" element={<AuthForm />} />
+
         <Route path="/sports" element={<SportsComponent />} />
         <Route path="/supplements" element={<SupplementsComponent />} />
         <Route path="/overview" element={<ProductOverview />} />
+
+        <Route path="/checkout" element={<Checkout/>}/>
+
       </Routes>
     </div>
   );
