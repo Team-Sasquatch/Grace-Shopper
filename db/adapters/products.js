@@ -1,6 +1,13 @@
 const { client } = require("../client");
 
-async function createProduct({ name, sport_id, price, description, category, flavor}) {
+async function createProduct({
+  name,
+  sport_id,
+  price,
+  description,
+  category,
+  flavor,
+}) {
   try {
     const {
       rows: [product],
@@ -11,7 +18,7 @@ async function createProduct({ name, sport_id, price, description, category, fla
             ON CONFLICT (name) DO NOTHING
             RETURNING *
             `,
-      [name, sport_id, price, description,category,flavor]
+      [name, sport_id, price, description, category, flavor]
     );
     return product;
   } catch (error) {
@@ -23,6 +30,15 @@ async function getAllProducts() {
   const { rows } = await client.query(`
     SELECT * FROM products
     `);
+  return rows;
+}
+
+async function getProductByCategory(category) {
+  const { rows } = await client.query(
+    `SELECT * FROM products WHERE category = $1
+  `,
+    [category]
+  );
   return rows;
 }
 
@@ -48,19 +64,41 @@ async function getProductsByUser(username) {
   return rows;
 }
 
-async function updateProduct({id,sport_id,name, price, description, category, flavor}){
-  const setString = Object.keys({name,sport_id,price,description,category, flavor}).map((key,index)=>`"${key}"=$${index+1}`).join(', ');
-  if (setString.length === 0){
-      return;
+async function updateProduct({
+  id,
+  sport_id,
+  name,
+  price,
+  description,
+  category,
+  flavor,
+}) {
+  const setString = Object.keys({
+    name,
+    sport_id,
+    price,
+    description,
+    category,
+    flavor,
+  })
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+  if (setString.length === 0) {
+    return;
   }
   try {
-      const {rows:[product]} = await client.query(`
+    const {
+      rows: [product],
+    } = await client.query(
+      `
           UPDATE products
           SET ${setString}
           WHERE id=${id}
           RETURNING *;
-      `,Object.values({name,sport_id,price,description,category,flavor}));
-      return product;
+      `,
+      Object.values({ name, sport_id, price, description, category, flavor })
+    );
+    return product;
   } catch (error) {
     throw error;
   }
@@ -69,7 +107,8 @@ async function updateProduct({id,sport_id,name, price, description, category, fl
 module.exports = {
   createProduct,
   getAllProducts,
+  getProductByCategory,
   getProductById,
   getProductsByUser,
-  updateProduct
+  updateProduct,
 };
