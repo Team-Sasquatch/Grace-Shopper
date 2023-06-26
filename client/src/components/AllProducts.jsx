@@ -1,5 +1,6 @@
 import getAllProducts from "../api/allProductsAPI";
 import { useState, useEffect } from "react";
+import "../AllProducts.css";
 
 const AllProductsComponent = () => {
   const [products, setProduct] = useState([]);
@@ -14,12 +15,14 @@ const AllProductsComponent = () => {
   console.log("product", products);
 
   return (
-    <div>
+    <div className="products-container">
       {products.map((product, idx) => (
-        <div key={idx}>
-          <h1>Name: {product.name}</h1>
-          <h2>Price: {product.price}</h2>
-          <p>Description: {product.description}</p>
+        <div key={idx} className="product-item">
+          <h1 className="product-name">{product.name}</h1>
+          <h2 className="product-price">Price: {product.price}</h2>
+          <p className="product-description">
+            Description: {product.description}
+          </p>
         </div>
       ))}
     </div>
