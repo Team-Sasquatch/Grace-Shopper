@@ -20,15 +20,17 @@ productsRouter.get("/", async (req, res, next) => {
 });
 
 //create new product
-productsRouter.post("/", async (req, res, next) => {
+productsRouter.post("/", authRequired, async (req, res, next) => {
   try {
-    const { name, price, description, sport_id } = req.body;
+    const { name,sport_id, price, description, category, flavor } = req.body;
     if(req.user.is_admin){
       const newProduct = await createProduct({
         name,
+        sport_id,
         price,
         description,
-        sport_id,
+        category,
+        flavor
       });
       res.send(newProduct)
     }
@@ -58,8 +60,8 @@ productsRouter.patch("/:id",authRequired,async(req,res,next)=>{
   try {
     const id = parseInt(req.params.id);
     if (req.user.is_admin){
-      const { name, price, description, sport_id } = req.body;
-      const updatedProd = await updateProduct({ id,name, price, description, sport_id });
+      const { name, sport_id, price, description,category,flavor } = req.body;
+      const updatedProd = await updateProduct({ id, sport_id,name, price, description, category, flavor});
       if (updatedProd) {
           res.send(updatedProd);
       } else {
