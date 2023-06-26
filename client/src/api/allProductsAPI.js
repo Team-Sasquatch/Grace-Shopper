@@ -11,7 +11,7 @@ export default async function getAllProducts() {
 
 export async function getProductsByCategory() {
   try {
-    const response = await fetch(`/api/products/supplement`);
+    const response = await fetch(`/api/products/category/supplement`);
     const data = await response.json();
     return data;
   } catch (error) {

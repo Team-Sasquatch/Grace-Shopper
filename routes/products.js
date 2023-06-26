@@ -20,7 +20,7 @@ productsRouter.get("/", async (req, res, next) => {
   }
 });
 
-productsRouter.get("/:category", async (req, res, next) => {
+productsRouter.get("/category/:category", async (req, res, next) => {
   try {
     const productCat = await getProductByCategory(req.params.category);
     res.send(productCat);
