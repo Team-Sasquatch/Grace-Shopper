@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Nav from "./components/Nav";
 import LoginButton from "./components/LoginButton";
 import AuthForm from "./components/AuthForm";
+import ProductOverview from "./components/ProductOverview/ProductOverview";
 
 //comment
 //comment 2
@@ -40,6 +41,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<AuthForm />} />
+        <Route path="/overview" element={<ProductOverview/>} />
       </Routes>
     </div>
   );
