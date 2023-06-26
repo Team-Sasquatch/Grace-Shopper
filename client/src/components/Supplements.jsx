@@ -1,23 +1,27 @@
 import { useState, useEffect } from "react";
+import { getProductsByCategory } from "../api/allProductsAPI";
 
 const SupplementsComponent = () => {
-  const [sport, setSports] = useState({ sports: [] });
+  const [supplements, setSupplements] = useState([]);
 
   useEffect(() => {
-    async function fetchSports() {
-      const response = await getSports();
-      setSports(response);
+    async function fetchSupplements() {
+      const response = await getProductsByCategory();
+      setSupplements(response);
     }
-    fetchSports();
+    fetchSupplements();
   }, []);
-  console.log("sports??", sport);
+
+  console.log("supps", supplements);
 
   return (
     <div>
-      {sport.sports.map((sporty, idx) => (
+      {supplements.map((supp, idx) => (
         <div key={idx}>
-          <h1>Name: {sporty.name}</h1>
-          <p>Description: {sporty.description}</p>
+          <h1>Name: {supp.name}</h1>
+          <p>Price: {supp.price}</p>
+          <p>Description: {supp.description}</p>
+          <p>Flavor: {supp.flavor}</p>
         </div>
       ))}
     </div>
