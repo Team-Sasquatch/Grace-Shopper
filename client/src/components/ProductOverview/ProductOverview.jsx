@@ -14,16 +14,15 @@ export default function ProductOverview() {
             <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                     sx={{ height: 140 }}
-                    image="/static/images/cards/contemplative-reptile.jpg"
-                    title="green iguana"
+                    image="/ProductOverview/soccerball.jpg"
+                    title="Soccer Ball"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        Lizard
+                        Soccer Ball
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
+                        This soccer ball is so great, it can almost kick itself into the goal.
                     </Typography>
                 </CardContent>
                 <CardActions>
