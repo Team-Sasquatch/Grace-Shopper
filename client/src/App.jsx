@@ -6,8 +6,6 @@ import Nav from "./components/Nav";
 import LoginButton from "./components/LoginButton";
 import AuthForm from "./components/AuthForm";
 
-//comment
-//comment 2
 function App() {
   const [healthMsg, setHealthMsg] = useState(null);
   const [err, setErr] = useState(null);
@@ -40,6 +38,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<AuthForm />} />
+        <Route path="/register" element={<AuthForm />} />
       </Routes>
     </div>
   );

@@ -7,6 +7,8 @@ router.get("/health", (req, res, next) => {
   });
 });
 
+router.use("/users", require("./users"));
+
 const productsRouter = require("./products");
 router.use("/products", productsRouter);
 
@@ -19,9 +21,9 @@ router.use("/orders", ordersRouter);
 const sportsRouter = require("./sports");
 router.use("/sports", sportsRouter);
 
-const usersRouter = require("./users");
-router.use("/users", usersRouter);
+// const usersRouter = require("./users");
+// router.use("/users", usersRouter);
 
-router.use("/reviews",require("./reviews"));
+router.use("/reviews", require("./reviews"));
 
 module.exports = router;
