@@ -51,7 +51,7 @@ function App() {
 
         <Route path="/sports" element={<SportsComponent />} />
         <Route path="/supplements" element={<SupplementsComponent />} />
-        <Route path="/overview" element={<ProductOverview />} />
+        <Route path="/overview/:id" element={<ProductOverview />} />
 
         <Route path="/checkout" element={<Checkout/>}/>
 
