@@ -1,0 +1,21 @@
+.checkout-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.checkout-button-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #ff6600;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.checkout-button-link:hover {
+  background-color: #e65c00;
+}

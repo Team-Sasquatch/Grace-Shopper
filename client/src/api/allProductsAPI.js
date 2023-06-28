@@ -30,3 +30,14 @@ export async function getProductsByEquipment() {
   }
   getProductsByCategory();
 }
+
+export async function getProductsByApparel() {
+  try {
+    const response = await fetch(`/api/products/category/apparel`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+  getProductsByCategory();
+}

@@ -12,6 +12,7 @@ import ProductOverview from "./components/ProductOverview/ProductOverview";
 import Checkout from "./components/Checkout";
 import CheckoutButton from "./components/CheckoutButton";
 import EquipmentComponent from "./components/Equipment";
+import ApparelComponent from "./components/Apparel";
 
 //comment
 //comment 2
@@ -53,6 +54,7 @@ function App() {
         <Route path="/sports" element={<SportsComponent />} />
         <Route path="/supplements" element={<SupplementsComponent />} />
         <Route path="/equipment" element={<EquipmentComponent />} />
+        <Route path="/apparel" element={<ApparelComponent />} />
         <Route path="/overview" element={<ProductOverview />} />
 
         <Route path="/checkout" element={<Checkout />} />
