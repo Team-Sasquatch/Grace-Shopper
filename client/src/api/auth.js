@@ -49,7 +49,7 @@ export async function fetchMe() {
     return {
       success,
       message,
-      user,
+      result,
     };
   } catch (error) {
     console.log(error);

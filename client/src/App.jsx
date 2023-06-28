@@ -13,11 +13,11 @@ import Checkout from "./components/Checkout";
 import CheckoutButton from "./components/CheckoutButton";
 import EquipmentComponent from "./components/Equipment";
 import ApparelComponent from "./components/Apparel";
-
+import useAuth from "./hooks/useAuth";
 function App() {
   const [healthMsg, setHealthMsg] = useState(null);
   const [err, setErr] = useState(null);
-
+  const { setLoggedIn, loggedIn } = useAuth();
   useEffect(() => {
     async function checkHealth() {
       try {
@@ -36,6 +36,7 @@ function App() {
     checkHealth();
   }, []);
 
+  console.log("logged in? ",loggedIn)
   return (
     <div>
       <h1>Sasquatch Sports</h1>
@@ -43,7 +44,14 @@ function App() {
       {err && <p>{err}</p>}
       <Nav />
       <CheckoutButton />
-      <LoginButton />
+      { loggedIn === true
+        ?
+        <div>
+          <p>REPLACE WITH LOGOUT BUTTON</p>
+        </div>
+        :
+        <LoginButton />
+      }
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<AllProductsComponent />} />
