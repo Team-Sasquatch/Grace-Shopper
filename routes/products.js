@@ -3,9 +3,10 @@ const {
   createProduct,
   getProductById,
   getProductsByUser,
-  updateProduct
+  updateProduct,
+  getProductByCategory,
 } = require("../db/adapters/products");
-const { authRequired } = require('./authRoute');
+const { authRequired } = require("./authRoute");
 
 const productsRouter = require("express").Router();
 
@@ -19,26 +20,35 @@ productsRouter.get("/", async (req, res, next) => {
   }
 });
 
-//create new product
-productsRouter.post("/", async (req, res, next) => {
+productsRouter.get("/category/:category", async (req, res, next) => {
   try {
-    const { name, price, description, sport_id } = req.body;
-    if(req.user.is_admin){
+    const productCat = await getProductByCategory(req.params.category);
+    res.send(productCat);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//create new product
+productsRouter.post("/", authRequired, async (req, res, next) => {
+  try {
+    const { name, sport_id, price, description, category, flavor } = req.body;
+    if (req.user.is_admin) {
       const newProduct = await createProduct({
         name,
+        sport_id,
         price,
         description,
-        sport_id,
+        category,
+        flavor,
       });
-      res.send(newProduct)
-    }
-    else{
+      res.send(newProduct);
+    } else {
       next({
-          name: 'UserNotAdminError',
-          message: 'The user is not an admin and cannot perform this task'
-      })
-  }
-;
+        name: "UserNotAdminError",
+        message: "The user is not an admin and cannot perform this task",
+      });
+    }
   } catch (error) {
     next(error);
   }
@@ -54,23 +64,30 @@ productsRouter.get("/:id", async (req, res, next) => {
   }
 });
 
-productsRouter.patch("/:id",authRequired,async(req,res,next)=>{
+productsRouter.patch("/:id", authRequired, async (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
-    if (req.user.is_admin){
-      const { name, price, description, sport_id } = req.body;
-      const updatedProd = await updateProduct({ id,name, price, description, sport_id });
+    if (req.user.is_admin) {
+      const { name, sport_id, price, description, category, flavor } = req.body;
+      const updatedProd = await updateProduct({
+        id,
+        sport_id,
+        name,
+        price,
+        description,
+        category,
+        flavor,
+      });
       if (updatedProd) {
-          res.send(updatedProd);
+        res.send(updatedProd);
       } else {
-          res.status(404).json({ message: 'Product not found', success: false });
+        res.status(404).json({ message: "Product not found", success: false });
       }
-    }
-    else{
+    } else {
       next({
-          name: 'UserNotAdminError',
-          message: 'The user is not an admin and cannot perform this task'
-      })
+        name: "UserNotAdminError",
+        message: "The user is not an admin and cannot perform this task",
+      });
     }
   } catch (error) {
     next(error);

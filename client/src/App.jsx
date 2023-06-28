@@ -5,6 +5,12 @@ import Home from "./components/Home";
 import Nav from "./components/Nav";
 import LoginButton from "./components/LoginButton";
 import AuthForm from "./components/AuthForm";
+import SportsComponent from "./components/Sports";
+import SupplementsComponent from "./components/Supplements";
+import AllProductsComponent from "./components/AllProducts";
+import ProductOverview from "./components/ProductOverview/ProductOverview";
+import Checkout from "./components/Checkout";
+import CheckoutButton from "./components/CheckoutButton";
 
 function App() {
   const [healthMsg, setHealthMsg] = useState(null);
@@ -34,11 +40,22 @@ function App() {
       {healthMsg && <p>{healthMsg}</p>}
       {err && <p>{err}</p>}
       <Nav />
+      <CheckoutButton/>
       <LoginButton />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/products" element={<AllProductsComponent />} />
         <Route path="/login" element={<AuthForm />} />
+
         <Route path="/register" element={<AuthForm />} />
+
+        <Route path="/sports" element={<SportsComponent />} />
+        <Route path="/supplements" element={<SupplementsComponent />} />
+        <Route path="/overview/:id" element={<ProductOverview />} />
+
+        <Route path="/checkout" element={<Checkout/>}/>
+
+
       </Routes>
     </div>
   );
