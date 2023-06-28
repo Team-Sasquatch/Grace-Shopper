@@ -14,6 +14,8 @@ const AllProductsComponent = () => {
   }, []);
   console.log("product", products);
 
+  // handleOnClick(id)
+
   return (
     <div className="products-container">
       {products.map((product, idx) => (
@@ -23,6 +25,7 @@ const AllProductsComponent = () => {
           <p className="product-description">
             Description: {product.description}
           </p>
+          <button>Add To Cart</button>
         </div>
       ))}
     </div>
