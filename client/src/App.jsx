@@ -11,6 +11,8 @@ import AllProductsComponent from "./components/AllProducts";
 import ProductOverview from "./components/ProductOverview/ProductOverview";
 import Checkout from "./components/Checkout";
 import CheckoutButton from "./components/CheckoutButton";
+import EquipmentComponent from "./components/Equipment";
+import ApparelComponent from "./components/Apparel";
 
 function App() {
   const [healthMsg, setHealthMsg] = useState(null);
@@ -40,7 +42,7 @@ function App() {
       {healthMsg && <p>{healthMsg}</p>}
       {err && <p>{err}</p>}
       <Nav />
-      <CheckoutButton/>
+      <CheckoutButton />
       <LoginButton />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -51,11 +53,11 @@ function App() {
 
         <Route path="/sports" element={<SportsComponent />} />
         <Route path="/supplements" element={<SupplementsComponent />} />
+        <Route path="/equipment" element={<EquipmentComponent />} />
+        <Route path="/apparel" element={<ApparelComponent />} />
         <Route path="/overview/:id" element={<ProductOverview />} />
 
-        <Route path="/checkout" element={<Checkout/>}/>
-
-
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </div>
   );

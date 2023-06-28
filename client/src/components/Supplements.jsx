@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { getProductsByCategory } from "../api/products";
+import { getProductsBySupplement } from "../api/products";
 
 const SupplementsComponent = () => {
   const [supplements, setSupplements] = useState([]);
 
   useEffect(() => {
     async function fetchSupplements() {
-      const response = await getProductsByCategory();
+      const response = await getProductsBySupplement();
       setSupplements(response);
     }
     fetchSupplements();
