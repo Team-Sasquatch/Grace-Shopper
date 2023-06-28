@@ -1,6 +1,6 @@
 export async function registerUser(username, password) {
   try {
-    const response = await fetch("/api/auth/register", {
+    const response = await fetch("/api/users/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -11,6 +11,7 @@ export async function registerUser(username, password) {
       }),
     });
     const result = await response.json();
+    console.log("my result:", result);
     return result;
   } catch (error) {
     console.log("Error with registration: ", error);
@@ -71,7 +72,7 @@ export async function fetchUser(username) {
 
 export async function logOut() {
   try {
-    const response = await fetch("/api/auth/logout");
+    const response = await fetch("/api/users/logout");
     const { success, message } = await response.json();
     if (!success) {
       throw {

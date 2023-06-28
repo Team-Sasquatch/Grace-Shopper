@@ -14,8 +14,6 @@ import CheckoutButton from "./components/CheckoutButton";
 import EquipmentComponent from "./components/Equipment";
 import ApparelComponent from "./components/Apparel";
 
-//comment
-//comment 2
 function App() {
   const [healthMsg, setHealthMsg] = useState(null);
   const [err, setErr] = useState(null);
@@ -51,11 +49,13 @@ function App() {
         <Route path="/products" element={<AllProductsComponent />} />
         <Route path="/login" element={<AuthForm />} />
 
+        <Route path="/register" element={<AuthForm />} />
+
         <Route path="/sports" element={<SportsComponent />} />
         <Route path="/supplements" element={<SupplementsComponent />} />
         <Route path="/equipment" element={<EquipmentComponent />} />
         <Route path="/apparel" element={<ApparelComponent />} />
-        <Route path="/overview" element={<ProductOverview />} />
+        <Route path="/overview/:id" element={<ProductOverview />} />
 
         <Route path="/checkout" element={<Checkout />} />
       </Routes>

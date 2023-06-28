@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getProductsBySupplement } from "../api/allProductsAPI";
+import { getProductsBySupplement } from "../api/products";
 
 const SupplementsComponent = () => {
   const [supplements, setSupplements] = useState([]);
