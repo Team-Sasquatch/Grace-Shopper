@@ -6,7 +6,7 @@ export default async function getAllProducts() {
   } catch (error) {
     console.error(error);
   }
-  getAllProducts();
+  // getAllProducts();
 }
 
 export async function getProductsBySupplement() {
@@ -17,7 +17,7 @@ export async function getProductsBySupplement() {
   } catch (error) {
     console.error(error);
   }
-  getProductsByCategory();
+  // getProductsByCategory();
 }
 
 export async function getProductsByEquipment() {
@@ -28,7 +28,7 @@ export async function getProductsByEquipment() {
   } catch (error) {
     console.error(error);
   }
-  getProductsByCategory();
+  // getProductsByCategory();
 }
 
 export async function getProductsByApparel() {
@@ -39,7 +39,7 @@ export async function getProductsByApparel() {
   } catch (error) {
     console.error(error);
   }
-  getProductsByCategory();
+  // getProductsByCategory();
 }
 
 export async function getProductById(id) {

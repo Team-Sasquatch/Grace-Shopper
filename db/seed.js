@@ -1,11 +1,48 @@
 const { createProduct, getAllProducts } = require("./adapters/products");
 const { client } = require("./client");
-const {addProductToOrder,getOrderProductsById,getOrderProductsByOrder,updateOrderProducts,destroyOrderProducts} = require('./adapters/order_products');
-const{users,orders,products,order_products,sports,reviews} = require("./seedData");
-const { createSport, getSportById, getAllSports, updateSport, destroySport } = require("./adapters/sports");
-const { createOrder, getAllOrders, getAllOrdersByUserId, getOrderById, getOrdersByStatus, updateOrderStatus } = require("./adapters/orders");
-const { createUser, getUser, getUserById, getUserByUsername } = require("./adapters/users");
-const {createReview,getAllReviews, getReviewById, updateReview, destroyReview} = require("./adapters/reviews");
+const {
+  addProductToOrder,
+  getOrderProductsById,
+  getOrderProductsByOrder,
+  updateOrderProducts,
+  destroyOrderProducts,
+} = require("./adapters/order_products");
+const {
+  users,
+  orders,
+  products,
+  order_products,
+  sports,
+  reviews,
+} = require("./seedData");
+const {
+  createSport,
+  getSportById,
+  getAllSports,
+  updateSport,
+  destroySport,
+} = require("./adapters/sports");
+const {
+  createOrder,
+  getAllOrders,
+  getAllOrdersByUserId,
+  getOrderById,
+  getOrdersByStatus,
+  updateOrderStatus,
+} = require("./adapters/orders");
+const {
+  createUser,
+  getUser,
+  getUserById,
+  getUserByUsername,
+} = require("./adapters/users");
+const {
+  createReview,
+  getAllReviews,
+  getReviewById,
+  updateReview,
+  destroyReview,
+} = require("./adapters/reviews");
 
 async function dropTables() {
   console.log("Dropping tables...");
@@ -17,7 +54,7 @@ async function dropTables() {
     DROP TABLE IF EXISTS products CASCADE;
     DROP TABLE IF EXISTS orders CASCADE;
     DROP TABLE IF EXISTS users CASCADE;
-  `)
+  `);
 
   console.log("Finished dropping tables");
   try {
@@ -34,7 +71,7 @@ async function createTables() {
       id SERIAL PRIMARY KEY,
       username  VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
-      is_admin BOOLEAN DEFAULT false
+      is_admin BOOLEAN DEFAULT FALSE 
     );
     CREATE TABLE orders(
       id SERIAL PRIMARY KEY,
@@ -71,7 +108,7 @@ async function createTables() {
       comment VARCHAR(255) NOT NULL,
       edited BOOLEAN DEFAULT false
     );
-  `)
+  `);
 
   console.log("Finished creating tables");
   try {
@@ -83,15 +120,17 @@ async function createTables() {
 async function populateTables() {
   console.log("Populating tables...");
   try {
-
     console.log("populating sports...");
-    for (const sport of sports){
+    for (const sport of sports) {
       await createSport(sport);
     }
     console.log("...sports populated");
     console.log("Getting sportById(1)", await getSportById(1));
-    console.log("Getting allSports",await getAllSports());
-    console.log("Updating Sport(1)", await updateSport(1,'rock climbing','climbing rocks!'));
+    console.log("Getting allSports", await getAllSports());
+    console.log(
+      "Updating Sport(1)",
+      await updateSport(1, "rock climbing", "climbing rocks!")
+    );
     await destroySport(3);
     console.log("Getting all Sports, second iteration", await getAllSports());
 
@@ -99,59 +138,89 @@ async function populateTables() {
     for (const product of products) {
       await createProduct(product);
     }
-    console.log("all products: ",await getAllProducts());
+    console.log("all products: ", await getAllProducts());
     console.log("...products table populated");
 
     console.log("Getting sportById(1)", await getSportById(1));
     console.log("Getting all Sports, second iteration", await getAllSports());
 
-
     // ----------------------- Added by Daven for Testing---------------------------
-    console.log("populating users table...")
-    for (const user of users){
+    console.log("populating users table...");
+    for (const user of users) {
       await createUser(user);
     }
-    console.log("finished populating users table")
-    console.log("Getting user validation,", await getUser({username: "test1", password: 12345678}));
+    console.log("finished populating users table");
+    console.log(
+      "Getting user validation,",
+      await getUser({ username: "test1", password: 12345678 })
+    );
     console.log("Getting user by id user[1], ", await getUserById(1));
-    console.log("Getting user by username, ", await getUserByUsername('test2'));
+    console.log("Getting user by username, ", await getUserByUsername("test2"));
 
-    console.log("populating orders table...")
-    for (const order of orders){
+    console.log("populating orders table...");
+    for (const order of orders) {
       await createOrder(order);
     }
     console.log("...finished populating orders table");
-    console.log("getting all orders, ",await getAllOrders());
+    console.log("getting all orders, ", await getAllOrders());
     console.log("getAllOrdersByUserId, ", await getAllOrdersByUserId(2));
-    console.log("getting order by id[1], ",await getOrderById(1));
-    console.log("getting orders by status[Processing]", await getOrdersByStatus("Processing"));
-    console.log("updating order status, ", await updateOrderStatus({id:2,user_id: 3, cost:6666, order_number:321, status: "Completed"}));
+    console.log("getting order by id[1], ", await getOrderById(1));
+    console.log(
+      "getting orders by status[Processing]",
+      await getOrdersByStatus("Processing")
+    );
+    console.log(
+      "updating order status, ",
+      await updateOrderStatus({
+        id: 2,
+        user_id: 3,
+        cost: 6666,
+        order_number: 321,
+        status: "Completed",
+      })
+    );
     // -----------------------------------------------------------------------------
 
-    
-    for (const order_product of order_products){
+    for (const order_product of order_products) {
       const createdOrderProduct = await addProductToOrder(order_product);
       console.log("Order_Products being created: ", createdOrderProduct);
     }
-    console.log("Getting orderproduct by id(1): ", await getOrderProductsById(1));
-    console.log("Updating orderproduct by id(1): ", await updateOrderProducts(1,1337));
-    console.log("Getting orderproduct by orderId()", await getOrderProductsByOrder(1));
-    await (destroyOrderProducts(1));
-    console.log("Getting orderproduct by id(1) (should be destroyed): ", await getOrderProductsById(1));
+    console.log(
+      "Getting orderproduct by id(1): ",
+      await getOrderProductsById(1)
+    );
+    console.log(
+      "Updating orderproduct by id(1): ",
+      await updateOrderProducts(1, 1337)
+    );
+    console.log(
+      "Getting orderproduct by orderId()",
+      await getOrderProductsByOrder(1)
+    );
+    await destroyOrderProducts(1);
+    console.log(
+      "Getting orderproduct by id(1) (should be destroyed): ",
+      await getOrderProductsById(1)
+    );
     console.log("gettingAllOrders 2, ", await getAllOrders());
     console.log("getAllOrdersByUserId, ", await getAllOrdersByUserId(1));
-    console.log("getting order by id[1], ",await getOrderById(1));
-    console.log("getting orders by status[Completed]", await getOrdersByStatus("Completed"));
+    console.log("getting order by id[1], ", await getOrderById(1));
+    console.log(
+      "getting orders by status[Completed]",
+      await getOrdersByStatus("Completed")
+    );
 
-    for (const review of reviews){
+    for (const review of reviews) {
       await createReview(review);
     }
     console.log("Getting all reviews", await getAllReviews());
     console.log("Getting Reviews by reviewId[1],", await getReviewById(1));
-    console.log("updating review by id[2]",await updateReview({id:2,rating: 2,comment:'eh', edited: false}))
-    console.log("Destroying review[3]", await destroyReview(3))
+    console.log(
+      "updating review by id[2]",
+      await updateReview({ id: 2, rating: 2, comment: "eh", edited: false })
+    );
+    console.log("Destroying review[3]", await destroyReview(3));
     console.log("Getting all reviews", await getAllReviews());
-
   } catch (error) {
     console.error(error);
   }

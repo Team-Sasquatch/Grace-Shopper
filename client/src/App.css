@@ -12,7 +12,7 @@
 .login-button {
   position: absolute;
   top: 20px;
-  right: 20px;
+  left: 20px;
 }
 
 .login-button-link {

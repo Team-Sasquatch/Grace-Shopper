@@ -10,16 +10,21 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     async function getMe() {
       try {
-        const { user } = await fetchMe();
-        setUser(user);
-        setLoggedIn(true);
+        const apiResponse = await fetchMe();
+        if (apiResponse.loggedIn === true) {
+          setUser(apiResponse);
+          setLoggedIn(true);
+        } else {
+          setUser({ username: "Guest" });
+          setLoggedIn(false);
+        }
       } catch (error) {
         setUser({ username: "Guest" });
         setLoggedIn(false);
       }
     }
     getMe();
-  }, [loggedIn]);
+  }, []);
 
   const contextValue = {
     user,

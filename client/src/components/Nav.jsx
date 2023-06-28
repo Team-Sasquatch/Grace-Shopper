@@ -1,11 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
-import LoginButton from "./LoginButton";
+import useAuth from "../hooks/useAuth";
 
 const Nav = () => {
   const navigate = useNavigate();
-
+  const { setLoggedIn, loggedIn } = useAuth();
+  const { user } = useAuth();
   return (
     <nav className="nav">
+      <h3 className="navbar__username">Hi, {user.username}</h3>
       <Link className="nav-link" to="/">
         Home
       </Link>

@@ -39,7 +39,7 @@ export async function loginUser(username, password) {
 
 export async function fetchMe() {
   try {
-    const response = await fetch("/api/auth/me");
+    const response = await fetch("/api/users/me");
     const { success, message, user } = await response.json();
     if (!success) {
       throw {
