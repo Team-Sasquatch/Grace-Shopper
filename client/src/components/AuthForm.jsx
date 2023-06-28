@@ -1,69 +1,81 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { registerUser, loginUser } from "../api/auth";
 import useAuth from "../hooks/useAuth";
+import "./AuthForm.css";
 
 export default function AuthForm() {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { setLoggedIn } = useAuth();
-  const navigate = useNavigate();
+  const { setUser, setLoggedIn } = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       let result;
-      if (pathname === "/register") {
-        result = await registerUser(username, password);
-        if (result.user) {
-          nav("/login");
-        }
-      } else {
+      if (pathname === "/login") {
         result = await loginUser(username, password);
-        if (result.user) {
-          setLoggedIn(true);
-          setUser(result.user);
-          nav("/");
-        }
+      } else {
+        result = await registerUser(username, password);
+      }
+
+      console.log("result" + result);
+      console.log(result);
+
+      if (username === result.user.username) {
+        console.log("logged in");
+        setLoggedIn(true);
+        setUser(result.user.username);
+        navigate("/products");
+      } else {
+        window.alert("Failed loggin with username " + username);
       }
     } catch (error) {
-      console.log("Error with registration: ", error);
+      setError(error);
     }
   }
 
   return (
-    <div>
-      {pathname === "/register" ? (
-        <div>
-          <h1>Registering a new user</h1>
-          <h3>Enter new user info</h3>
-        </div>
-      ) : (
-        <div>
-          <h1>Log in</h1>
-          <h3>Enter user info</h3>
-        </div>
-      )}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            name="username"
-            placeholder="username"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="text"
-            name="password"
-            placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button>Submit</button>
-        {error ? <p style={{ color: "light blue" }}>{error}</p> : null}
-        <Link to="/">Return to Login Page</Link>
+    <div className="login">
+      {error && <p>{error}</p>}
+      <form onSubmit={handleSubmit} className="login-form">
+        {pathname === "/register" ? (
+          <h1>Register Below</h1>
+        ) : (
+          <h1>Welcome Back </h1>
+        )}
+
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+        />
+        <input
+          type="text"
+          name="password"
+          placeholder="Password"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
+
+        <button>Enter the Sports Zone</button>
+
+        {pathname === "/register" ? (
+          <p>
+            Already have an account? <Link to="/login">Login Here</Link>
+          </p>
+        ) : (
+          <p>
+            Don't have an account? <Link to="/register">Register Here</Link>
+          </p>
+        )}
       </form>
     </div>
   );
