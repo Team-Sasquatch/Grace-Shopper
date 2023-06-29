@@ -15,17 +15,16 @@ const SupplementsComponent = () => {
   console.log("supps", supplements);
 
   function Supp(props){
-    var supQty = props.quantity;
+    var qty = props.quantity;
     return(
       <div key={props.index}>
         <h1>Name: {props.supplement.name}</h1>
         <p>Price: {props.supplement.price}</p>
         <p>Description: {props.supplement.description}</p>
         <p>Flavor: {props.supplement.flavor}</p>
-        <button onClick={()=>{addToCart({id:props.supplement.id,name:props.supplement.name,quantity:supQty})}}>Add to Cart</button>
-        <p>Quantity: <input type='text' name='quantity' defaultValue={props.quantity} onChange={(e)=>{e.target.value,supQty=parseInt(e.target.value)}}/></p>
+        <button onClick={()=>{addToCart({id:props.supplement.id,name:props.supplement.name,quantity:qty})}}>Add to Cart</button>
+        <p>Quantity: <input type='text' name='quantity' defaultValue={props.quantity} onChange={(e)=>{e.target.value,qty=parseInt(e.target.value)}}/></p>
       </div>
-      
     )
   }
 
