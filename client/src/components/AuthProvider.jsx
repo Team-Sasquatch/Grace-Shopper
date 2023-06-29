@@ -11,6 +11,7 @@ const AuthProvider = ({ children }) => {
     async function getMe() {
       try {
         const apiResponse = await fetchMe();
+        console.log("apiResponse: ",apiResponse)
         if (apiResponse.loggedIn === true) {
           setUser(apiResponse);
           setLoggedIn(true);

@@ -28,7 +28,7 @@ export default function AuthForm() {
       if (username === result.user.username) {
         console.log("logged in");
         setLoggedIn(true);
-        setUser(result.user.username);
+        setUser(result.user);
         navigate("/products");
       } else {
         window.alert("Failed loggin with username " + username);
