@@ -2,6 +2,7 @@ import getAllProducts from "../api/products";
 import { useState, useEffect } from "react";
 import "../AllProducts.css";
 import { Link } from "react-router-dom";
+import addToCart from "../hooks/addingToCart";
 
 const AllProductsComponent = () => {
   const [products, setProduct] = useState([]);
@@ -50,13 +51,6 @@ const AllProductsComponent = () => {
         </p>
       </div>
     );
-  }
-
-  function addToCart(cartObj) {
-    console.log("cartObject: ", cartObj);
-    let obj = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-    obj.push(cartObj);
-    localStorage.setItem("shoppingCart", JSON.stringify(obj));
   }
 
   return (
