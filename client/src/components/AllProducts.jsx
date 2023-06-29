@@ -15,21 +15,56 @@ const AllProductsComponent = () => {
   }, []);
   console.log("product", products);
 
-  // handleOnClick(id)
+  function Prods(props) {
+    var prodQty = props.quantity;
+    return (
+      <div key={props.index} className="product-item">
+        <Link to={`/overview/${props.product.id}`}>
+          <h1 className="product-name">{props.product.name}</h1>
+          <h2 className="product-price">Price: {props.product.price}</h2>
+          <p className="product-description">
+            Description: {props.product.description}
+          </p>
+        </Link>
+        <button
+          onClick={() => {
+            addToCart({
+              id: props.product.id,
+              name: props.product.name,
+              quantity: prodQty,
+            });
+          }}
+        >
+          Add to Cart
+        </button>
+        <p>
+          Quantity:{" "}
+          <input
+            type="text"
+            name="quantity"
+            defaultValue={props.quantity}
+            onChange={(e) => {
+              e.target.value, (prodQty = parseInt(e.target.value));
+            }}
+          />
+        </p>
+      </div>
+    );
+  }
+
+  function addToCart(cartObj) {
+    console.log("cartObject: ", cartObj);
+    let obj = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+    obj.push(cartObj);
+    localStorage.setItem("shoppingCart", JSON.stringify(obj));
+  }
 
   return (
     <div className="products-container">
       {products.map((product, idx) => (
-        <Link to={`/overview/${product.id}`}>
-          <div key={idx} className="product-item">
-            <h1 className="product-name">{product.name}</h1>
-            <h2 className="product-price">Price: {product.price}</h2>
-            <p className="product-description">
-              Description: {product.description}
-            </p>
-            <button>Add To Cart</button>
-          </div>
-        </Link>
+        <div key={idx}>
+          <Prods quantity={1} index={idx} product={product} />
+        </div>
       ))}
     </div>
   );

@@ -16,9 +16,11 @@ const SportsComponent = () => {
   return (
     <div>
       {sport.sports.map((sporty, idx) => (
-        <div key={idx}>
-          <h1>Name: {sporty.name}</h1>
-          <p>Description: {sporty.description}</p>
+        <div key={idx} className="product-item">
+          <h1 className="product-name">Name: {sporty.name}</h1>
+          <p className="product-description">
+            Description: {sporty.description}
+          </p>
         </div>
       ))}
     </div>
