@@ -5,6 +5,7 @@ const Nav = () => {
   const navigate = useNavigate();
   const { setLoggedIn, loggedIn } = useAuth();
   const { user } = useAuth();
+  console.log("user: ", user);
   return (
     <nav className="nav">
       <h3 className="navbar__username">Hi, {user.username}</h3>

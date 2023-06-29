@@ -29,7 +29,7 @@ export default function ProductOverview() {
             <Grid xs={12} md={12}>
                 <Card sx={{ maxWidth: 345 }}>
                     <CardMedia
-                        sx={{ height: 140 }}
+                        sx={{ height: 400 }}
                         image="/ProductOverview/soccerball.jpg"
                         title="Soccer Ball"
                     />
@@ -42,8 +42,7 @@ export default function ProductOverview() {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="small">Share</Button>
-                        <Button size="small">Learn More</Button>
+                        <Button size="small">Reviews</Button>
                     </CardActions>
                 </Card>
             </Grid>

@@ -15,21 +15,19 @@ const SupplementsComponent = () => {
   console.log("supps", supplements);
 
   function Supp(props) {
-    var supQty = props.quantity;
+    var qty = props.quantity;
     return (
-      <div key={props.index} className="product-item">
-        <h1 className="product-name">Name: {props.supplement.name}</h1>
-        <p className="product-price">Price: {props.supplement.price}</p>
-        <p className="product-description">
-          Description: {props.supplement.description}
-        </p>
+      <div key={props.index}>
+        <h1>Name: {props.supplement.name}</h1>
+        <p>Price: {props.supplement.price}</p>
+        <p>Description: {props.supplement.description}</p>
         <p>Flavor: {props.supplement.flavor}</p>
         <button
           onClick={() => {
             addToCart({
               id: props.supplement.id,
               name: props.supplement.name,
-              quantity: supQty,
+              quantity: qty,
             });
           }}
         >
@@ -42,7 +40,7 @@ const SupplementsComponent = () => {
             name="quantity"
             defaultValue={props.quantity}
             onChange={(e) => {
-              e.target.value, (supQty = parseInt(e.target.value));
+              e.target.value, (qty = parseInt(e.target.value));
             }}
           />
         </p>
