@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getProductsByApparel } from "../api/products";
+import addToCart from "../hooks/addingToCart";
 
 const ApparelComponent = () => {
   const [apparel, setApparel] = useState([]);
@@ -25,13 +26,6 @@ const ApparelComponent = () => {
         <p>Quantity: <input type='text' name='quantity' defaultValue={props.quantity} onChange={(e)=>{e.target.value,qty=parseInt(e.target.value)}}/></p>
       </div>
     )
-  }
-
-  function addToCart(cartObj){
-    console.log('cartObject: ',cartObj)
-    let obj = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-    obj.push(cartObj);
-    localStorage.setItem('shoppingCart',JSON.stringify(obj));
   }
 
   return (
