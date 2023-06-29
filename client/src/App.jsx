@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
@@ -14,10 +14,12 @@ import CheckoutButton from "./components/CheckoutButton";
 import EquipmentComponent from "./components/Equipment";
 import ApparelComponent from "./components/Apparel";
 import useAuth from "./hooks/useAuth";
+import { logOut } from "./api/auth";
 function App() {
   const [healthMsg, setHealthMsg] = useState(null);
   const [err, setErr] = useState(null);
-  const { setLoggedIn, loggedIn } = useAuth();
+  const { setLoggedIn, loggedIn,setUser,user } = useAuth();
+  const nav = useNavigate();
   useEffect(() => {
     async function checkHealth() {
       try {
@@ -36,6 +38,14 @@ function App() {
     checkHealth();
   }, []);
 
+  async function handleLogout(){
+    console.log('user test: ',user)
+    await logOut();
+    setUser({username:'Guest'});
+    setLoggedIn(false);
+    nav('/');
+  }
+
   console.log("logged in? ",loggedIn)
   return (
     <div>
@@ -47,7 +57,7 @@ function App() {
       { loggedIn === true
         ?
         <div>
-          <p>REPLACE WITH LOGOUT BUTTON</p>
+          <button onClick={handleLogout}>Logout</button>
         </div>
         :
         <LoginButton />

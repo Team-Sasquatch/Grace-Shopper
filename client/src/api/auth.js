@@ -39,18 +39,13 @@ export async function loginUser(username, password) {
 
 export async function fetchMe() {
   try {
-    const response = await fetch("/api/users/me");
-    const { success, message, user } = await response.json();
-    if (!success) {
-      throw {
-        message,
-      };
-    }
-    return {
-      success,
-      message,
-      result,
-    };
+    const response = await fetch("/api/users/me",{
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    const result = await response.json();
+    return result;
   } catch (error) {
     console.log(error);
   }
@@ -73,16 +68,8 @@ export async function fetchUser(username) {
 export async function logOut() {
   try {
     const response = await fetch("/api/users/logout");
-    const { success, message } = await response.json();
-    if (!success) {
-      throw {
-        message,
-      };
-    }
-    return {
-      success,
-      message,
-    };
+    const result = await response.json();
+    return result;
   } catch (error) {
     throw error;
   }
