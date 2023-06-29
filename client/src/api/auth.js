@@ -1,0 +1,76 @@
+export async function registerUser(username, password) {
+  try {
+    const response = await fetch("/api/users/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+    const result = await response.json();
+    console.log("my result:", result);
+    return result;
+  } catch (error) {
+    console.log("Error with registration: ", error);
+  }
+}
+
+export async function loginUser(username, password) {
+  try {
+    const response = await fetch("/api/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.log("Error with login: ", error);
+  }
+}
+
+export async function fetchMe() {
+  try {
+    const response = await fetch("/api/users/me",{
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function fetchUser(username) {
+  try {
+    const response = await fetch("/api/users/id/${username}", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.log("Error getting user: ", error);
+  }
+}
+
+export async function logOut() {
+  try {
+    const response = await fetch("/api/users/logout");
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}

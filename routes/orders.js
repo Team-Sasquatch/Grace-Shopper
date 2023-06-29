@@ -45,8 +45,8 @@ ordersRouter.get('/user/:id', async (req, res, next) => {
         const userId = parseInt(req.params.id);
         const orders = await getAllOrdersByUserId(userId);
 
-        if (order) {
-            res.json({ success: true, data: orders, message: 'Found Order' });
+        if (orders) {
+            res.send({ success: true, orders, message: 'Found Order' });
         } else {
             res.status(404).json({ message: 'Order not found', success: false });
         }
@@ -56,13 +56,13 @@ ordersRouter.get('/user/:id', async (req, res, next) => {
 });
 
 // GET /orders/:id - Get orders by status
-ordersRouter.get('/status/:id', async (req, res, next) => {
+ordersRouter.get('/status/:status', async (req, res, next) => {
     try {
-        const status = parseInt(req.params.id);
+        const {status} = req.params;
         const orders = await getOrdersByStatus(status);
 
-        if (order) {
-            res.json({ success: true, data: orders, message: 'Found Order' });
+        if (orders) {
+            res.send({ success: true, orders, message: 'Found Order' });
         } else {
             res.status(404).json({ message: 'Order not found', success: false });
         }
@@ -75,10 +75,10 @@ ordersRouter.get('/status/:id', async (req, res, next) => {
 // POST /orders - Create a new order
 ordersRouter.post('/', async (req, res, next) => {
     try {
-        const { userId, cost, order_number, status } = req.body;
+        const { user_id, cost, order_number, status } = req.body;
         // Assuming the request body contains the necessary order information
 
-        const createdOrder = await createOrder({ userId, cost, order_number, status })
+        const createdOrder = await createOrder({ user_id, cost, order_number, status })
 
         res.status(201).json({
             success: true,
@@ -91,13 +91,13 @@ ordersRouter.post('/', async (req, res, next) => {
 });
 
 // PUT /orders/:id - Update an existing order
-ordersRouter.put('/:id', async (req, res, next) => {
+ordersRouter.patch('/:id', async (req, res, next) => {
     try {
         const id = parseInt(req.params.id);
-        const { userId, cost, orderNumber, status } = req.body;
+        const { user_id, cost, status } = req.body;
         // Assuming the request body contains the updated order information
 
-        const updatedOrder = await updateOrderStatus({ id, userId, cost, orderNumber, status });
+        const updatedOrder = await updateOrderStatus({ id, user_id, cost, status });
         if (updatedOrder) {
             res.json({
                 data: updatedOrder,
