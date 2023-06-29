@@ -15,6 +15,7 @@ const EquipmentComponent = () => {
 
   console.log("equipment", equipment);
 
+
   function Equip(props){
     var qty = props.quantity;
     return(
@@ -24,14 +25,15 @@ const EquipmentComponent = () => {
         <p>Description: {props.equipment.description}</p>
         <button onClick={()=>{addToCart({id:props.equipment.id,name:props.equipment.name,quantity:qty})}}>Add to Cart</button>
         <p>Quantity: <input type='text' name='quantity' defaultValue={props.quantity} onChange={(e)=>{e.target.value,qty=parseInt(e.target.value)}}/></p>
+
       </div>
-    )
+    );
   }
-  
+
   return (
-    <div>
+    <div className="products-container">
       {equipment.map((equips, idx) => (
-        <Equip quantity={1} index={idx} equipment={equips}/>
+        <Equip quantity={1} index={idx} equipment={equips} />
       ))}
     </div>
   );

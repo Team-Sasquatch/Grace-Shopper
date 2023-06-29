@@ -37,10 +37,12 @@ export default function Checkout(){
                 </div>
             </div>
             :
-            <div>
-                <p>Your cart is empty!😞</p>
+             <div className="empty-cart">
+          <p>Your cart is empty.</p>
             </div>
             }
         </div>
-    )
+      )}
+    </div>
+  );
 }

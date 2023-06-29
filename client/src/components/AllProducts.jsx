@@ -35,6 +35,7 @@ const AllProductsComponent = () => {
               quantity: prodQty,
             });
           }}
+          className="add-to-cart-button"
         >
           Add to Cart
         </button>

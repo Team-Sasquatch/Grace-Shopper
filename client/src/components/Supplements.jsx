@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getProductsBySupplement } from "../api/products";
-import "../AllProducts.css";
+
 import { Link } from "react-router-dom";
 import addToCart from "../hooks/addingToCart";
 
@@ -21,8 +21,8 @@ const SupplementsComponent = () => {
     var qty = props.quantity;
     return (
       <div key={props.index} className="product-item">
-        <Link to={`/overview/${props.supplement.id}`}>
-          <h1 className="product-item">Name: {props.supplement.name}</h1>
+        <Link to={`/overview/${props.supplement.id}`} className="product-link">
+          <h1 className="product-name">Name: {props.supplement.name}</h1>
           <p className="product-price">Price: {props.supplement.price}</p>
           <p className="product-description">
             Description: {props.supplement.description}
@@ -37,6 +37,7 @@ const SupplementsComponent = () => {
               quantity: qty,
             });
           }}
+          className="add-to-cart-button"
         >
           Add to Cart
         </button>

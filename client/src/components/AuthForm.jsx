@@ -65,7 +65,7 @@ export default function AuthForm() {
           }}
         />
 
-        <button>Enter the Sports Zone</button>
+        <button className="registerButton">Enter the Sports Zone</button>
 
         {pathname === "/register" ? (
           <p>
