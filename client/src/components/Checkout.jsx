@@ -5,17 +5,27 @@ import { useNavigate } from "react-router-dom";
 export default function Checkout() {
   const [quantity, setQuantity] = useState(null);
   const [retrievedCart, setRetrievedCart] = useState([]);
+  const [updateCheckout,setUpdateCheckout] = useState(false);
   const nav = useNavigate();
+  let cartDisplay = retrievedCart;
   useEffect(() => {
     setRetrievedCart(JSON.parse(localStorage.getItem("shoppingCart")));
-  }, []);
-  console.log("retrievedCart", retrievedCart);
-  const cartDisplay = retrievedCart;
+    if (updateCheckout){
+      setUpdateCheckout(false);
+    }
+  }, [updateCheckout]);
 
   function contCheckout() {
-    console.log("cartDisplay", cartDisplay);
     localStorage.setItem("shoppingCart", JSON.stringify(cartDisplay));
     nav("/"); //replace with whatever is order confirm page
+  }
+
+  function deleteItem(deletedItem){
+    setUpdateCheckout(true);
+    cartDisplay = cartDisplay.filter(x=>{
+      return x.id != deletedItem.id;
+    })
+    localStorage.setItem("shoppingCart", JSON.stringify(cartDisplay));
   }
 
   return (
@@ -24,7 +34,7 @@ export default function Checkout() {
         <div>
           <button onClick={() => contCheckout()}>Checkout</button>
           <div>
-            {cartDisplay.map((prod) => {
+            {cartDisplay.map((prod,index) => {
               return (
                 <div>
                   <p>Product: {prod.name}</p>
@@ -35,12 +45,13 @@ export default function Checkout() {
                       defaultValue={prod.quantity}
                       onChange={(e) => {
                         e.target.value,
-                          (cartDisplay[prod.id - 1].quantity = parseInt(
+                          (cartDisplay[index].quantity = parseInt(
                             e.target.value
                           ));
                       }}
                     />
                   </p>
+                  <button onClick={(e)=>{deleteItem(prod)}}>Remove</button>
                 </div>
               );
             })}

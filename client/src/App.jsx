@@ -43,6 +43,7 @@ function App() {
     await logOut();
     setUser({username:'Guest'});
     setLoggedIn(false);
+    localStorage.clear();
     nav('/');
   }
 
