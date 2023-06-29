@@ -1,3 +1,4 @@
+import React from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -8,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import { getProductById } from '../../api/products';
 import { useParams } from 'react-router-dom';
 import { createContext, useState, useEffect } from "react";
+//import Reviews from '../Reviews'
 
 
 export default function ProductOverview() {
