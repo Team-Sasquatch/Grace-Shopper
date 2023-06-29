@@ -4,7 +4,7 @@ import useAuth from "../hooks/useAuth";
 const Nav = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  console.log("user: ",user)
+  console.log("user: ", user);
   return (
     <nav className="nav">
       <h3 className="navbar__username">Hi, {user.username}</h3>
