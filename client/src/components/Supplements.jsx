@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getProductsBySupplement } from "../api/products";
 
 import { Link } from "react-router-dom";
+import addToCart from "../hooks/addingToCart";
 
 const SupplementsComponent = () => {
   const [supplements, setSupplements] = useState([]);
@@ -53,13 +54,6 @@ const SupplementsComponent = () => {
         </p>
       </div>
     );
-  }
-
-  function addToCart(cartObj) {
-    console.log("cartObject: ", cartObj);
-    let obj = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-    obj.push(cartObj);
-    localStorage.setItem("shoppingCart", JSON.stringify(obj));
   }
 
   return (

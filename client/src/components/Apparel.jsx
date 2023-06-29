@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getProductsByApparel } from "../api/products";
+import addToCart from "../hooks/addingToCart";
 
 const ApparelComponent = () => {
   const [apparel, setApparel] = useState([]);
@@ -50,12 +51,14 @@ const ApparelComponent = () => {
     );
   }
 
+
   function addToCart(cartObj) {
     console.log("cartObject: ", cartObj);
     let obj = JSON.parse(localStorage.getItem("shoppingCart")) || [];
     obj.push(cartObj);
     localStorage.setItem("shoppingCart", JSON.stringify(obj));
   }
+
 
   return (
     <div className="products-container">
