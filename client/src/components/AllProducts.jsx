@@ -22,7 +22,7 @@ const AllProductsComponent = () => {
       <div key={props.index} className="product-item">
         <Link to={`/overview/${props.product.id}`}>
           <h1 className="product-name">{props.product.name}</h1>
-          <h2 className="product-price">Price: {props.product.price}</h2>
+          <h2 className="product-price">Price: $ {props.product.price}</h2>
           <p className="product-description">
             Description: {props.product.description}
           </p>
@@ -48,12 +48,15 @@ const AllProductsComponent = () => {
               id: props.product.id,
               name: props.product.name,
               quantity: prodQty,
+              price: props.product.price,
             });
           }}
           className="add-to-cart-button"
         >
           Add to Cart
         </button>
+
+
       </div>
     );
   }

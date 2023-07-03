@@ -10,6 +10,8 @@ const Home = () => {
 
   return (
     <div>
+
+
       <ProductsCarousel images={carouselImages} />
     </div>
   );
