@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getProductsByApparel } from "../api/products";
 import addToCart from "../hooks/addingToCart";
+import { Link } from "react-router-dom";
 
 const ApparelComponent = () => {
   const [apparel, setApparel] = useState([]);
@@ -19,12 +20,18 @@ const ApparelComponent = () => {
     var qty = props.quantity;
     return (
       <div key={props.index} className="product-item">
-        <h1 className="product-name">Name: {props.apparel.name}</h1>
-        <p className="product-price">Price: {props.apparel.price}</p>
-        <p className="product-description">
-          Description: {props.apparel.description}
-        </p>
-
+        <Link to={`/overview/${props.apparel.id}`} className="product-link">
+          <div className="product-image">
+            <img src={props.apparel.thumbnail} alt="Product Thumbnail" />
+          </div>
+          <div className="product-details">
+            <h1 className="product-name">Name: {props.apparel.name}</h1>
+            <p className="product-price">Price: {props.apparel.price}</p>
+            <p className="product-description">
+              Description: {props.apparel.description}
+            </p>
+          </div>
+        </Link>
         <p>
           Quantity:{" "}
           <input

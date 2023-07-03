@@ -30,7 +30,8 @@
 }
 
 .product-description {
-  color: #555;
+  color: #333;
+  text-decoration: none;
 }
 
 .add-to-cart-button {

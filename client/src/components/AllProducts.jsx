@@ -21,6 +21,9 @@ const AllProductsComponent = () => {
     return (
       <div key={props.index} className="product-item">
         <Link to={`/overview/${props.product.id}`}>
+          <div className="product-image">
+            <img src={props.product.thumbnail} alt="Product Thumbnail" />
+          </div>
           <h1 className="product-name">{props.product.name}</h1>
           <h2 className="product-price">Price: $ {props.product.price}</h2>
           <p className="product-description">
@@ -55,8 +58,6 @@ const AllProductsComponent = () => {
         >
           Add to Cart
         </button>
-
-
       </div>
     );
   }
