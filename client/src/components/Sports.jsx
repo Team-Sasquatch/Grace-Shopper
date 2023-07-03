@@ -40,18 +40,6 @@ const SportsComponent = () => {
               }}
             />
           </p>
-          <button
-            onClick={() => {
-              addToCart({
-                id: props.product.id,
-                name: props.product.name,
-                quantity: Qty,
-              });
-            }}
-            className="add-to-cart-button"
-          >
-            Add to Cart
-          </button>
         </div>
       </div>
     );

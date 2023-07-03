@@ -12,7 +12,7 @@ function addToCart(cartObj) {
         }
       }
     }
-    if (!foundInCart){
+    if (!foundInCart && cartObj.quantity!==0){
       obj.push(cartObj);
     }
     localStorage.setItem("shoppingCart", JSON.stringify(obj));
