@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { getProductById } from "../api/products";
 
 export default function Checkout() {
   const [quantity, setQuantity] = useState(null);
@@ -9,17 +10,28 @@ export default function Checkout() {
   const nav = useNavigate();
   let cartDisplay = retrievedCart;
   useEffect(() => {
-    setRetrievedCart(JSON.parse(localStorage.getItem("shoppingCart")));
-    if (updateCheckout){
-      setUpdateCheckout(false);
+    async function fetchCart(){
+      let tempCart = JSON.parse(localStorage.getItem("shoppingCart"));
+      if (tempCart.length>0){
+        for (let i=0;i<tempCart.length;i++){
+          const tempProdGet = await getProductById(tempCart[i].id);
+          if (tempProdGet)
+            tempCart[i].price = tempProdGet.price;
+        }
+      }
+      setRetrievedCart(tempCart);
+      if (updateCheckout){
+        setUpdateCheckout(false);
+      }
     }
+    fetchCart();
   }, [updateCheckout]);
 
   function contCheckout() {
     localStorage.setItem("shoppingCart", JSON.stringify(cartDisplay));
-    nav("/"); //replace with whatever is order confirm page
+    nav("/confirmation");
   }
-
+  console.log("cart dis",cartDisplay)
   function deleteItem(deletedItem){
     setUpdateCheckout(true);
     cartDisplay = cartDisplay.filter(x=>{
@@ -27,17 +39,23 @@ export default function Checkout() {
     })
     localStorage.setItem("shoppingCart", JSON.stringify(cartDisplay));
   }
+  function clearCart(){
+    setUpdateCheckout(true);
+      localStorage.removeItem("shoppingCart");
+  }
 
   return (
     <div>
       {cartDisplay ? (
         <div>
           <button onClick={() => contCheckout()}>Checkout</button>
+          <button onClick={()=> clearCart()}>Clear Cart</button>
           <div>
             {cartDisplay.map((prod,index) => {
               return (
                 <div>
                   <p>Product: {prod.name}</p>
+                  <p> Price: ${prod.price}</p>
                   <p>
                     Quantity:{" "}
                     <input
