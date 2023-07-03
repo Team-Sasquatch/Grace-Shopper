@@ -15,17 +15,26 @@ const SportsComponent = () => {
   }, []);
   console.log("sports??", sport);
 
-  return (
-    <div>
-      {sport.sports.map((sporty, idx) => (
-        <div key={idx} className="product-item">
-          <Link to={`/overview/${sporty.id}`}>
-            <h1 className="product-name">Name: {sporty.name}</h1>
+  function Sports(props) {
+    var Qty = props.quantity;
+    return (
+      <div>
+        <div key={props.idx} className="product-item">
+          <Link to={`/overview/${props.sporty.id}`}>
+            <h1 className="product-name">Name: {props.sporty.name}</h1>
             <p className="product-description">
-              Description: {sporty.description}
+              Description: {props.sporty.description}
             </p>
           </Link>
         </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="products-container">
+      {sport.sports.map((sport, idx) => (
+        <Sports quantity={1} index={idx} sporty={sport} />
       ))}
     </div>
   );

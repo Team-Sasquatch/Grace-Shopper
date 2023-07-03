@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { getProductsBySupplement } from "../api/products";
-import "../AllProducts.css";
+
 import { Link } from "react-router-dom";
+import addToCart from "../hooks/addingToCart";
 
 const SupplementsComponent = () => {
   const [supplements, setSupplements] = useState([]);
@@ -20,14 +21,28 @@ const SupplementsComponent = () => {
     var qty = props.quantity;
     return (
       <div key={props.index} className="product-item">
-        <Link to={`/overview/${props.supplement.id}`}>
-          <h1 className="product-item">Name: {props.supplement.name}</h1>
+        <Link to={`/overview/${props.supplement.id}`} className="product-link">
+          <h1 className="product-name">Name: {props.supplement.name}</h1>
           <p className="product-price">Price: {props.supplement.price}</p>
           <p className="product-description">
             Description: {props.supplement.description}
           </p>
           <p>Flavor: {props.supplement.flavor}</p>
         </Link>
+
+        <p>
+          Quantity:{" "}
+          <input
+            type="number"
+            min="0"
+            max="9"
+            name="quantity"
+            defaultValue={props.quantity}
+            onChange={(e) => {
+              e.target.value, (qty = parseInt(e.target.value));
+            }}
+          />
+        </p>
         <button
           onClick={() => {
             addToCart({
@@ -36,29 +51,12 @@ const SupplementsComponent = () => {
               quantity: qty,
             });
           }}
+          className="add-to-cart-button"
         >
           Add to Cart
         </button>
-        <p>
-          Quantity:{" "}
-          <input
-            type="text"
-            name="quantity"
-            defaultValue={props.quantity}
-            onChange={(e) => {
-              e.target.value, (qty = parseInt(e.target.value));
-            }}
-          />
-        </p>
       </div>
     );
-  }
-
-  function addToCart(cartObj) {
-    console.log("cartObject: ", cartObj);
-    let obj = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-    obj.push(cartObj);
-    localStorage.setItem("shoppingCart", JSON.stringify(obj));
   }
 
   return (

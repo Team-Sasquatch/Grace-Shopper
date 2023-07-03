@@ -31,7 +31,7 @@ export default function AuthForm() {
         setUser(result.user);
         navigate("/products");
       } else {
-        window.alert("Failed loggin with username " + username);
+        window.alert("Failed login with username " + username);
       }
     } catch (error) {
       setError(error);
@@ -65,7 +65,7 @@ export default function AuthForm() {
           }}
         />
 
-        <button>Enter the Sports Zone</button>
+        <button className="registerButton">Enter the Sports Zone</button>
 
         {pathname === "/register" ? (
           <p>
