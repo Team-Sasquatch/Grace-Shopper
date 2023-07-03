@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "../ImageCarousel.css";
 
 const ProductsCarousel = ({ images, interval }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, interval);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [images, interval]);
 
   const handleNext = () => {
     setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -21,12 +31,8 @@ const ProductsCarousel = ({ images, interval }) => {
         <img src={images[activeIndex]} alt="Product" />
       </div>
       <div className="carousel-controls">
-        <button className="prev-button" onClick={handlePrev}>
-          &lt;
-        </button>
-        <button className="next-button" onClick={handleNext}>
-          &gt;
-        </button>
+        <button onClick={handlePrev}>&lt;</button>
+        <button onClick={handleNext}>&gt;</button>
       </div>
     </div>
   );
