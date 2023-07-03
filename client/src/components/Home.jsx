@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <div>
-      <h3>Shop like a Squatch</h3>
+      <h3>Welcome Home Sasquatch</h3>
       <ProductsCarousel images={carouselImages} />
     </div>
   );
