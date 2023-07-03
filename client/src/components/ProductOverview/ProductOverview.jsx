@@ -32,8 +32,8 @@ return (
                 <Card sx={{ maxWidth: 345 }}>
                     <CardMedia
                         sx={{ height: 400 }}
-                        image="/ProductOverview/soccerball.jpg"
-                        title="Soccer Ball"
+                        image={`/ProductOverview/${product.name}.jpg`}
+                        title="product"
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
