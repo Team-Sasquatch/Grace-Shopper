@@ -21,8 +21,12 @@ const ProductsCarousel = ({ images }) => {
         <img src={images[activeIndex]} alt="Product" />
       </div>
       <div className="carousel-controls">
-        <button onClick={handlePrev}>&lt;</button>
-        <button onClick={handleNext}>&gt;</button>
+        <button className="prev-button" onClick={handlePrev}>
+          &lt;
+        </button>
+        <button className="next-button" onClick={handleNext}>
+          &gt;
+        </button>
       </div>
     </div>
   );
