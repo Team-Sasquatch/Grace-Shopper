@@ -71,7 +71,12 @@ async function createTables() {
       id SERIAL PRIMARY KEY,
       username  VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
-      is_admin BOOLEAN DEFAULT FALSE 
+      is_admin BOOLEAN DEFAULT FALSE,
+      address VARCHAR(255),
+      address2 VARCHAR(255),
+      city VARCHAR(255),
+      state VARCHAR(255),
+      zipcode INTEGER(255)
     );
     CREATE TABLE orders(
       id SERIAL PRIMARY KEY,
