@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "../ImageCarousel.css";
 
-const ProductsCarousel = ({ images }) => {
+const ProductsCarousel = ({ images, interval }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleNext = () => {
@@ -34,6 +34,7 @@ const ProductsCarousel = ({ images }) => {
 
 ProductsCarousel.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  interval: PropTypes.number.isRequired,
 };
 
 export default ProductsCarousel;
