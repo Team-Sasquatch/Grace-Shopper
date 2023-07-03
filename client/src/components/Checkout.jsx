@@ -12,7 +12,7 @@ export default function Checkout() {
   useEffect(() => {
     async function fetchCart(){
       let tempCart = JSON.parse(localStorage.getItem("shoppingCart"));
-      if (tempCart.length>0){
+      if (localStorage.getItem("shoppingCart")!==null && tempCart.length>0){
         for (let i=0;i<tempCart.length;i++){
           const tempProdGet = await getProductById(tempCart[i].id);
           if (tempProdGet)
@@ -42,7 +42,7 @@ export default function Checkout() {
 
   function clearCart(){
     setUpdateCheckout(true);
-      localStorage.removeItem("shoppingCart");
+    localStorage.removeItem("shoppingCart");
   }
 
   return (
