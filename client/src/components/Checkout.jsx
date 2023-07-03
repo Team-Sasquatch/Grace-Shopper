@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { getProductById } from "../api/products";
 
 export default function Checkout() {
   const [quantity, setQuantity] = useState(null);
   const [retrievedCart, setRetrievedCart] = useState([]);
-  const [updateCheckout,setUpdateCheckout] = useState(false);
+  const [updateCheckout, setUpdateCheckout] = useState(false);
   const nav = useNavigate();
   let cartDisplay = retrievedCart;
   useEffect(() => {
@@ -31,14 +31,15 @@ export default function Checkout() {
     localStorage.setItem("shoppingCart", JSON.stringify(cartDisplay));
     nav("/confirmation");
   }
-  console.log("cart dis",cartDisplay)
+  
   function deleteItem(deletedItem){
     setUpdateCheckout(true);
-    cartDisplay = cartDisplay.filter(x=>{
+    cartDisplay = cartDisplay.filter((x) => {
       return x.id != deletedItem.id;
-    })
+    });
     localStorage.setItem("shoppingCart", JSON.stringify(cartDisplay));
   }
+
   function clearCart(){
     setUpdateCheckout(true);
       localStorage.removeItem("shoppingCart");
@@ -77,9 +78,15 @@ export default function Checkout() {
         </div>
       ) : (
         <div className="empty-cart">
-          <p>Your cart is empty.</p>
+          <p> Your cart is empty.</p>
         </div>
       )}
+      <p>
+        Ready to
+        <Link className="nav-link" to="/confirmation">
+          checkout
+        </Link>
+      </p>
     </div>
   );
 }

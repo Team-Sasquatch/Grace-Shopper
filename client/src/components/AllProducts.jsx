@@ -22,7 +22,7 @@ const AllProductsComponent = () => {
       <div key={props.index} className="product-item">
         <Link to={`/overview/${props.product.id}`}>
           <h1 className="product-name">{props.product.name}</h1>
-          <h2 className="product-price">Price: {props.product.price}</h2>
+          <h2 className="product-price">Price: $ {props.product.price}</h2>
           <p className="product-description">
             Description: {props.product.description}
           </p>
@@ -33,6 +33,7 @@ const AllProductsComponent = () => {
               id: props.product.id,
               name: props.product.name,
               quantity: prodQty,
+              price: props.product.price,
             });
           }}
           className="add-to-cart-button"
@@ -44,7 +45,7 @@ const AllProductsComponent = () => {
           <input
             type="text"
             name="quantity"
-            defaultValue={props.quantity}
+            defaultValue={0}
             onChange={(e) => {
               e.target.value, (prodQty = parseInt(e.target.value));
             }}

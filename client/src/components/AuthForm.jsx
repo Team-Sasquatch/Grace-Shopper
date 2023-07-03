@@ -31,7 +31,7 @@ export default function AuthForm() {
         setUser(result.user);
         navigate("/products");
       } else {
-        window.alert("Failed loggin with username " + username);
+        window.alert("Failed login with username " + username);
       }
     } catch (error) {
       setError(error);
