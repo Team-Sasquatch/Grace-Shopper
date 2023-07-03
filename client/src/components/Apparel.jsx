@@ -24,6 +24,20 @@ const ApparelComponent = () => {
         <p className="product-description">
           Description: {props.apparel.description}
         </p>
+
+        <p>
+          Quantity:{" "}
+          <input
+            type="number"
+            min="0"
+            max="9"
+            name="quantity"
+            defaultValue={props.quantity}
+            onChange={(e) => {
+              e.target.value, (qty = parseInt(e.target.value));
+            }}
+          />
+        </p>
         <button
           onClick={() => {
             addToCart({
@@ -36,21 +50,9 @@ const ApparelComponent = () => {
         >
           Add to Cart
         </button>
-        <p>
-          Quantity:{" "}
-          <input
-            type="text"
-            name="quantity"
-            defaultValue={props.quantity}
-            onChange={(e) => {
-              e.target.value, (qty = parseInt(e.target.value));
-            }}
-          />
-        </p>
       </div>
     );
   }
-
 
   function addToCart(cartObj) {
     console.log("cartObject: ", cartObj);
@@ -58,7 +60,6 @@ const ApparelComponent = () => {
     obj.push(cartObj);
     localStorage.setItem("shoppingCart", JSON.stringify(obj));
   }
-
 
   return (
     <div className="products-container">
