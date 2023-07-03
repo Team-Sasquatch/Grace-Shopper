@@ -8,7 +8,6 @@ export default function Checkout() {
   const [retrievedCart, setRetrievedCart] = useState([]);
   const [updateCheckout, setUpdateCheckout] = useState(false);
   const nav = useNavigate();
-  let cartDisplay = retrievedCart;
   useEffect(() => {
     async function fetchCart(){
       let tempCart = JSON.parse(localStorage.getItem("shoppingCart"));
@@ -26,35 +25,36 @@ export default function Checkout() {
     }
     fetchCart();
   }, [updateCheckout]);
-
   function contCheckout() {
-    localStorage.setItem("shoppingCart", JSON.stringify(cartDisplay));
+    localStorage.setItem("shoppingCart", JSON.stringify(retrievedCart));
     nav("/confirmation");
   }
   
   function deleteItem(deletedItem){
-    setUpdateCheckout(true);
-    cartDisplay = cartDisplay.filter((x) => {
+    setRetrievedCart(retrievedCart.filter((x) => {
       return x.id != deletedItem.id;
-    });
-    localStorage.setItem("shoppingCart", JSON.stringify(cartDisplay));
+    }));
+    localStorage.setItem("shoppingCart", JSON.stringify(retrievedCart.filter((x) => {
+      return x.id != deletedItem.id;
+    })));
+    setUpdateCheckout(true);
   }
 
   function clearCart(){
-    setUpdateCheckout(true);
     localStorage.removeItem("shoppingCart");
+    setUpdateCheckout(true);
   }
 
   return (
     <div>
-      {cartDisplay ? (
+      {retrievedCart ? (
         <div>
           <button onClick={() => contCheckout()}>Checkout</button>
           <button onClick={()=> clearCart()}>Clear Cart</button>
           <div>
-            {cartDisplay.map((prod,index) => {
+            {retrievedCart.map((prod,index) => {
               return (
-                <div>
+                <div key={prod.id}>
                   <p>Product: {prod.name}</p>
                   <p> Price: ${prod.price}</p>
                   <p>
@@ -64,13 +64,13 @@ export default function Checkout() {
                       defaultValue={prod.quantity}
                       onChange={(e) => {
                         e.target.value,
-                          (cartDisplay[index].quantity = parseInt(
+                          (retrievedCart[index].quantity = parseInt(
                             e.target.value
                           ));
                       }}
                     />
                   </p>
-                  <button onClick={(e)=>{deleteItem(prod)}}>Remove</button>
+                  <button onClick={()=>{deleteItem(prod)}}>Remove</button>
                 </div>
               );
             })}

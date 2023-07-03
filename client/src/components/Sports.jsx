@@ -26,20 +26,6 @@ const SportsComponent = () => {
               Description: {props.sporty.description}
             </p>
           </Link>
-
-          <p>
-            Quantity:{" "}
-            <input
-              type="number"
-              min="0"
-              max="9"
-              name="quantity"
-              defaultValue={props.quantity}
-              onChange={(e) => {
-                e.target.value, (prodQty = parseInt(e.target.value));
-              }}
-            />
-          </p>
         </div>
       </div>
     );
