@@ -29,6 +29,20 @@ const SupplementsComponent = () => {
           </p>
           <p>Flavor: {props.supplement.flavor}</p>
         </Link>
+
+        <p>
+          Quantity:{" "}
+          <input
+            type="number"
+            min="0"
+            max="9"
+            name="quantity"
+            defaultValue={props.quantity}
+            onChange={(e) => {
+              e.target.value, (qty = parseInt(e.target.value));
+            }}
+          />
+        </p>
         <button
           onClick={() => {
             addToCart({
@@ -41,17 +55,6 @@ const SupplementsComponent = () => {
         >
           Add to Cart
         </button>
-        <p>
-          Quantity:{" "}
-          <input
-            type="text"
-            name="quantity"
-            defaultValue={props.quantity}
-            onChange={(e) => {
-              e.target.value, (qty = parseInt(e.target.value));
-            }}
-          />
-        </p>
       </div>
     );
   }
