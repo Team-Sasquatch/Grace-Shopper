@@ -57,8 +57,10 @@ function App() {
       <Nav />
       <CheckoutButton />
       {loggedIn === true ? (
-        <div>
-          <button onClick={handleLogout}>Logout</button>
+        <div className="logout-button">
+          <button className="logout-button-link" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
       ) : (
         <LoginButton />
