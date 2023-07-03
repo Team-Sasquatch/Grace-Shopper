@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getProductsByEquipment } from "../api/products";
 import addToCart from "../hooks/addingToCart";
+import { Link } from "react-router-dom";
 
 const EquipmentComponent = () => {
   const [equipment, setEquipment] = useState([]);
@@ -19,12 +20,13 @@ const EquipmentComponent = () => {
     var qty = props.quantity;
     return (
       <div key={props.index} className="product-item">
-        <h1 className="product-name">Name: {props.equipment.name}</h1>
-        <p className="product-price">Price: {props.equipment.price}</p>
-        <p className="product-description">
-          Description: {props.equipment.description}
-        </p>
-
+        <Link to={`/overview/${props.equipment.id}`}>
+          <h1 className="product-name">Name: {props.equipment.name}</h1>
+          <p className="product-price">Price: {props.equipment.price}</p>
+          <p className="product-description">
+            Description: {props.equipment.description}
+          </p>
+        </Link>
         <p>
           Quantity:{" "}
           <input
