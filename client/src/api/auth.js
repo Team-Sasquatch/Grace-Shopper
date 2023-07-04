@@ -1,4 +1,4 @@
-export async function registerUser(username, password) {
+export async function registerUser(username, password, is_admin, address, address2, city, state, zipcode) {
   try {
     const response = await fetch("/api/users/register", {
       method: "POST",
@@ -6,8 +6,7 @@ export async function registerUser(username, password) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username,
-        password,
+        username, password, is_admin, address, address2, city, state, zipcode,
       }),
     });
     const result = await response.json();
@@ -77,7 +76,7 @@ export async function logOut() {
 
 export async function changeAddress(id,address, address2, city, state, zipcode){
   try {
-    const response = await fetch(`/api/users/${id}`,{
+    const response = await fetch(`/api/users/id/${id}`,{
       method: "PATCH",
       headers:{
         'Content-Type': 'application/json'
