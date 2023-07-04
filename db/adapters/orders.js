@@ -9,6 +9,11 @@ const {client} = require("../client");
         orders.cost as cost,
         orders.order_number as order_number,
         orders.status as status,
+        orders.address as address,
+        orders.address2 as address2,
+        orders.city as city,
+        orders.state as state,
+        orders.zipcode as zipcode,
       CASE WHEN order_products.order_id IS NULL THEN '[]'::json
       ELSE
       JSON_AGG(
@@ -40,6 +45,11 @@ const {client} = require("../client");
         orders.cost as cost,
         orders.order_number as order_number,
         orders.status as status,
+        orders.address as address,
+        orders.address2 as address2,
+        orders.city as city,
+        orders.state as state,
+        orders.zipcode as zipcode,
       CASE WHEN order_products.order_id IS NULL THEN '[]'::json
       ELSE
       JSON_AGG(
@@ -90,17 +100,17 @@ const {client} = require("../client");
     
   }
   
-  async function createOrder({user_id, cost, order_number, status}) {
+  async function createOrder({user_id, cost, order_number, status, address, address2, city, state, zipcode}) {
     try {
       const {
         rows: [order],
     } = await client.query(
         `
-          INSERT INTO orders(user_id, cost, order_number, status)
-          VALUES ($1, $2, $3, $4)
+          INSERT INTO orders(user_id, cost, order_number, status, address, address2, city, state, zipcode)
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
           RETURNING *;
       `,
-        [user_id, cost, order_number, status]
+        [user_id, cost, order_number, status, address, address2, city, state, zipcode]
     );
     return order;
     } catch (error) {
@@ -118,6 +128,11 @@ const {client} = require("../client");
         orders.cost as cost,
         orders.order_number as order_number,
         orders.status as status,
+        orders.address as address,
+        orders.address2 as address2,
+        orders.city as city,
+        orders.state as state,
+        orders.zipcode as zipcode,
       CASE WHEN order_products.order_id IS NULL THEN '[]'::json
       ELSE
       JSON_AGG(

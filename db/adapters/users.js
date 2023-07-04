@@ -71,5 +71,23 @@ try {
   }
 }
 
+async function updateAddress({id, address, address2, city, state, zipcode}){
+  const setString = Object.keys({address, address2, city, state, zipcode}).map((key,index)=>`"${key}"=$${index+1}`).join(', ');
+    if (setString.length === 0){
+        return;
+    }
+  try {
+    const {rows:[user]} = await client.query(`
+      UPDATE users
+      SET ${setString}
+      WHERE id=${id}
+      RETURNING *;
+    `,Object.values({address, address2, city, state, zipcode}));
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
 
-module.exports = {createUser, getUser, getUserById, getUserByUsername}
+
+module.exports = {createUser, getUser, getUserById, getUserByUsername, updateAddress}
