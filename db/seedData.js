@@ -1,8 +1,8 @@
 // Create some seed data and export it from this file
 
 const users = [
-  { username: "test1", password: 12345678 },
-  { username: "test2", password: 12345678 },
+  { username: "test1", password: 12345678,is_admin:false},
+  { username: "test2", password: 12345678, is_admin:false},
   { username: "admin", password: 12345678, is_admin: true },
 ];
 

@@ -77,7 +77,7 @@ async function createTables() {
       address2 VARCHAR(255) DEFAULT '',
       city VARCHAR(255) DEFAULT '',
       state VARCHAR(255) DEFAULT '',
-      zipcode INTEGER(255) DEFAULT ''
+      zipcode VARCHAR(255) DEFAULT ''
     );
     CREATE TABLE orders(
       id SERIAL PRIMARY KEY,
@@ -89,7 +89,7 @@ async function createTables() {
       address2 VARCHAR(255),
       city VARCHAR(255),
       state VARCHAR(255),
-      zipcode INTEGER(255)
+      zipcode VARCHAR(255)
     );
     CREATE TABLE sports(
       id SERIAL PRIMARY KEY,
