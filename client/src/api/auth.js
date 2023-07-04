@@ -83,7 +83,11 @@ export async function changeAddress(id,address, address2, city, state, zipcode){
       },
       body: JSON.stringify({
         post:{
-          address, address2, city, state, zipcode
+          address,
+          address2,
+          city,
+          state,
+          zipcode
         }
       })
     });

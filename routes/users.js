@@ -136,13 +136,13 @@ usersRouter.get("/:userId/orders", async (req, res, next) => {
   }
 });
 
-usersRouter.patch('/id/:id', async(req,res,next)=>{
+usersRouter.patch('/id/:id', authRequired, async(req,res,next)=>{
   try{
     const id = parseInt(req.params.id);
     const {address, address2, city, state, zipcode} = req.body;
-    const updatedAddress = await updateAddress({id,address, address2, city, state, zipcode});
-    if (updatedAddress){
-      res.send(updatedAddress)
+    const user = await updateAddress({id,address, address2, city, state, zipcode});
+    if (user){
+      res.send({user})
     };
   } catch (error){
     next(error);

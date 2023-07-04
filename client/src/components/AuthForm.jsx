@@ -23,7 +23,6 @@ export default function AuthForm() {
       }
 
       console.log("result" + result);
-      console.log(result);
 
       if (username === result.user.username) {
         console.log("logged in");

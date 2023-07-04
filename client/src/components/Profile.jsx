@@ -11,25 +11,20 @@ export default function Profile(){
     const [zipcode,setZipCode]=useState('');
     const [submitted,setSubmitted]=useState(false);
     useEffect(()=>{
-        async function fetchAddress(){
-            const usr = await fetchUser(user.id);
-            console.log(usr)
-            if (usr.user.address !== null && usr.user.address !== '') setAddress(usr.user.address);
-            if (usr.user.address2 !== null && usr.user.address2 !== '') setAddress2(usr.user.address2);
-            if (usr.user.city !== null && usr.user.city !== '') setCity(usr.user.city);
-            if (usr.user.state !== null && usr.user.state !== '') setState(usr.user.state);
-            if (usr.user.zipcode !== null && usr.user.zipcode !== '') setZipCode(usr.user.zipcode);
-            if (submitted) setSubmitted(false);
-            console.log("address",address,"address2",address2,"city",city,"state",state,"zipcode",zipcode)
-        }
-        fetchAddress();
+        if (user.address !== null && user.address !== '') setAddress(user.address);
+        if (user.address2 !== null && user.address2 !== '') setAddress2(user.address2);
+        if (user.city !== null && user.city !== '') setCity(user.city);
+        if (user.state !== null && user.state !== '') setState(user.state);
+        if (user.zipcode !== null && user.zipcode !== '') setZipCode(user.zipcode);
+        if (submitted) setSubmitted(false);
+        console.log("address",address,"address2",address2,"city",city,"state",state,"zipcode",zipcode)
     },[submitted]);
 
     async function handleSubmit(e){
         e.preventDefault();
-        console.log('user',user);
+        console.log('correct from user',user);
         try {
-            console.log(address,address2,city,state,zipcode)
+            console.log(user.id,address,address2,city,state,zipcode)
             const result = await changeAddress(user.id,address,address2,city,state,zipcode);
             console.log('result',result)
             setSubmitted(true);
