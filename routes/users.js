@@ -6,6 +6,7 @@ const {
   getUser,
   getUserById,
   getUserByUsername,
+  updateAddress,
 } = require("../db/adapters/users");
 const { getAllOrdersByUserId } = require("../db/adapters/orders");
 
@@ -134,5 +135,21 @@ usersRouter.get("/:userId/orders", async (req, res, next) => {
     next(error);
   }
 });
+
+usersRouter.patch('/:id',authRequired, async(req,res,next)=>{
+  try{
+    const id = parseInt(req.params.id);
+    const {address, address2, city, state, zipcode} = req.body;
+    const updatedAddress = await updateAddress({id,address, address2, city, state, zipcode});
+    if (updatedAddress){
+      res.json({
+        data: updatedAddress,
+        success: true,
+      });
+    };
+  } catch (error){
+    next(error);
+  }
+})
 
 module.exports = usersRouter;
