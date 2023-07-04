@@ -18,9 +18,11 @@ const AllProductsComponent = () => {
 
   function Prods(props) {
     var prodQty = props.quantity;
+    console.log(props);
     return (
       <div key={props.index} className="product-item">
         <Link to={`/overview/${props.product.id}`}>
+          <img src={`/ProductOverview/${props.product.name}.jpg`} style={{ 'max-width': '100%', 'height': '100px' }}/>
           <h1 className="product-name">{props.product.name}</h1>
           <h2 className="product-price">Price: $ {props.product.price}</h2>
           <p className="product-description">
