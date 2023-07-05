@@ -57,8 +57,18 @@ function App() {
       <Nav />
       <CheckoutButton />
       {loggedIn === true ? (
+
+        <div className="logout-button">
+          <button className="logout-button-link" onClick={handleLogout}>
+            Logout
+          </button>
+          <button className="profile-button" onClick={() => nav("/profile")}>
+            My Profile 🤡
+          </button>
+
         <div>
           <button onClick={handleLogout}>Logout</button>
+
         </div>
       ) : (
         <LoginButton />
@@ -69,6 +79,8 @@ function App() {
         <Route path="/login" element={<AuthForm />} />
 
         <Route path="/register" element={<AuthForm />} />
+
+        <Route path="/profile" element={<Profile />} />
 
         <Route path="/sports" element={<SportsComponent />} />
         <Route path="/supplements" element={<SupplementsComponent />} />
