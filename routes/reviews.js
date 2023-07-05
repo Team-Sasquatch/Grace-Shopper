@@ -3,6 +3,7 @@ const reviewsRouter = express.Router();
 const {createReview, getAllReviews, getReviewById,updateReview,destroyReview, getReviewsByProductId,getReviewsByUserId} = require("../db/adapters/reviews");
 const { authRequired } = require('./authRoute');
 const { reviews } = require('../db/seedData');
+const jwt = require("jsonwebtoken");
 
 reviewsRouter.get('/',async(req,res,next)=>{
     try {
