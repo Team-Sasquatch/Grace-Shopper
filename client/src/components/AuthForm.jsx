@@ -19,11 +19,10 @@ export default function AuthForm() {
       if (pathname === "/login") {
         result = await loginUser(username, password);
       } else {
-        result = await registerUser(username, password);
+        result = await registerUser(username, password, false,'','','','','');
       }
 
       console.log("result" + result);
-      console.log(result);
 
       if (username === result.user.username) {
         console.log("logged in");

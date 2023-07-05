@@ -1,3 +1,4 @@
+import React from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -8,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import { getProductById } from '../../api/products';
 import { useParams } from 'react-router-dom';
 import { createContext, useState, useEffect } from "react";
+import Reviews from './Reviews'
 
 
 export default function ProductOverview() {
@@ -24,14 +26,14 @@ export default function ProductOverview() {
         getProduct();
     }, []);
 
-    return (
+return (
         <Grid container spacing={2}>
             <Grid xs={12} md={12}>
                 <Card sx={{ maxWidth: 345 }}>
                     <CardMedia
                         sx={{ height: 400 }}
-                        image="/ProductOverview/soccerball.jpg"
-                        title="Soccer Ball"
+                        image={`/ProductOverview/${product.name}.jpg`}
+                        title="product"
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
@@ -42,10 +44,11 @@ export default function ProductOverview() {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="small">Reviews</Button>
+                        <Reviews id={id}/>
                     </CardActions>
                 </Card>
             </Grid>
         </Grid>
     )
 }
+

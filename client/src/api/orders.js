@@ -54,7 +54,7 @@ export async function fetchOrderByStatus(status){
     }
 }
 
-export async function createOrder(user_id,cost,order_number,status){
+export async function createOrder(user_id,cost,order_number,status, address, address2, city, state, zipcode){
     try {
         const response = await fetch('/api/orders',{
             method: "POST",
@@ -65,7 +65,12 @@ export async function createOrder(user_id,cost,order_number,status){
                 user_id,
                 cost,
                 order_number,
-                status
+                status,
+                address, 
+                address2, 
+                city, 
+                state, 
+                zipcode
             })
         });
         const result = await response.json();

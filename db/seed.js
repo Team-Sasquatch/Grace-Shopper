@@ -35,6 +35,7 @@ const {
   getUser,
   getUserById,
   getUserByUsername,
+  updateAddress,
 } = require("./adapters/users");
 const {
   createReview,
@@ -71,14 +72,24 @@ async function createTables() {
       id SERIAL PRIMARY KEY,
       username  VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
-      is_admin BOOLEAN DEFAULT FALSE 
+      is_admin BOOLEAN DEFAULT FALSE,
+      address VARCHAR(255) DEFAULT '',
+      address2 VARCHAR(255) DEFAULT '',
+      city VARCHAR(255) DEFAULT '',
+      state VARCHAR(255) DEFAULT '',
+      zipcode VARCHAR(255) DEFAULT ''
     );
     CREATE TABLE orders(
       id SERIAL PRIMARY KEY,
       user_id INTEGER REFERENCES users(id),
       cost INTEGER NOT NULL,
       order_number VARCHAR(255) UNIQUE NOT NULL,
-      status VARCHAR(255) NOT NULL
+      status VARCHAR(255) NOT NULL,
+      address VARCHAR(255),
+      address2 VARCHAR(255),
+      city VARCHAR(255),
+      state VARCHAR(255),
+      zipcode VARCHAR(255)
     );
     CREATE TABLE sports(
       id SERIAL PRIMARY KEY,

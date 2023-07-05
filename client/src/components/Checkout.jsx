@@ -38,6 +38,7 @@ export default function Checkout() {
       return x.id != deletedItem.id;
     })));
     setUpdateCheckout(true);
+
   }
 
   function clearCart(){
