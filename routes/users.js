@@ -19,7 +19,16 @@ usersRouter.post("/mypost", function (req, res) {
 });
 
 usersRouter.post("/register", async (req, res, next) => {
-  const { username, password, is_admin, address, address2, city, state, zipcode } = req.body;
+  const {
+    username,
+    password,
+    is_admin,
+    address,
+    address2,
+    city,
+    state,
+    zipcode,
+  } = req.body;
   if (password.length < 8) {
     next({
       name: "PasswordError",
@@ -35,7 +44,16 @@ usersRouter.post("/register", async (req, res, next) => {
           message: "A user by that username already exists",
         });
       }
-      const user = await createUser({ username, password, is_admin, address, address2, city, state, zipcode});
+      const user = await createUser({
+        username,
+        password,
+        is_admin,
+        address,
+        address2,
+        city,
+        state,
+        zipcode,
+      });
       res.send({
         message: "Register Successful",
         user,
@@ -136,17 +154,24 @@ usersRouter.get("/:userId/orders", async (req, res, next) => {
   }
 });
 
-usersRouter.patch('/id/:id', authRequired, async(req,res,next)=>{
-  try{
+usersRouter.patch("/id/:id", authRequired, async (req, res, next) => {
+  try {
     const id = parseInt(req.params.id);
-    const {address, address2, city, state, zipcode} = req.body;
-    const user = await updateAddress({id,address, address2, city, state, zipcode});
-    if (user){
-      res.send({user})
-    };
-  } catch (error){
+    const { address, address2, city, state, zipcode } = req.body;
+    const user = await updateAddress({
+      id,
+      address,
+      address2,
+      city,
+      state,
+      zipcode,
+    });
+    if (user) {
+      res.send({ user });
+    }
+  } catch (error) {
     next(error);
   }
-})
+});
 
 module.exports = usersRouter;

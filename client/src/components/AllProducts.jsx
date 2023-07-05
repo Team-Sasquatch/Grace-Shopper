@@ -6,7 +6,6 @@ import addToCart from "../hooks/addingToCart";
 
 const AllProductsComponent = () => {
   const [products, setProduct] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     async function fetchAllProducts() {

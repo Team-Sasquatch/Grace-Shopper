@@ -22,7 +22,11 @@ const EquipmentComponent = () => {
       <div key={props.index} className="product-item">
         <Link to={`/overview/${props.equipment.id}`}>
           <div className="product-image">
-            <img src={props.equipment.thumbnail} alt="Product Thumbnail" />
+            <img
+              src={`/ProductOverview/${props.equipment.name}.jpg`}
+              style={{ "max-width": "100%", height: "100px" }}
+              alt="Product Thumbnail"
+            />
           </div>
           <h1 className="product-name">Name: {props.equipment.name}</h1>
           <p className="product-price">Price: {props.equipment.price}</p>

@@ -1,4 +1,13 @@
-export async function registerUser(username, password, is_admin, address, address2, city, state, zipcode) {
+export async function registerUser(
+  username,
+  password,
+  is_admin,
+  address,
+  address2,
+  city,
+  state,
+  zipcode
+) {
   try {
     const response = await fetch("/api/users/register", {
       method: "POST",
@@ -6,7 +15,14 @@ export async function registerUser(username, password, is_admin, address, addres
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username, password, is_admin, address, address2, city, state, zipcode,
+        username,
+        password,
+        is_admin,
+        address,
+        address2,
+        city,
+        state,
+        zipcode,
       }),
     });
     const result = await response.json();
@@ -38,9 +54,9 @@ export async function loginUser(username, password) {
 
 export async function fetchMe() {
   try {
-    const response = await fetch("/api/users/me",{
+    const response = await fetch("/api/users/me", {
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
     });
     const result = await response.json();
@@ -74,22 +90,29 @@ export async function logOut() {
   }
 }
 
-export async function changeAddress(id,address, address2, city, state, zipcode){
+export async function changeAddress(
+  id,
+  address,
+  address2,
+  city,
+  state,
+  zipcode
+) {
   try {
-    const response = await fetch(`/api/users/id/${id}`,{
+    const response = await fetch(`/api/users/id/${id}`, {
       method: "PATCH",
-      headers:{
-        'Content-Type': 'application/json'
+      headers: {
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        post:{
+        post: {
           address,
           address2,
           city,
           state,
-          zipcode
-        }
-      })
+          zipcode,
+        },
+      }),
     });
     const result = await response.json();
     return result;

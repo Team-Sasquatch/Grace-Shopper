@@ -23,7 +23,11 @@ const SupplementsComponent = () => {
       <div key={props.index} className="product-item">
         <Link to={`/overview/${props.supplement.id}`} className="product-link">
           <div className="product-image">
-            <img src={props.supplement.thumbnail} alt="Product Thumbnail" />
+            <img
+              src={`/ProductOverview/${props.supplement.name}.jpg`}
+              style={{ "max-width": "100%", height: "100px" }}
+              alt="Product Thumbnail"
+            />
           </div>
           <h1 className="product-name">Name: {props.supplement.name}</h1>
           <p className="product-price">Price: {props.supplement.price}</p>

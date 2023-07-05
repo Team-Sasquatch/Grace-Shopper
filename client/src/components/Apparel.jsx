@@ -24,7 +24,11 @@ const ApparelComponent = () => {
       <div key={props.index} className="product-item">
         <Link to={`/overview/${props.apparel.id}`} className="product-link">
           <div className="product-image">
-            <img src={props.apparel.thumbnail} alt="Product Thumbnail" />
+            <img
+              src={`/ProductOverview/${props.apparel.name}.jpg`}
+              style={{ "max-width": "100%", height: "100px" }}
+              alt="Product Thumbnail"
+            />
           </div>
           <div className="product-details">
             <h1 className="product-name">Name: {props.apparel.name}</h1>
