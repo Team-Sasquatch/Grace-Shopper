@@ -22,6 +22,9 @@ const SupplementsComponent = () => {
     return (
       <div key={props.index} className="product-item">
         <Link to={`/overview/${props.supplement.id}`} className="product-link">
+          <div className="product-image">
+            <img src={props.supplement.thumbnail} alt="Product Thumbnail" />
+          </div>
           <h1 className="product-name">Name: {props.supplement.name}</h1>
           <p className="product-price">Price: {props.supplement.price}</p>
           <p className="product-description">

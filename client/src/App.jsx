@@ -62,7 +62,9 @@ function App() {
           <button className="logout-button-link" onClick={handleLogout}>
             Logout
           </button>
-          <button className="profile-button" onClick={()=>nav("/profile")}>My Profile 🤡</button>
+          <button className="profile-button" onClick={() => nav("/profile")}>
+            My Profile 🤡
+          </button>
         </div>
       ) : (
         <LoginButton />
@@ -73,7 +75,7 @@ function App() {
 
         <Route path="/login" element={<AuthForm />} />
         <Route path="/register" element={<AuthForm />} />
-        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/profile" element={<Profile />} />
         <Route path="/sports" element={<SportsComponent />} />
         <Route path="/supplements" element={<SupplementsComponent />} />
         <Route path="/equipment" element={<EquipmentComponent />} />
