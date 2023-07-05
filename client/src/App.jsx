@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate,Navigate,Outlet } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
@@ -17,6 +17,7 @@ import ApparelComponent from "./components/Apparel";
 import useAuth from "./hooks/useAuth";
 import { logOut } from "./api/auth";
 import Profile from "./components/Profile";
+import AdminPortal from "./components/AdminPortal";
 function App() {
   const [healthMsg, setHealthMsg] = useState(null);
   const [err, setErr] = useState(null);
@@ -40,8 +41,20 @@ function App() {
     checkHealth();
   }, []);
 
+  function ProtectedComponent(props){
+    if (props.loggedIn === false){
+      return(<div>
+          <Navigate to='/login'/>
+        </div>)
+    }
+    else{
+      return(
+        <Outlet/>
+      )
+    }
+  }
+
   async function handleLogout() {
-    console.log("user test: ", user);
     await logOut();
     setUser({ username: "Guest" });
     setLoggedIn(false);
@@ -73,7 +86,6 @@ function App() {
 
         <Route path="/login" element={<AuthForm />} />
         <Route path="/register" element={<AuthForm />} />
-        <Route path="/profile" element={<Profile/>}/>
         <Route path="/sports" element={<SportsComponent />} />
         <Route path="/supplements" element={<SupplementsComponent />} />
         <Route path="/equipment" element={<EquipmentComponent />} />
@@ -81,6 +93,11 @@ function App() {
         <Route path="/overview/:id" element={<ProductOverview />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/confirmation" element={<OrderConfirmation />} />
+
+        <Route element={<ProtectedComponent loggedIn={loggedIn}/>}>
+          <Route path="/profile" element={<Profile/>}/>
+          <Route path="/admin-portal" element={<AdminPortal/>}/>
+        </Route>
       </Routes>
     </div>
   );
