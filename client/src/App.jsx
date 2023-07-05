@@ -53,6 +53,18 @@ function App() {
       )
     }
   }
+  function ProtectedAdminComponent(props){
+    if (props.loggedIn === false && (props.user.is_admin === false || props.user.is_admin === null || typeof props.user.is_admin === 'undefined')){
+      return(<div>
+          <Navigate to='/'/>
+        </div>)
+    }
+    else{
+      return(
+        <Outlet/>
+      )
+    }
+  }
 
   async function handleLogout() {
     await logOut();
@@ -96,6 +108,8 @@ function App() {
 
         <Route element={<ProtectedComponent loggedIn={loggedIn}/>}>
           <Route path="/profile" element={<Profile/>}/>
+        </Route>
+        <Route element={<ProtectedAdminComponent loggedIn={loggedIn} user={user}/>}>
           <Route path="/admin-portal" element={<AdminPortal/>}/>
         </Route>
       </Routes>
