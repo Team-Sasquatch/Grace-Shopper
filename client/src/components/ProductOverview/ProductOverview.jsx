@@ -9,7 +9,7 @@ import { getProductById } from "../../api/products";
 import { useParams } from "react-router-dom";
 import { createContext, useState, useEffect } from "react";
 import Reviews from "./Reviews";
-import "./ProductOverview.css";
+import "./productOverview.css";
 
 export default function ProductOverview() {
   const [product, setProduct] = useState({});
