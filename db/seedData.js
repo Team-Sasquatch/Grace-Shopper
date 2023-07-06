@@ -1,8 +1,8 @@
 // Create some seed data and export it from this file
 
 const users = [
-  { username: "test1", password: 12345678,is_admin:false},
-  { username: "test2", password: 12345678, is_admin:false},
+  { username: "test1", password: 12345678, is_admin: false },
+  { username: "test2", password: 12345678, is_admin: false },
   { username: "admin", password: 12345678, is_admin: true },
 ];
 
@@ -21,9 +21,18 @@ const sports = [
 
 const products = [
   {
-    name: "supplement1",
-    price: "1",
-    description: "gets you jacked",
+    name: "Protein Supplement",
+    price: "15",
+    description: "prime protein for the prime Sasquatch",
+    sport_id: null,
+    category: "supplement",
+    flavor: "strawberry",
+  },
+
+  {
+    name: "Protein Supplement",
+    price: "31",
+    description: "prime protein for the prime Sasquatch",
     sport_id: null,
     category: "supplement",
     flavor: "strawberry",

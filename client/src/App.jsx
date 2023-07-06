@@ -11,11 +11,13 @@ import AllProductsComponent from "./components/AllProducts";
 import ProductOverview from "./components/ProductOverview/ProductOverview";
 import Checkout from "./components/Checkout";
 import OrderConfirmation from "./components/OrderConfirmation";
+import OrderFulfillment from "./components/OrderFulfillment";
 import CheckoutButton from "./components/CheckoutButton";
 import EquipmentComponent from "./components/Equipment";
 import ApparelComponent from "./components/Apparel";
 import useAuth from "./hooks/useAuth";
 import { logOut } from "./api/auth";
+import PaymentDetail from "./components/ShipAndPay";
 function App() {
   const [healthMsg, setHealthMsg] = useState(null);
   const [err, setErr] = useState(null);
@@ -77,6 +79,8 @@ function App() {
         <Route path="/overview/:id" element={<ProductOverview />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/confirmation" element={<OrderConfirmation />} />
+        <Route path="/payment" element={<PaymentDetail />} />
+        <Route path="/ThankYou" element={<OrderFulfillment />} />
       </Routes>
     </div>
   );
