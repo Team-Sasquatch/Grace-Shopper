@@ -1,50 +1,62 @@
-const {client} = require("../client");
+const { client } = require("../client");
 
-async function createSport({name,description}){
-    try {
-        const {rows: [sport]}= await client.query(`
+async function createSport({ name, description }) {
+  const {
+    rows: [sport],
+  } = await client.query(
+    `
             INSERT INTO sports(name,description)
             VALUES($1,$2)
             ON CONFLICT (name) DO NOTHING
             RETURNING *;
-        `,[name,description]);
-        return sport;
-    } catch (error) {
-        console.error('Error creating sport');
-        throw error;
-    }
+        `,
+    [name, description]
+  );
+  return sport;
 }
 
-async function getSportById(sportId){
-    try {
-        const {rows:[sport]} = await client.query(`
+module.exports.SportNotFoundError = class SportNotFoundError extends Error {};
+// catch (error) { if (error instanceof SportNotFoundError) /** special case handling */ }
+
+async function getSportById(sportId) {
+  try {
+    const {
+      rows: [sport],
+    } = await client.query(
+      `
             SELECT *
             FROM sports
             WHERE id=$1;
-        `,[sportId])
+        `,
+      [sportId]
+    );
 
-        if(!sport){
-            throw{
-                name:"SportNotFoundError",
-                message:"Could not find sport with that sportId"
-            };
-        }
-        const {rows:products} = await client.query(`
+    if (!sport) {
+      throw new SportNotFoundError(`Could not find sport with id ${sportId}`);
+      //   throw {
+      //     name: "SportNotFoundError",
+      //     message: "Could not find sport with that sportId",
+      //   };
+    }
+    const { rows: products } = await client.query(
+      `
             SELECT products.*
             FROM products
             WHERE products.sport_id=$1;
-        `,[sportId])
-        sport.products = products;
-        return sport
-    } catch (error) {
-        console.error('Error getting sport');
-        throw error;
-    }
+        `,
+      [sportId]
+    );
+    sport.products = products;
+    return sport;
+  } catch (error) {
+    console.error("Error getting sport");
+    throw error;
+  }
 }
 
-async function getAllSports(){
-    try {
-        const {rows:sport} = await client.query(`
+async function getAllSports() {
+  try {
+    const { rows: sport } = await client.query(`
             SELECT
                 sports.id as id,
                 sports.name as name,
@@ -64,45 +76,63 @@ async function getAllSports(){
             LEFT JOIN products ON sports.id = products.sport_id
             GROUP BY sports.id, products.sport_id;
         `);
-        return sport;
-    } catch (error) {
-        console.error('Error getting all sports');
-        throw error;
-    }
+    return sport;
+  } catch (error) {
+    console.error("Error getting all sports");
+    throw error;
+  }
 }
 
-async function updateSport(sportId,name,description){
-    const setString = Object.keys({name,description}).map((key,index)=>`"${key}"=$${index+1}`).join(', ');
-    if (setString.length == 0){
-        return;
-    }
-    try {
-        const {rows:[sport]} = await client.query(`
+async function updateSport(sportId, name, description) {
+  const setString = Object.keys({ name, description })
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+  if (setString.length == 0) {
+    return;
+  }
+  try {
+    const {
+      rows: [sport],
+    } = await client.query(
+      `
             UPDATE sports
             SET ${setString}
             WHERE id=${sportId}
             RETURNING *;
-        `,Object.values({name,description}));
-        return sport;
-    } catch (error) {
-        console.error('Error updating sport');
-        throw error;
-    }
+        `,
+      Object.values({ name, description })
+    );
+    return sport;
+  } catch (error) {
+    console.error("Error updating sport");
+    throw error;
+  }
 }
 
-async function destroySport(sportId){
-    try {
-        const {rows:[sport]} = await client.query(`
+async function destroySport(sportId) {
+  try {
+    const {
+      rows: [sport],
+    } = await client.query(
+      `
             DELETE
             FROM sports
             WHERE sports.id = $1
             RETURNING *;
-        `,[sportId]);
-        return sport;
-    } catch (error) {
-        console.error('Error destroying sport');
-        throw error;
-    }
+        `,
+      [sportId]
+    );
+    return sport;
+  } catch (error) {
+    console.error("Error destroying sport");
+    throw error;
+  }
 }
 
-module.exports={destroySport,updateSport,getAllSports,getSportById,createSport};
+module.exports = {
+  destroySport,
+  updateSport,
+  getAllSports,
+  getSportById,
+  createSport,
+};

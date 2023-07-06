@@ -55,6 +55,8 @@ usersRouter.post("/register", async (req, res, next) => {
         state,
         zipcode,
       });
+
+      // create token send a cookie
       res.send({
         message: "Register Successful",
         user,
@@ -122,6 +124,7 @@ usersRouter.get("/id/:userId", async (req, res, next) => {
 usersRouter.get("/me", authRequired, async (req, res, next) => {
   try {
     res.send(req.user);
+    // pull id out of req.user and query db
   } catch (error) {
     next(error);
   }

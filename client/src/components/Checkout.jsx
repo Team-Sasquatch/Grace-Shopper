@@ -27,6 +27,7 @@ export default function Checkout() {
     }
     fetchCart();
   }, [updateCheckout]);
+
   function contCheckout() {
     localStorage.setItem("shoppingCart", JSON.stringify(retrievedCart));
     nav("/confirmation");
