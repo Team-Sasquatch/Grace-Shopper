@@ -9,6 +9,7 @@ const {
   updateAddress,
 } = require("../db/adapters/users");
 const { getAllOrdersByUserId } = require("../db/adapters/orders");
+const { users } = require("../db/seedData");
 
 usersRouter.get("/users", (req, res) => {
   res.send("This is the users page!");

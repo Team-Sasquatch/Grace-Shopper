@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import getAllProducts from "../api/products";
-// import { Link, useNavigate } from "react-router-dom";
+import getAllProducts from "../api/products";
+import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
 
 export default function Confirmation() {
@@ -32,6 +32,7 @@ function submitForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     alert("You have submitted the form.");
+    git;
   };
 
   return (
@@ -64,7 +65,9 @@ function submitForm() {
             <input zip="zip" />
           </label>
         </fieldset>
-        <button type="submit">Submit</button>
+        <Link to="/payment">
+          <button className="nav-link">Submit Details</button>
+        </Link>
       </form>
     </div>
   );
