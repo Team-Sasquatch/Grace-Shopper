@@ -29,7 +29,7 @@ const EquipmentComponent = () => {
             />
           </div>
           <h1 className="product-name">Name: {props.equipment.name}</h1>
-          <p className="product-price">Price: {props.equipment.price}</p>
+          <p className="product-price">$ {props.equipment.price}</p>
           <p className="product-description">
             Description: {props.equipment.description}
           </p>

@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import "./Nav.css";
 
 const Nav = () => {
   const navigate = useNavigate();

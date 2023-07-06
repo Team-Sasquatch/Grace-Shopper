@@ -30,43 +30,29 @@ input:focus {
   background: rgb(82, 161, 161);
 }
 
-.show-hide {
+/* .show-hide {
   width: 100%;
   text-align: right;
   font-size: 12px;
   color: #9c9c9c;
   margin-top: -1rem;
   transition: all 0.15s ease;
-}
+} */
 
-.show-hide:hover {
+/* .show-hide:hover {
   cursor: hand;
   color: #d8d8d8;
-}
+} */
 
 /* *************************** */
-body {
-  background-color: #e5e5e5;
-}
-nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  /* position: sticky; */
-  top: 0;
-  left: 0;
-  min-width: 100vw;
-  background-color: rgb(105, 197, 197);
-  padding: 10px 20px 10px 20px;
-}
+
+
 
 form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   max-width: 600px;
-
   padding: 20px;
   align-items: center;
   margin: 0 auto;
