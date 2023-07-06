@@ -22,7 +22,10 @@ const AllProductsComponent = () => {
     return (
       <div key={props.index} className="product-item">
         <Link to={`/overview/${props.product.id}`}>
-          <img src={`/ProductOverview/${props.product.name}.jpg`} style={{ 'max-width': '100%', 'height': '100px' }}/>
+          <img
+            src={`/ProductOverview/${props.product.name}.jpg`}
+            style={{ "max-width": "100%", height: "100px" }}
+          />
           <h1 className="product-name">{props.product.name}</h1>
           <h2 className="product-price">Price: $ {props.product.price}</h2>
           <p className="product-description">
@@ -57,8 +60,6 @@ const AllProductsComponent = () => {
         >
           Add to Cart
         </button>
-
-
       </div>
     );
   }

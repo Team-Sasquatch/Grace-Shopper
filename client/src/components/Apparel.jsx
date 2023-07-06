@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { getProductsByApparel } from "../api/products";
 import addToCart from "../hooks/addingToCart";
+import { Link } from "react-router-dom";
+import CheckoutButton from "./CheckoutButton";
 
 const ApparelComponent = () => {
   const [apparel, setApparel] = useState([]);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     async function fetchApparel() {
@@ -19,12 +22,22 @@ const ApparelComponent = () => {
     var qty = props.quantity;
     return (
       <div key={props.index} className="product-item">
-        <h1 className="product-name">Name: {props.apparel.name}</h1>
-        <p className="product-price">Price: {props.apparel.price}</p>
-        <p className="product-description">
-          Description: {props.apparel.description}
-        </p>
-
+        <Link to={`/overview/${props.apparel.id}`} className="product-link">
+          <div className="product-image">
+            <img
+              src={`/ProductOverview/${props.apparel.name}.jpg`}
+              style={{ "max-width": "100%", height: "100px" }}
+              alt="Product Thumbnail"
+            />
+          </div>
+          <div className="product-details">
+            <h1 className="product-name">Name: {props.apparel.name}</h1>
+            <p className="product-price">Price: {props.apparel.price}</p>
+            <p className="product-description">
+              Description: {props.apparel.description}
+            </p>
+          </div>
+        </Link>
         <p>
           Quantity:{" "}
           <input
@@ -45,6 +58,7 @@ const ApparelComponent = () => {
               name: props.apparel.name,
               quantity: qty,
             });
+            setCartCount(cartCount + qty);
           }}
           className="add-to-cart-button"
         >
@@ -54,12 +68,12 @@ const ApparelComponent = () => {
     );
   }
 
-  function addToCart(cartObj) {
-    console.log("cartObject: ", cartObj);
-    let obj = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-    obj.push(cartObj);
-    localStorage.setItem("shoppingCart", JSON.stringify(obj));
-  }
+  // function addToCart(cartObj) {
+  //   console.log("cartObject: ", cartObj);
+  //   let obj = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+  //   obj.push(cartObj);
+  //   localStorage.setItem("shoppingCart", JSON.stringify(obj));
+  // }
 
   return (
     <div className="products-container">
