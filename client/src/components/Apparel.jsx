@@ -32,7 +32,7 @@ const ApparelComponent = () => {
           </div>
           <div className="product-details">
             <h1 className="product-name">Name: {props.apparel.name}</h1>
-            <p className="product-price">Price: {props.apparel.price}</p>
+            <p className="product-price">$ {props.apparel.price}</p>
             <p className="product-description">
               Description: {props.apparel.description}
             </p>

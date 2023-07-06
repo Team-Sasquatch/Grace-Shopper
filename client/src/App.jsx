@@ -63,10 +63,7 @@ function App() {
           <button className="logout-button-link" onClick={handleLogout}>
             Logout
           </button>
-          <button
-            className="profile-button"
-            onClick={() => navigate("/profile")}
-          >
+          <button className="profile-button" onClick={() => nav("/profile")}>
             My Profile 🤡
           </button>
         </div>

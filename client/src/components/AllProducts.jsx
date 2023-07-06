@@ -24,42 +24,45 @@ const AllProductsComponent = () => {
         <Link to={`/overview/${props.product.id}`}>
           <img
             src={`/ProductOverview/${props.product.name}.jpg`}
-            style={{ "max-width": "100%", height: "100px" }}
+            style={{ maxWidth: "100%", height: "100px" }}
           />
-          <h1 className="product-name">{props.product.name}</h1>
-          <h2 className="product-price">Price: $ {props.product.price}</h2>
-          <p className="product-description">
-            Description: {props.product.description}
-          </p>
+          <div className="product-details">
+            <h1 className="product-name">{props.product.name}</h1>
+            <p className="product-price"> $ {props.product.price}</p>
+            <p className="product-description">
+              Description: {props.product.description}
+            </p>
+          </div>
         </Link>
 
-        <p>
-          Quantity:{" "}
-          <input
-            // type="text"
-            type="number"
-            min="0"
-            max="9"
-            name="quantity"
-            defaultValue={props.quantity}
-            onChange={(e) => {
-              e.target.value, (prodQty = parseInt(e.target.value));
+        <div className="product-quantity">
+          <p>
+            Quantity:{" "}
+            <input
+              type="number"
+              min="0"
+              max="9"
+              name="quantity"
+              defaultValue={props.quantity}
+              onChange={(e) => {
+                e.target.value, (prodQty = parseInt(e.target.value));
+              }}
+            />
+          </p>
+          <button
+            onClick={() => {
+              addToCart({
+                id: props.product.id,
+                name: props.product.name,
+                quantity: prodQty,
+                price: props.product.price,
+              });
             }}
-          />
-        </p>
-        <button
-          onClick={() => {
-            addToCart({
-              id: props.product.id,
-              name: props.product.name,
-              quantity: prodQty,
-              price: props.product.price,
-            });
-          }}
-          className="add-to-cart-button"
-        >
-          Add to Cart
-        </button>
+            className="add-to-cart-button"
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
     );
   }

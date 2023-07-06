@@ -10,7 +10,7 @@ const CheckoutButton = ({ totalItems }) => {
     <div className="checkout-button">
       <Link to="/checkout" className="checkout-button-link">
         <img src={ShoppingCartIcon} className="cart-icon" />
-        Cart ({totalItems})
+        Cart {totalItems}
       </Link>
     </div>
   );

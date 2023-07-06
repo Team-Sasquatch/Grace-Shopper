@@ -30,7 +30,7 @@ const SupplementsComponent = () => {
             />
           </div>
           <h1 className="product-name">Name: {props.supplement.name}</h1>
-          <p className="product-price">Price: {props.supplement.price}</p>
+          <p className="product-price">${props.supplement.price}</p>
           <p className="product-description">
             Description: {props.supplement.description}
           </p>
