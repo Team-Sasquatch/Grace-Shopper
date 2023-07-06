@@ -55,10 +55,26 @@ usersRouter.post("/register", async (req, res, next) => {
         state,
         zipcode,
       });
-      res.send({
-        message: "Register Successful",
-        user,
-      });
+      if (user){
+        const token = jwt.sign(user, process.env.JWT_SECRET, {
+          expiresIn: "2w",
+        });
+        res.cookie("token", token, {
+          sameSite: "strict",
+          httpOnly: true,
+          signed: true,
+        });
+        res.send({
+          message: "Register Successful",
+          user,
+        });
+      } else{
+        next({
+          name: 'RegisterIssue',
+          message: 'Issue registering user'
+        });
+    }
+      
     } catch (error) {
       next(error);
     }
@@ -121,7 +137,8 @@ usersRouter.get("/id/:userId", async (req, res, next) => {
 
 usersRouter.get("/me", authRequired, async (req, res, next) => {
   try {
-    res.send(req.user);
+    const user = await getUserById(req.user.id);
+    res.send(user);
   } catch (error) {
     next(error);
   }
