@@ -1,4 +1,13 @@
-export async function registerUser(username, password) {
+export async function registerUser(
+  username,
+  password,
+  is_admin,
+  address,
+  address2,
+  city,
+  state,
+  zipcode
+) {
   try {
     const response = await fetch("/api/users/register", {
       method: "POST",
@@ -8,6 +17,12 @@ export async function registerUser(username, password) {
       body: JSON.stringify({
         username,
         password,
+        is_admin,
+        address,
+        address2,
+        city,
+        state,
+        zipcode,
       }),
     });
     const result = await response.json();
@@ -39,9 +54,9 @@ export async function loginUser(username, password) {
 
 export async function fetchMe() {
   try {
-    const response = await fetch("/api/users/me",{
+    const response = await fetch("/api/users/me", {
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
     });
     const result = await response.json();
@@ -51,9 +66,9 @@ export async function fetchMe() {
   }
 }
 
-export async function fetchUser(username) {
+export async function fetchUser(id) {
   try {
-    const response = await fetch("/api/users/id/${username}", {
+    const response = await fetch(`/api/users/id/${id}`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -68,6 +83,37 @@ export async function fetchUser(username) {
 export async function logOut() {
   try {
     const response = await fetch("/api/users/logout");
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function changeAddress(
+  id,
+  address,
+  address2,
+  city,
+  state,
+  zipcode
+) {
+  try {
+    const response = await fetch(`/api/users/id/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        post: {
+          address,
+          address2,
+          city,
+          state,
+          zipcode,
+        },
+      }),
+    });
     const result = await response.json();
     return result;
   } catch (error) {

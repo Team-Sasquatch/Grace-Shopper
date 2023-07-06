@@ -75,10 +75,10 @@ ordersRouter.get('/status/:status', async (req, res, next) => {
 // POST /orders - Create a new order
 ordersRouter.post('/', async (req, res, next) => {
     try {
-        const { user_id, cost, order_number, status } = req.body;
+        const { user_id, cost, order_number, status, address, address2, city, state, zipcode } = req.body;
         // Assuming the request body contains the necessary order information
 
-        const createdOrder = await createOrder({ user_id, cost, order_number, status })
+        const createdOrder = await createOrder({ user_id, cost, order_number, status, address, address2, city, state, zipcode})
 
         res.status(201).json({
             success: true,

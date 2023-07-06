@@ -6,8 +6,10 @@ const {
   getUser,
   getUserById,
   getUserByUsername,
+  updateAddress,
 } = require("../db/adapters/users");
 const { getAllOrdersByUserId } = require("../db/adapters/orders");
+const { users } = require("../db/seedData");
 
 usersRouter.get("/users", (req, res) => {
   res.send("This is the users page!");
@@ -18,7 +20,16 @@ usersRouter.post("/mypost", function (req, res) {
 });
 
 usersRouter.post("/register", async (req, res, next) => {
-  const { username, password, is_admin } = req.body;
+  const {
+    username,
+    password,
+    is_admin,
+    address,
+    address2,
+    city,
+    state,
+    zipcode,
+  } = req.body;
   if (password.length < 8) {
     next({
       name: "PasswordError",
@@ -34,7 +45,16 @@ usersRouter.post("/register", async (req, res, next) => {
           message: "A user by that username already exists",
         });
       }
-      const user = await createUser({ username, password, is_admin });
+      const user = await createUser({
+        username,
+        password,
+        is_admin,
+        address,
+        address2,
+        city,
+        state,
+        zipcode,
+      });
       res.send({
         message: "Register Successful",
         user,
@@ -130,6 +150,26 @@ usersRouter.get("/:userId/orders", async (req, res, next) => {
     res.send({
       orders,
     });
+  } catch (error) {
+    next(error);
+  }
+});
+
+usersRouter.patch("/id/:id", authRequired, async (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id);
+    const { address, address2, city, state, zipcode } = req.body;
+    const user = await updateAddress({
+      id,
+      address,
+      address2,
+      city,
+      state,
+      zipcode,
+    });
+    if (user) {
+      res.send({ user });
+    }
   } catch (error) {
     next(error);
   }

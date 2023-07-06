@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getProductById } from "../api/products";
 
 export default function Checkout() {
@@ -9,17 +9,19 @@ export default function Checkout() {
   const [updateCheckout, setUpdateCheckout] = useState(false);
   const nav = useNavigate();
   useEffect(() => {
-    async function fetchCart(){
+    async function fetchCart() {
       let tempCart = JSON.parse(localStorage.getItem("shoppingCart"));
-      if (localStorage.getItem("shoppingCart")!==null && tempCart.length>0){
-        for (let i=0;i<tempCart.length;i++){
+      if (
+        localStorage.getItem("shoppingCart") !== null &&
+        tempCart.length > 0
+      ) {
+        for (let i = 0; i < tempCart.length; i++) {
           const tempProdGet = await getProductById(tempCart[i].id);
-          if (tempProdGet)
-            tempCart[i].price = tempProdGet.price;
+          if (tempProdGet) tempCart[i].price = tempProdGet.price;
         }
       }
       setRetrievedCart(tempCart);
-      if (updateCheckout){
+      if (updateCheckout) {
         setUpdateCheckout(false);
       }
     }
@@ -29,18 +31,25 @@ export default function Checkout() {
     localStorage.setItem("shoppingCart", JSON.stringify(retrievedCart));
     nav("/confirmation");
   }
-  
-  function deleteItem(deletedItem){
-    setRetrievedCart(retrievedCart.filter((x) => {
-      return x.id != deletedItem.id;
-    }));
-    localStorage.setItem("shoppingCart", JSON.stringify(retrievedCart.filter((x) => {
-      return x.id != deletedItem.id;
-    })));
+
+  function deleteItem(deletedItem) {
+    setRetrievedCart(
+      retrievedCart.filter((x) => {
+        return x.id != deletedItem.id;
+      })
+    );
+    localStorage.setItem(
+      "shoppingCart",
+      JSON.stringify(
+        retrievedCart.filter((x) => {
+          return x.id != deletedItem.id;
+        })
+      )
+    );
     setUpdateCheckout(true);
   }
 
-  function clearCart(){
+  function clearCart() {
     localStorage.removeItem("shoppingCart");
     setUpdateCheckout(true);
   }
@@ -50,9 +59,9 @@ export default function Checkout() {
       {retrievedCart ? (
         <div>
           <button onClick={() => contCheckout()}>Checkout</button>
-          <button onClick={()=> clearCart()}>Clear Cart</button>
+          <button onClick={() => clearCart()}>Clear Cart</button>
           <div>
-            {retrievedCart.map((prod,index) => {
+            {retrievedCart.map((prod, index) => {
               return (
                 <div key={prod.id}>
                   <p>Product: {prod.name}</p>
@@ -70,7 +79,13 @@ export default function Checkout() {
                       }}
                     />
                   </p>
-                  <button onClick={()=>{deleteItem(prod)}}>Remove</button>
+                  <button
+                    onClick={() => {
+                      deleteItem(prod);
+                    }}
+                  >
+                    Remove
+                  </button>
                 </div>
               );
             })}
@@ -82,9 +97,8 @@ export default function Checkout() {
         </div>
       )}
       <p>
-        Ready to
-        <Link className="nav-link" to="/confirmation">
-          checkout
+        <Link to="/confirmation">
+          <button className="nav-link"> Time to CHECKOUT </button>
         </Link>
       </p>
     </div>

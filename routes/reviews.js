@@ -3,6 +3,7 @@ const reviewsRouter = express.Router();
 const {createReview, getAllReviews, getReviewById,updateReview,destroyReview, getReviewsByProductId,getReviewsByUserId} = require("../db/adapters/reviews");
 const { authRequired } = require('./authRoute');
 const { reviews } = require('../db/seedData');
+const jwt = require("jsonwebtoken");
 
 reviewsRouter.get('/',async(req,res,next)=>{
     try {
@@ -40,10 +41,12 @@ reviewsRouter.get('/user/:id',async(req,res,next)=>{
     }
 });
 
-reviewsRouter.post('/',async(req,res,next)=>{
+reviewsRouter.post('/', authRequired, async(req,res,next)=>{
     try {
-        const {product_id,user_id,rating,comment,edited} = req.body;
-        const createdReview = await createReview({product_id,user_id,rating,comment,edited});
+        const token = req.signedCookies.token;
+        let user = jwt.verify(token,process.env.JWT_SECRET);
+        const {product_id, rating, comment, edited} = req.body;
+        const createdReview = await createReview({product_id,user_id: user.id,rating,comment,edited});
         res.send(createdReview);
     } catch (error) {
         next(error);
