@@ -1,8 +1,9 @@
 import { useState,useEffect } from "react";
 import useAuth from "../hooks/useAuth";
-import { registerUser } from "../api/auth";
+import { registerAdmin } from "../api/auth";
 
 export default function AdminPortal(){
+    const {user}=useAuth();
     const [newUsername, setNewUsername]=useState('');
     const [newPassword, setNewPassword]=useState('');
 
@@ -10,8 +11,12 @@ export default function AdminPortal(){
     async function handleCreateAdmin(e){
         e.preventDefault();
         try {
-            const result = await registerUser(newUsername, newPassword, true, '','','','','');
-            console.log('creating admin result',result);
+            if (user.is_admin){
+                const result = await registerAdmin(newUsername, newPassword, true, '','','','','');
+                console.log('creating admin result',result);
+                setNewUsername('');
+                setNewPassword('');
+            }
         } catch (error) {
             console.error('Error creating admin',error);
         }

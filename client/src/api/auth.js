@@ -1,7 +1,6 @@
 export async function registerUser(
   username,
   password,
-  is_admin,
   address,
   address2,
   city,
@@ -10,6 +9,31 @@ export async function registerUser(
 ) {
   try {
     const response = await fetch("/api/users/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+        address,
+        address2,
+        city,
+        state,
+        zipcode,
+      }),
+    });
+    const result = await response.json();
+    console.log("my result:", result);
+    return result;
+  } catch (error) {
+    console.log("Error with registration: ", error);
+  }
+}
+
+export async function registerAdmin(username,password,is_admin,address,address2,city,state,zipcode){
+  try {
+    const response = await fetch("/api/users/register_admin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +53,7 @@ export async function registerUser(
     console.log("my result:", result);
     return result;
   } catch (error) {
-    console.log("Error with registration: ", error);
+    console.log("Error with registering admin ", error);
   }
 }
 

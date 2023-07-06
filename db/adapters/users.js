@@ -2,16 +2,32 @@ const {client} = require("../client");
 const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 10;
 
-async function createUser({ username, password, is_admin, address, address2, city, state, zipcode}) {
+async function createUser({ username, password, address, address2, city, state, zipcode}) {
   try {
     const hashedPassword = await bcrypt.hash(password.toString(), SALT_ROUNDS);
     delete password;
     const { rows: [user] } = await client.query(
-      `INSERT INTO users(username, password, is_admin, address, address2, city, state, zipcode)
+      `INSERT INTO users(username, password, address, address2, city, state, zipcode)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        ON CONFLICT (username) DO NOTHING
+        RETURNING *;`,
+      [username, hashedPassword, address, address2, city, state, zipcode]
+    );
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+async function createAdmin({ username, password,is_admin, address, address2, city, state, zipcode}) {
+  try {
+    const hashedPassword = await bcrypt.hash(password.toString(), SALT_ROUNDS);
+    delete password;
+    const { rows: [user] } = await client.query(
+      `INSERT INTO users(username, password,is_admin, address, address2, city, state, zipcode)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         ON CONFLICT (username) DO NOTHING
         RETURNING *;`,
-      [username, hashedPassword, is_admin, address, address2, city, state, zipcode]
+      [username, hashedPassword,is_admin, address, address2, city, state, zipcode]
     );
     return user;
   } catch (error) {
@@ -90,4 +106,4 @@ async function updateAddress({id, address, address2, city, state, zipcode}){
 }
 
 
-module.exports = {createUser, getUser, getUserById, getUserByUsername, updateAddress}
+module.exports = {createUser,createAdmin, getUser, getUserById, getUserByUsername, updateAddress}
