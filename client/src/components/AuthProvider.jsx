@@ -12,7 +12,7 @@ const AuthProvider = ({ children }) => {
       try {
         const apiResponse = await fetchMe();
         console.log("apiResponse: ",apiResponse)
-        if (apiResponse.loggedIn === true) {
+        if (apiResponse.loggedIn) {
           setUser(apiResponse);
           setLoggedIn(true);
         } else {
