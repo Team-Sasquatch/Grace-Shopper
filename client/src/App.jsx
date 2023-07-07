@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate,Navigate,Outlet } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home";
-import Nav from "./components/Nav";
+import Nav from "./components/Nav/Nav";
 import LoginButton from "./components/LoginButton";
 import AuthForm from "./components/AuthForm";
 import SportsComponent from "./components/Sports";
