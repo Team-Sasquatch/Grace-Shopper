@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../App.css";
+import "../../App.css";
 
 export default function OrderFulfillment() {
   const [num, setNum] = useState(0);
