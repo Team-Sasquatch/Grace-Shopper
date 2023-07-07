@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate,Navigate,Outlet } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home";
 import Nav from "./components/Nav/Nav";
-import LoginButton from "./components/LoginButton";
+import LoginButton from "./components/Auth/LoginButton";
 import AuthForm from "./components/Auth/AuthForm";
 import SportsComponent from "./components/Sports";
 import SupplementsComponent from "./components/Supplements";
