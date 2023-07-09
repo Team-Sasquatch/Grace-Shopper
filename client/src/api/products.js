@@ -51,3 +51,26 @@ export async function getProductById(id) {
     console.error(error);
   }
 }
+
+export async function postProduct(name,sport_id,price,description,category,flavor){
+  try {
+    const response = await fetch("/api/products/",{
+      method: "POST",
+      headers:{
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        sport_id,
+        price,
+        description,
+        category,
+        flavor,
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
