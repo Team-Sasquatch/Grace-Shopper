@@ -58,7 +58,11 @@ export default function Checkout() {
     <div>
       {retrievedCart ? (
         <div>
-          <button onClick={() => contCheckout()}>Checkout</button>
+          <p>
+            <Link to="/confirmation">
+              <button className="nav-link" onClick={() => contCheckout()}> Time to CHECKOUT </button>
+            </Link>
+          </p>
           <button onClick={() => clearCart()}>Clear Cart</button>
           <div>
             {retrievedCart.map((prod, index) => {
@@ -96,11 +100,6 @@ export default function Checkout() {
           <p> Your cart is empty.</p>
         </div>
       )}
-      <p>
-        <Link to="/confirmation">
-          <button className="nav-link"> Time to CHECKOUT </button>
-        </Link>
-      </p>
     </div>
   );
 }

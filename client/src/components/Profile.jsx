@@ -50,7 +50,7 @@ export default function Profile(){
             {user.is_admin === true
             ?
             <div>
-                <button onClick={()=>nav("/admin-portal")}>Admin Portal</button>
+                <button onClick={()=>nav("/admin-users")}>Admin Portal</button>
             </div>
             :
             <div/>
