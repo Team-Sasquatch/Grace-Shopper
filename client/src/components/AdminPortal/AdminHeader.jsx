@@ -9,7 +9,7 @@ export default function AdminHeader(){
             <div>
                 <button onClick={()=>nav("/admin-users")}>Admin User</button>
                 <button onClick={()=>nav("/admin-products")}>Create Product</button>
-                <button>Create Sport</button>
+                <button onClick={()=>nav("/admin-sports")}>Create Sport</button>
             </div>
         </div>
     )

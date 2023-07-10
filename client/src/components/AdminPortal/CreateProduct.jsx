@@ -1,5 +1,5 @@
 import { postProduct } from "../../api/products";
-import getSports from "../../api/sportsAPI";
+import {getSports} from "../../api/sportsAPI";
 import useAuth from "../../hooks/useAuth";
 import AdminHeader from "./AdminHeader";
 import { useState,useEffect } from "react";
@@ -20,7 +20,6 @@ export default function CreateProduct(){
         async function getProdInfo(){
             const sports = await getSports();
             setSportList(sports.sports);
-            console.log(sportList);
         }
         if (submitted){
             setProductName('');
@@ -29,6 +28,8 @@ export default function CreateProduct(){
             setSubmitted(false);
             setProductCategory('');
             setProductFlavor('');
+            const elem = document.getElementById("sport_select");
+            elem.value="none";
         }
         getProdInfo();
     },[submitted]);
@@ -41,13 +42,12 @@ export default function CreateProduct(){
                 if (sportId==='none'){
                     sportId = null;
                 }
-                console.log('flav',productFlavor)
                 const result = await postProduct(productName,sportId,productPrice,productDescription,productCategory,productFlavor);
                 console.log('result of submission:',result)
                 setSubmitted(true);
             }
         } catch (error) {
-            console.error('Error creating admin',error);
+            console.error('Error creating product',error);
         }
     }
 
@@ -67,7 +67,7 @@ export default function CreateProduct(){
                 </select></p>
                 <p>Category: <input type='text' value={productCategory} onChange={(e)=>setProductCategory(e.target.value)}/></p>
                 <p>Flavor: <input type='text' value={productFlavor} onChange={(e)=>setProductFlavor(e.target.value)}/></p>
-                <button>Create Button</button>
+                <button>Create Product</button>
             </form>
         </div>
     )
