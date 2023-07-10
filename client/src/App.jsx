@@ -22,6 +22,7 @@ import Profile from "./components/Profile";
 import CreateAdmin from "./components/AdminPortal/CreateAdmin";
 import CreateProduct from "./components/AdminPortal/CreateProduct";
 import CreateSport from "./components/AdminPortal/CreateSport";
+import SportProducts from "./components/SportProducts";
 
 function App() {
   const [healthMsg, setHealthMsg] = useState(null);
@@ -109,6 +110,7 @@ function App() {
         <Route path="/register" element={<AuthForm />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/sports" element={<SportsComponent />} />
+        <Route path="/sport_product/:sportId" element={<SportProducts />} />
         <Route path="/supplements" element={<SupplementsComponent />} />
         <Route path="/equipment" element={<EquipmentComponent />} />
         <Route path="/apparel" element={<ApparelComponent />} />

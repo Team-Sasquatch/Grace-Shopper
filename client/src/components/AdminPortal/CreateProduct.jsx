@@ -37,7 +37,7 @@ export default function CreateProduct(){
     async function handleCreateProduct(e){
         e.preventDefault();
         try {
-            if (user.is_admin){
+            if (user.is_admin && productName!==""){
                 let sportId = document.getElementById("sport_select").value;
                 if (sportId==='none'){
                     sportId = null;

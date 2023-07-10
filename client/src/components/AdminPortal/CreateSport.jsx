@@ -20,7 +20,7 @@ export default function CreateSport(){
     async function handleCreateSport(e){
         e.preventDefault();
         try {
-            if (user.is_admin){
+            if (user.is_admin && sportName!==""){
                 const result = await createSport(sportName,sportDesc);
                 console.log('result',result)
                 setSubmitted(true);

@@ -20,7 +20,7 @@ const SportsComponent = () => {
     return (
       <div>
         <div key={props.idx} className="product-item">
-          <Link to={`/overview/${props.sporty.id}`}>
+          <Link to={`/sport_product/${props.sporty.id}`}>
             <h1 className="product-name">Name: {props.sporty.name}</h1>
             <p className="product-description">
               Description: {props.sporty.description}

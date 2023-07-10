@@ -52,6 +52,16 @@ export async function getProductById(id) {
   }
 }
 
+export async function getProductBySport(sportId) {
+  try {
+    const response = await fetch(`/api/products/product_sport/${sportId}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export async function postProduct(name,sport_id,price,description,category,flavor){
   try {
     const response = await fetch("/api/products/",{

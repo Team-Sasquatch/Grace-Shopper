@@ -53,6 +53,18 @@ async function getProductById(id) {
   return rows;
 }
 
+async function getProductBySport(sport_id) {
+  const { rows } = await client.query(
+    `
+    SELECT * FROM products
+    WHERE sport_id = $1
+    `,
+    [sport_id]
+  );
+  return rows;
+}
+
+
 async function getProductsByUser(username) {
   const { rows } = await client.query(
     `
@@ -111,4 +123,5 @@ module.exports = {
   getProductById,
   getProductsByUser,
   updateProduct,
+  getProductBySport,
 };

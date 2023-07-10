@@ -5,6 +5,7 @@ const {
   getProductsByUser,
   updateProduct,
   getProductByCategory,
+  getProductBySport,
 } = require("../db/adapters/products");
 const { authRequired } = require("./authRoute");
 
@@ -58,6 +59,15 @@ productsRouter.post("/", authRequired, async (req, res, next) => {
 productsRouter.get("/:id", async (req, res, next) => {
   try {
     const productById = await getProductById(req.params.id);
+    res.send(productById);
+  } catch (error) {
+    next(error);
+  }
+});
+
+productsRouter.get("/product_sport/:id", async (req, res, next) => {
+  try {
+    const productById = await getProductBySport(req.params.id);
     res.send(productById);
   } catch (error) {
     next(error);
