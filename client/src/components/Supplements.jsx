@@ -29,39 +29,43 @@ const SupplementsComponent = () => {
               alt="Product Thumbnail"
             />
           </div>
-          <h1 className="product-name">Name: {props.supplement.name}</h1>
-          <p className="product-price">${props.supplement.price}</p>
-          <p className="product-description">
-            Description: {props.supplement.description}
-          </p>
-          <p>Flavor: {props.supplement.flavor}</p>
+          <div className="product-details">
+            <h1 className="product-name">{props.supplement.name}</h1>
+            <p className="product-price">${props.supplement.price}</p>
+            <p className="product-description">
+              {props.supplement.description}
+            </p>
+            <p>Flavor: {props.supplement.flavor}</p>
+          </div>
         </Link>
 
-        <p>
-          Quantity:{" "}
-          <input
-            type="number"
-            min="0"
-            max="9"
-            name="quantity"
-            defaultValue={props.quantity}
-            onChange={(e) => {
-              e.target.value, (qty = parseInt(e.target.value));
+        <div className="product-quantity">
+          <p>
+            Quantity:{" "}
+            <input
+              type="number"
+              min="0"
+              max="9"
+              name="quantity"
+              defaultValue={props.quantity}
+              onChange={(e) => {
+                e.target.value, (qty = parseInt(e.target.value));
+              }}
+            />
+          </p>
+          <button
+            onClick={() => {
+              addToCart({
+                id: props.supplement.id,
+                name: props.supplement.name,
+                quantity: qty,
+              });
             }}
-          />
-        </p>
-        <button
-          onClick={() => {
-            addToCart({
-              id: props.supplement.id,
-              name: props.supplement.name,
-              quantity: qty,
-            });
-          }}
-          className="add-to-cart-button"
-        >
-          Add to Cart
-        </button>
+            className="add-to-cart-button"
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
     );
   }
