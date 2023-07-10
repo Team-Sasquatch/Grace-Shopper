@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, useNavigate,Navigate,Outlet } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate, Outlet } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home";
 import Nav from "./components/Nav/Nav";
@@ -27,46 +27,49 @@ function App() {
   const [err, setErr] = useState(null);
   const { setLoggedIn, loggedIn, setUser, user } = useAuth();
   const nav = useNavigate();
-  useEffect(() => {
-    async function checkHealth() {
-      try {
-        const response = await fetch("/api/health");
-        if (!response.ok) {
-          throw {
-            message: "Api is Down 😭",
-          };
-        }
-        const { message } = await response.json();
-        setHealthMsg(message);
-      } catch (error) {
-        setErr(error.message);
-      }
-    }
-    checkHealth();
-  }, []);
+  // useEffect(() => {
+  //   async function checkHealth() {
+  //     try {
+  //       const response = await fetch("/api/health");
+  //       if (!response.ok) {
+  //         throw {
+  //           message: "Api is Down 😭",
+  //         };
+  //       }
+  //       const { message } = await response.json();
+  //       setHealthMsg(message);
+  //     } catch (error) {
+  //       setErr(error.message);
+  //     }
+  //   }
+  //   checkHealth();
+  // }, []);
 
-  function ProtectedComponent(props){
-    if (props.loggedIn === false){
-      return(<div>
-          <Navigate to='/login'/>
-        </div>)
-    }
-    else{
-      return(
-        <Outlet/>
-      )
+  function ProtectedComponent(props) {
+    if (props.loggedIn === false) {
+      return (
+        <div>
+          <Navigate to="/login" />
+        </div>
+      );
+    } else {
+      return <Outlet />;
     }
   }
-  function ProtectedAdminComponent(props){
-    if (props.loggedIn === false && (props.user.is_admin === false || props.user.is_admin === null || typeof props.user.is_admin === 'undefined')){
-      return(<div>
-          <Navigate to='/'/>
-        </div>)
-    }
-    else{
-      return(
-        <Outlet/>
-      )
+  function ProtectedAdminComponent(props) {
+    if (
+      props.loggedIn === false &&
+      (props.user.is_admin === false ||
+        props.user.is_admin === null ||
+        typeof props.user.is_admin === "undefined")
+    ) {
+      return (
+        <div>
+          <Navigate to="/" />
+        </div>
+      );
+    } else {
+      return <Outlet />;
     }
   }
 
@@ -111,13 +114,15 @@ function App() {
         <Route path="/overview/:id" element={<ProductOverview />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/confirmation" element={<OrderConfirmation />} />
-          
-        <Route element={<ProtectedComponent loggedIn={loggedIn}/>}>
-          <Route path="/profile" element={<Profile/>}/>
+
+        <Route element={<ProtectedComponent loggedIn={loggedIn} />}>
+          <Route path="/profile" element={<Profile />} />
         </Route>
-        <Route element={<ProtectedAdminComponent loggedIn={loggedIn} user={user}/>}>
-          <Route path="/admin-users" element={<CreateAdmin/>}/>
-          <Route path="/admin-products" element={<CreateProduct/>}/>
+        <Route
+          element={<ProtectedAdminComponent loggedIn={loggedIn} user={user} />}
+        >
+          <Route path="/admin-users" element={<CreateAdmin />} />
+          <Route path="/admin-products" element={<CreateProduct />} />
         </Route>
 
         <Route path="/payment" element={<PaymentDetail />} />

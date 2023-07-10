@@ -63,3 +63,10 @@ a {
   align-items: center;
   margin-top: 10px;
 }
+.product-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  height: 100%;
+}
