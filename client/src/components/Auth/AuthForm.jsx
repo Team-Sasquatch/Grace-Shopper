@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { registerUser, loginUser } from "../api/auth";
-import useAuth from "../hooks/useAuth";
+import { registerUser, loginUser } from "../../api/auth";
+import useAuth from "../../hooks/useAuth";
 import "./AuthForm.css";
 
 export default function AuthForm() {

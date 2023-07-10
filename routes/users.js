@@ -183,6 +183,7 @@ usersRouter.get("/id/:userId", async (req, res, next) => {
 usersRouter.get("/me", authRequired, async (req, res, next) => {
   try {
     const user = await getUserById(req.user.id);
+    user.loggedIn = true;
     res.send(user);
   } catch (error) {
     next(error);

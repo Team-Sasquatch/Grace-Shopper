@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import getAllProducts from "../api/products";
+import getAllProducts from "../../api/products";
 import { Link, useNavigate } from "react-router-dom";
-import "../App.css";
+import "../../App.css";
 
 export default function Confirmation() {
   // Retrieve the shoppiingCart from storage
