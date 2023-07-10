@@ -1,10 +1,10 @@
 import useAuth from "../hooks/useAuth";
 import { useEffect,useState } from "react";
-import { fetchUser,changeAddress } from "../api/auth";
+import { changeAddress, fetchMe } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function Profile(){
-    const {user} = useAuth();
+    const {user,setUser} = useAuth();
     const [address,setAddress]=useState('');
     const [address2,setAddress2]=useState('');
     const [city,setCity]=useState('');
@@ -29,6 +29,7 @@ export default function Profile(){
             console.log(user.id,address,address2,city,state,zipcode)
             const result = await changeAddress(user.id,address,address2,city,state,zipcode);
             console.log('result',result.user)
+            setUser(await fetchMe());
             setSubmitted(true);
         } catch (error) {
             console.log('Error updating address',error);

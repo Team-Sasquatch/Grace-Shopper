@@ -129,13 +129,11 @@ export async function changeAddress(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        post: {
-          address,
-          address2,
-          city,
-          state,
-          zipcode,
-        },
+        address,
+        address2,
+        city,
+        state,
+        zipcode,
       }),
     });
     const result = await response.json();
