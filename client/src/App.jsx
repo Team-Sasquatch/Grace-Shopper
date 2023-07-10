@@ -21,6 +21,7 @@ import PaymentDetail from "./components/ShipAndPay";
 import Profile from "./components/Profile";
 import CreateAdmin from "./components/AdminPortal/CreateAdmin";
 import CreateProduct from "./components/AdminPortal/CreateProduct";
+import CreateSport from "./components/AdminPortal/CreateSport";
 
 function App() {
   const [healthMsg, setHealthMsg] = useState(null);
@@ -118,11 +119,11 @@ function App() {
         <Route element={<ProtectedComponent loggedIn={loggedIn} />}>
           <Route path="/profile" element={<Profile />} />
         </Route>
-        <Route
-          element={<ProtectedAdminComponent loggedIn={loggedIn} user={user} />}
-        >
-          <Route path="/admin-users" element={<CreateAdmin />} />
-          <Route path="/admin-products" element={<CreateProduct />} />
+
+        <Route element={<ProtectedAdminComponent loggedIn={loggedIn} user={user}/>}>
+          <Route path="/admin-users" element={<CreateAdmin/>}/>
+          <Route path="/admin-sports" element={<CreateSport/>}/>
+          <Route path="/admin-products" element={<CreateProduct/>}/>
         </Route>
 
         <Route path="/payment" element={<PaymentDetail />} />
