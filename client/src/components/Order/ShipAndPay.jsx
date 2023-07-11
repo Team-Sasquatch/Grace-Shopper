@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../App.css";
+import "../../App.css";
 
 export default function PaymentDetail() {
   const [fullname, setFullName] = useState("");
@@ -11,6 +11,7 @@ export default function PaymentDetail() {
 
   return (
     <div className="payment-form">
+      <h1>Billing Info </h1>
       <form
         className="payment-form"
         onSubmit={async (e) => {
@@ -18,47 +19,23 @@ export default function PaymentDetail() {
           await PaymentDetail(fullname, cardnumber, expiration, cvv, zipcode);
         }}
       >
-        <label>Name on CreditCard:</label>
-        <input
-          style={{ padding: "7px" }}
-          value={fullname}
-          onChange={(event) => setName(event.target.value)}
-        />
+        <label>Name on Credit Card:</label>
+        <input name="fullname" />
 
         <label>Credit Card Number:</label>
-        <textarea
-          style={{ padding: "7px" }}
-          value={cardnumber}
-          onChange={(event) => setCard(event.target.value)}
-        />
+        <input cardnumber="cardnumber" />
 
         <label>Expiration Date:</label>
-        <textarea
-          style={{ padding: "7px" }}
-          value={expiration}
-          onChange={(event) => setExpiration(event.target.value)}
-        />
+        <input expiration="expiration" />
 
         <label>CVV code:</label>
-        <textarea
-          style={{ padding: "7px" }}
-          value={cvv}
-          onChange={(event) => setCvv(event.target.value)}
-        />
+        <input cvv="cvv" />
 
         <label>Billing Zip Code:</label>
-        <textarea
-          style={{ padding: "7px" }}
-          value={zipcode}
-          onChange={(event) => setZipCode(event.target.value)}
-        />
+        <input zip="zipcode" />
 
         <br></br>
-        {/* submit order button needs to clear local storage and move to thanks page= 
-        function clearCart() {
-    localStorage.removeItem("shoppingCart");
-    setUpdateCheckout(true);
-  }*/}
+
         <Link to="/ThankYou">
           <button className="nav-link">Submit Order</button>
         </Link>
