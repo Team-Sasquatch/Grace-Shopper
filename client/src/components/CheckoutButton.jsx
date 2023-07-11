@@ -6,11 +6,15 @@ import ShoppingCartIcon from "../assets/shopping-cart-outline.svg";
 const CheckoutButton = ({ totalItems }) => {
   let checkoutCart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
 
+  let cartTotals = checkoutCart.reduce((acc, prod) => {
+    return acc + prod.quantity;
+  }, 0);
+
   return (
     <div className="checkout-button">
       <Link to="/checkout" className="checkout-button-link">
         <img src={ShoppingCartIcon} className="cart-icon" />
-        Cart {totalItems}
+        Cart {cartTotals}
       </Link>
     </div>
   );
