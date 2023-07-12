@@ -27,7 +27,7 @@ const Nav = () => {
       <Link className="nav-link" to="/apparel">
         Apparel
       </Link>
-      <div class="topnav">
+      <div className="topnav">
         <input type="text" placeholder="Sasquatch Hunt Here...." />
         <button type="submit">Submit</button>
       </div>
