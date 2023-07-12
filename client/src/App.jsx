@@ -23,6 +23,8 @@ import CreateAdmin from "./components/AdminPortal/CreateAdmin";
 import CreateProduct from "./components/AdminPortal/CreateProduct";
 import CreateSport from "./components/AdminPortal/CreateSport";
 import SportProducts from "./components/SportProducts";
+import EditProducts from "./components/AdminPortal/EditProducts";
+import EditSingleProduct from "./components/AdminPortal/EditSingleProduct";
 
 function App() {
   const [healthMsg, setHealthMsg] = useState(null);
@@ -126,6 +128,9 @@ function App() {
           <Route path="/admin-users" element={<CreateAdmin/>}/>
           <Route path="/admin-sports" element={<CreateSport/>}/>
           <Route path="/admin-products" element={<CreateProduct/>}/>
+          <Route path="/admin-sports/edit"/>
+          <Route path="/admin-products/edit" element={<EditProducts/>}/>
+          <Route path="/admin-product/:id" element={<EditSingleProduct/>}/>
         </Route>
 
         <Route path="/payment" element={<PaymentDetail />} />

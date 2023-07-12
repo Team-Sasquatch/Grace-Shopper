@@ -84,3 +84,43 @@ export async function postProduct(name,sport_id,price,description,category,flavo
     console.error(error);
   }
 }
+
+export async function deleteProduct(id){
+  try {
+    const response = await fetch(`/api/products/${id}`,{
+      method: "DELETE",
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function updateProduct(id,sport_id,name,price,description,category,flavor){
+  try {
+    const response = await fetch(`/api/products/${id}`,{
+      method: "PATCH",
+      headers:{
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          post:{
+            sport_id,
+            name,
+            price,
+            description,
+            category,
+            flavor,
+          }
+      })
+    });
+    const result=await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
