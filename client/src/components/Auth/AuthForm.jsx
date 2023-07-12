@@ -20,6 +20,10 @@ export default function AuthForm() {
       if (pathname === "/login") {
         result = await loginUser(username, password);
       } else {
+        if (password.length < 6) {
+          setError("Password should be at least 6 characters long.");
+          return;
+        }
         result = await registerUser(
           username,
           password,
@@ -32,20 +36,17 @@ export default function AuthForm() {
         );
       }
 
-      console.log("result" + result);
-
-      if (username === result.user.username) {
-        console.log("logged in");
+      if (result.user && username === result.user.username) {
         setLoggedIn(true);
         setUser(result.user);
         navigate("/products");
         let cart = await getCartForUser();
         localStorage.setItem("shoppingCart", cart);
       } else {
-        window.alert("Failed login with username " + username);
+        setError("Incorrect login credentials.");
       }
     } catch (error) {
-      setError(error);
+      setError(error.message);
     }
   }
 
@@ -56,7 +57,7 @@ export default function AuthForm() {
         {pathname === "/register" ? (
           <h1>Register Below</h1>
         ) : (
-          <h1>Welcome Back </h1>
+          <h1>Welcome Back</h1>
         )}
 
         <input
@@ -68,7 +69,7 @@ export default function AuthForm() {
           }}
         />
         <input
-          type="text"
+          type="password"
           name="password"
           placeholder="Password"
           onChange={(e) => {
