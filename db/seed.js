@@ -48,7 +48,7 @@ const {
 async function dropTables() {
   console.log("Dropping tables...");
   await client.query(`
-
+    DROP TABLE IF EXISTS cart CASCADE;
     DROP TABLE IF EXISTS sports CASCADE;
     DROP TABLE IF EXISTS reviews CASCADE;
     DROP TABLE IF EXISTS order_products CASCADE;
@@ -118,6 +118,11 @@ async function createTables() {
       rating INTEGER NOT NULL,
       comment VARCHAR(255) NOT NULL,
       edited BOOLEAN DEFAULT false
+    );
+    CREATE TABLE cart(
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER REFERENCES users(id) NOT NULL,
+      cart json NOT NULL
     );
   `);
 

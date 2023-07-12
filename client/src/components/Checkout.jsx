@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import { getProductById } from "../api/products";
+import { addToCartAPI, clearCartAPI } from "../api/cart";
 
 export default function Checkout() {
   const [quantity, setQuantity] = useState(null);
@@ -38,19 +39,22 @@ export default function Checkout() {
         return x.id != deletedItem.id;
       })
     );
+    let payload = JSON.stringify(
+      retrievedCart.filter((x) => {
+        return x.id != deletedItem.id;
+      })
+    );
     localStorage.setItem(
       "shoppingCart",
-      JSON.stringify(
-        retrievedCart.filter((x) => {
-          return x.id != deletedItem.id;
-        })
-      )
+      payload
     );
+    addToCartAPI(payload);
     setUpdateCheckout(true);
   }
 
   function clearCart() {
     localStorage.removeItem("shoppingCart");
+    clearCartAPI();
     setUpdateCheckout(true);
   }
 

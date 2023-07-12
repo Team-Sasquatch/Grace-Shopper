@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { registerUser, loginUser } from "../../api/auth";
 import useAuth from "../../hooks/useAuth";
 import "./AuthForm.css";
+import { getCartForUser } from "../../api/cart";
 
 export default function AuthForm() {
   const navigate = useNavigate();
@@ -38,6 +39,8 @@ export default function AuthForm() {
         setLoggedIn(true);
         setUser(result.user);
         navigate("/products");
+        let cart = await getCartForUser();
+        localStorage.setItem("shoppingCart", cart);
       } else {
         window.alert("Failed login with username " + username);
       }
