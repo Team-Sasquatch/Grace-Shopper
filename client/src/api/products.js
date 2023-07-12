@@ -108,14 +108,12 @@ export async function updateProduct(id,sport_id,name,price,description,category,
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          post:{
-            sport_id,
-            name,
-            price,
-            description,
-            category,
-            flavor,
-          }
+          sport_id,
+          name,
+          price,
+          description,
+          category,
+          flavor,
       })
     });
     const result=await response.json();
