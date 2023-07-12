@@ -60,6 +60,7 @@ const SupplementsComponent = () => {
                 name: props.supplement.name,
                 quantity: qty,
               });
+              window.location.reload();
             }}
             className="add-to-cart-button"
           >
