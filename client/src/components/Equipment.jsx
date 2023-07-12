@@ -57,6 +57,7 @@ const EquipmentComponent = () => {
                 name: props.equipment.name,
                 quantity: qty,
               });
+              window.location.reload();
             }}
           >
             Add to Cart

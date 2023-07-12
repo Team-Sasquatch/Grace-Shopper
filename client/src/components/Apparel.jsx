@@ -60,7 +60,7 @@ const ApparelComponent = () => {
                 name: props.apparel.name,
                 quantity: qty,
               });
-              setCartCount(cartCount + qty);
+              window.location.reload();
             }}
             className="add-to-cart-button"
           >
