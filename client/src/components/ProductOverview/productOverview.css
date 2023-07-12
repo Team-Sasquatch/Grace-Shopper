@@ -1,11 +1,19 @@
 .product-overview-container {
   margin-top: 20px;
+  position: relative;
 }
 .close-button {
   position: absolute;
   top: 10px;
-  right: 10px;
+  left: 10px;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 20px;
+  cursor: pointer;
 }
- ul li {
+ul li {
   list-style-type: none;
- }
+}

@@ -21,7 +21,7 @@ const sports = [
 
 const products = [
   {
-    name: "Protein Supplement",
+    name: "Whey Protein",
     price: "15",
     description: "prime protein for the prime Sasquatch",
     sport_id: null,
@@ -52,7 +52,7 @@ const products = [
     category: "equipment",
   },
   {
-    name: "Whey Protein",
+    name: "Casein Protein",
     price: "144",
     description: "gets you jacked4",
     sport_id: 1,
@@ -93,7 +93,7 @@ const products = [
   },
   {
     name: "baseball cap",
-    price: "144",
+    price: "100",
     description: "gets you jacked4",
     sport_id: 1,
     category: "apparel",
