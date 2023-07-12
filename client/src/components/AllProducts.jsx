@@ -55,6 +55,7 @@ const AllProductsComponent = () => {
                 quantity: prodQty,
                 price: props.product.price,
               });
+              window.location.reload();
             }}
             className="add-to-cart-button"
           >

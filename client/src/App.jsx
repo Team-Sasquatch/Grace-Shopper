@@ -17,7 +17,7 @@ import EquipmentComponent from "./components/Equipment";
 import ApparelComponent from "./components/Apparel";
 import useAuth from "./hooks/useAuth";
 import { logOut } from "./api/auth";
-import PaymentDetail from "./components/ShipAndPay";
+import PaymentDetail from "./components/Order/ShipAndPay";
 import Profile from "./components/Profile";
 import CreateAdmin from "./components/AdminPortal/CreateAdmin";
 import CreateProduct from "./components/AdminPortal/CreateProduct";
