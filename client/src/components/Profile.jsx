@@ -41,11 +41,11 @@ export default function Profile(){
         <div>
             <h3>Default Address</h3>
             <form onSubmit={handleSubmit}>
-                <p>Address: <input type='text' defaultValue={address} onChange={(e)=>setAddress(e.target.value)}/></p>
-                <p>Address 2: <input type='text' defaultValue={address2} onChange={(e)=>setAddress2(e.target.value)}/></p>
-                <p>City: <input type='text' defaultValue={city} onChange={(e)=>setCity(e.target.value)}/></p>
-                <p>State: <input type='text' defaultValue={state} onChange={(e)=>setState(e.target.value)}/></p>
-                <p>Zip Code: <input type='text' defaultValue={zipcode} onChange={(e)=>setZipCode(e.target.value)}/></p>
+                <p>Address: <input type='text' value={address} onChange={(e)=>setAddress(e.target.value)}/></p>
+                <p>Address 2: <input type='text' value={address2} onChange={(e)=>setAddress2(e.target.value)}/></p>
+                <p>City: <input type='text' value={city} onChange={(e)=>setCity(e.target.value)}/></p>
+                <p>State: <input type='text' value={state} onChange={(e)=>setState(e.target.value)}/></p>
+                <p>Zip Code: <input type='text' value={zipcode} onChange={(e)=>setZipCode(e.target.value)}/></p>
                 <button>Update Default Address</button>
             </form>
             {user.is_admin === true
