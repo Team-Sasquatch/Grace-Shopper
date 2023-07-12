@@ -28,14 +28,21 @@ export default function ProductOverview() {
   }, []);
 
   const handleGoBack = () => {
-    navigate("/products");
+    navigate(-1);
   };
 
   return (
     <div className="product-overview-container">
       <IconButton
-        className="close-button"
-        aria-label="Close"
+        sx={{
+          position: "absolute",
+
+          backgroundColor: "#ff0000",
+          color: "#fff",
+          borderRadius: "50%",
+          padding: "5px",
+          fontSize: "20px",
+        }}
         onClick={handleGoBack}
       >
         <CloseIcon />
