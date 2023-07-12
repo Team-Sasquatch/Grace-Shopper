@@ -1,17 +1,63 @@
-const {client} = require("../client");
+const { client } = require("../client");
 const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 10;
 
-async function createUser({ username, password, is_admin, address, address2, city, state, zipcode}) {
+async function createUser({
+  username,
+  password,
+  address,
+  address2,
+  city,
+  state,
+  zipcode,
+}) {
   try {
     const hashedPassword = await bcrypt.hash(password.toString(), SALT_ROUNDS);
     delete password;
-    const { rows: [user] } = await client.query(
-      `INSERT INTO users(username, password, is_admin, address, address2, city, state, zipcode)
+    const {
+      rows: [user],
+    } = await client.query(
+      `INSERT INTO users(username, password, address, address2, city, state, zipcode)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        ON CONFLICT (username) DO NOTHING
+        RETURNING *;`,
+      [username, hashedPassword, address, address2, city, state, zipcode]
+    );
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+async function createAdmin({
+  username,
+  password,
+  is_admin,
+  address,
+  address2,
+  city,
+  state,
+  zipcode,
+}) {
+  try {
+    const hashedPassword = await bcrypt.hash(password.toString(), SALT_ROUNDS);
+    delete password;
+    const {
+      rows: [user],
+    } = await client.query(
+      `INSERT INTO users(username, password,is_admin, address, address2, city, state, zipcode)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         ON CONFLICT (username) DO NOTHING
         RETURNING *;`,
-      [username, hashedPassword, is_admin, address, address2, city, state, zipcode]
+      [
+        username,
+        hashedPassword,
+        is_admin,
+        address,
+        address2,
+        city,
+        state,
+        zipcode,
+      ]
     );
     return user;
   } catch (error) {
@@ -53,8 +99,8 @@ async function getUserById(id) {
   }
 }
 
-async function getUserByUsername(username){
-try {
+async function getUserByUsername(username) {
+  try {
     const {
       rows: [user],
     } = await client.query(
@@ -71,23 +117,36 @@ try {
   }
 }
 
-async function updateAddress({id, address, address2, city, state, zipcode}){
-  const setString = Object.keys({address, address2, city, state, zipcode}).map((key,index)=>`"${key}"=$${index+1}`).join(', ');
-  if (setString.length === 0){
-      return;
+async function updateAddress({ id, address, address2, city, state, zipcode }) {
+  const setString = Object.keys({ address, address2, city, state, zipcode })
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+  if (setString.length === 0) {
+    return;
   }
   try {
-    const {rows:[user]} = await client.query(`
+    const {
+      rows: [user],
+    } = await client.query(
+      `
       UPDATE users
       SET ${setString}
       WHERE id=${id}
       RETURNING *;
-    `,Object.values({address, address2, city, state, zipcode}));
+    `,
+      Object.values({ address, address2, city, state, zipcode })
+    );
     return user;
   } catch (error) {
     throw error;
   }
 }
 
-
-module.exports = {createUser, getUser, getUserById, getUserByUsername, updateAddress}
+module.exports = {
+  createUser,
+  createAdmin,
+  getUser,
+  getUserById,
+  getUserByUsername,
+  updateAddress,
+};

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { fetchMe } from "../api/auth";
+import { fetchMe } from "../../api/auth";
 
 export const AuthContext = createContext();
 
@@ -12,7 +12,7 @@ const AuthProvider = ({ children }) => {
       try {
         const apiResponse = await fetchMe();
         console.log("apiResponse: ",apiResponse)
-        if (apiResponse.loggedIn === true) {
+        if (apiResponse.loggedIn) {
           setUser(apiResponse);
           setLoggedIn(true);
         } else {

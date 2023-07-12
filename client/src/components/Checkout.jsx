@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import { getProductById } from "../api/products";
+import { addToCartAPI, clearCartAPI } from "../api/cart";
 
 export default function Checkout() {
   const [quantity, setQuantity] = useState(null);
@@ -38,19 +39,22 @@ export default function Checkout() {
         return x.id != deletedItem.id;
       })
     );
+    let payload = JSON.stringify(
+      retrievedCart.filter((x) => {
+        return x.id != deletedItem.id;
+      })
+    );
     localStorage.setItem(
       "shoppingCart",
-      JSON.stringify(
-        retrievedCart.filter((x) => {
-          return x.id != deletedItem.id;
-        })
-      )
+      payload
     );
+    addToCartAPI(payload);
     setUpdateCheckout(true);
   }
 
   function clearCart() {
     localStorage.removeItem("shoppingCart");
+    clearCartAPI();
     setUpdateCheckout(true);
   }
 
@@ -58,8 +62,22 @@ export default function Checkout() {
     <div>
       {retrievedCart ? (
         <div>
-          <button onClick={() => contCheckout()}>Checkout</button>
-          <button onClick={() => clearCart()}>Clear Cart</button>
+          <p>
+            <Link to="/confirmation">
+              <button className="nav-link" onClick={() => contCheckout()}>
+                {" "}
+                Time to CHECKOUT{" "}
+              </button>
+            </Link>
+          </p>
+          <button
+            onClick={() => {
+              clearCart();
+              window.location.reload();
+            }}
+          >
+            Clear Cart
+          </button>
           <div>
             {retrievedCart.map((prod, index) => {
               return (
@@ -82,6 +100,7 @@ export default function Checkout() {
                   <button
                     onClick={() => {
                       deleteItem(prod);
+                      window.location.reload();
                     }}
                   >
                     Remove
@@ -96,11 +115,6 @@ export default function Checkout() {
           <p> Your cart is empty.</p>
         </div>
       )}
-      <p>
-        <Link to="/confirmation">
-          <button className="nav-link"> Time to CHECKOUT </button>
-        </Link>
-      </p>
     </div>
   );
 }

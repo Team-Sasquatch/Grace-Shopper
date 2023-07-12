@@ -1,10 +1,10 @@
 import useAuth from "../hooks/useAuth";
 import { useEffect,useState } from "react";
-import { fetchUser,changeAddress } from "../api/auth";
+import { changeAddress, fetchMe } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function Profile(){
-    const {user} = useAuth();
+    const {user,setUser} = useAuth();
     const [address,setAddress]=useState('');
     const [address2,setAddress2]=useState('');
     const [city,setCity]=useState('');
@@ -29,6 +29,7 @@ export default function Profile(){
             console.log(user.id,address,address2,city,state,zipcode)
             const result = await changeAddress(user.id,address,address2,city,state,zipcode);
             console.log('result',result.user)
+            setUser(await fetchMe());
             setSubmitted(true);
         } catch (error) {
             console.log('Error updating address',error);
@@ -40,17 +41,17 @@ export default function Profile(){
         <div>
             <h3>Default Address</h3>
             <form onSubmit={handleSubmit}>
-                <p>Address: <input type='text' defaultValue={address} onChange={(e)=>setAddress(e.target.value)}/></p>
-                <p>Address 2: <input type='text' defaultValue={address2} onChange={(e)=>setAddress2(e.target.value)}/></p>
-                <p>City: <input type='text' defaultValue={city} onChange={(e)=>setCity(e.target.value)}/></p>
-                <p>State: <input type='text' defaultValue={state} onChange={(e)=>setState(e.target.value)}/></p>
-                <p>Zip Code: <input type='text' defaultValue={zipcode} onChange={(e)=>setZipCode(e.target.value)}/></p>
+                <p>Address: <input type='text' value={address} onChange={(e)=>setAddress(e.target.value)}/></p>
+                <p>Address 2: <input type='text' value={address2} onChange={(e)=>setAddress2(e.target.value)}/></p>
+                <p>City: <input type='text' value={city} onChange={(e)=>setCity(e.target.value)}/></p>
+                <p>State: <input type='text' value={state} onChange={(e)=>setState(e.target.value)}/></p>
+                <p>Zip Code: <input type='text' value={zipcode} onChange={(e)=>setZipCode(e.target.value)}/></p>
                 <button>Update Default Address</button>
             </form>
             {user.is_admin === true
             ?
             <div>
-                <button onClick={()=>nav("/admin-portal")}>Admin Portal</button>
+                <button onClick={()=>nav("/admin-users")}>Admin Portal</button>
             </div>
             :
             <div/>

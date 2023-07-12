@@ -53,6 +53,18 @@ async function getProductById(id) {
   return rows;
 }
 
+async function getProductBySport(sport_id) {
+  const { rows } = await client.query(
+    `
+    SELECT * FROM products
+    WHERE sport_id = $1
+    `,
+    [sport_id]
+  );
+  return rows;
+}
+
+
 async function getProductsByUser(username) {
   const { rows } = await client.query(
     `
@@ -104,6 +116,28 @@ async function updateProduct({
   }
 }
 
+async function destroyProduct(id){
+  try {
+    await client.query(`
+      DELETE
+      FROM order_products
+      WHERE order_products.product_id IN
+        (SELECT id
+        FROM products
+        WHERE id=$1);
+    `,[id]);
+    const {rows:[product]} = await client.query(`
+      DELETE
+      FROM products
+      WHERE products.id=$1
+      RETURNING *;
+    `,[id]);
+    return product;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createProduct,
   getAllProducts,
@@ -111,4 +145,6 @@ module.exports = {
   getProductById,
   getProductsByUser,
   updateProduct,
+  getProductBySport,
+  destroyProduct
 };

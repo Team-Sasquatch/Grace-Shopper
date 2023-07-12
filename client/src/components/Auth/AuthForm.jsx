@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { registerUser, loginUser } from "../api/auth";
-import useAuth from "../hooks/useAuth";
+import { registerUser, loginUser } from "../../api/auth";
+import useAuth from "../../hooks/useAuth";
 import "./AuthForm.css";
+import { getCartForUser } from "../../api/cart";
 
 export default function AuthForm() {
   const navigate = useNavigate();
@@ -19,7 +20,16 @@ export default function AuthForm() {
       if (pathname === "/login") {
         result = await loginUser(username, password);
       } else {
-        result = await registerUser(username, password, false,'','','','','');
+        result = await registerUser(
+          username,
+          password,
+          false,
+          "",
+          "",
+          "",
+          "",
+          ""
+        );
       }
 
       console.log("result" + result);
@@ -29,6 +39,8 @@ export default function AuthForm() {
         setLoggedIn(true);
         setUser(result.user);
         navigate("/products");
+        let cart = await getCartForUser();
+        localStorage.setItem("shoppingCart", cart);
       } else {
         window.alert("Failed login with username " + username);
       }

@@ -1,3 +1,5 @@
+import { addToCartAPI } from "../api/cart";
+
 function addToCart(cartObj) {
   console.log("cartObject: ", cartObj);
   let obj = JSON.parse(localStorage.getItem("shoppingCart")) || [];
@@ -16,6 +18,7 @@ function addToCart(cartObj) {
     obj.push(cartObj);
   }
   localStorage.setItem("shoppingCart", JSON.stringify(obj));
+  addToCartAPI(JSON.stringify(obj));
   const totalItems = obj.reduce((total, item) => total + item.quantity, 0);
 
   return totalItems;

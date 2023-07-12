@@ -38,32 +38,35 @@ const ApparelComponent = () => {
             </p>
           </div>
         </Link>
-        <p>
-          Quantity:{" "}
-          <input
-            type="number"
-            min="0"
-            max="9"
-            name="quantity"
-            defaultValue={props.quantity}
-            onChange={(e) => {
-              e.target.value, (qty = parseInt(e.target.value));
+
+        <div className="product-quantity">
+          <p>
+            Quantity:{" "}
+            <input
+              type="number"
+              min="0"
+              max="9"
+              name="quantity"
+              defaultValue={props.quantity}
+              onChange={(e) => {
+                e.target.value, (qty = parseInt(e.target.value));
+              }}
+            />
+          </p>
+          <button
+            onClick={() => {
+              addToCart({
+                id: props.apparel.id,
+                name: props.apparel.name,
+                quantity: qty,
+              });
+              window.location.reload();
             }}
-          />
-        </p>
-        <button
-          onClick={() => {
-            addToCart({
-              id: props.apparel.id,
-              name: props.apparel.name,
-              quantity: qty,
-            });
-            setCartCount(cartCount + qty);
-          }}
-          className="add-to-cart-button"
-        >
-          Add to Cart
-        </button>
+            className="add-to-cart-button"
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
     );
   }

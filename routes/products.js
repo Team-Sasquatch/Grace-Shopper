@@ -5,6 +5,8 @@ const {
   getProductsByUser,
   updateProduct,
   getProductByCategory,
+  getProductBySport,
+  destroyProduct,
 } = require("../db/adapters/products");
 const { authRequired } = require("./authRoute");
 
@@ -64,6 +66,15 @@ productsRouter.get("/:id", async (req, res, next) => {
   }
 });
 
+productsRouter.get("/product_sport/:id", async (req, res, next) => {
+  try {
+    const productById = await getProductBySport(req.params.id);
+    res.send(productById);
+  } catch (error) {
+    next(error);
+  }
+});
+
 productsRouter.patch("/:id", authRequired, async (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
@@ -94,15 +105,16 @@ productsRouter.patch("/:id", authRequired, async (req, res, next) => {
   }
 });
 
-//Commented out since it's not needed
-// productsRouter.get("/:username/products", async (req, res, next) => {
-//   try {
-//     const username = req.params.username;
-//     const productByUser = await getProductsByUser(username);
-//     res.send({ productByUser });
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+productsRouter.delete('/:id',authRequired,async(req,res,next)=>{
+  try {
+      const {id} = req.params; 
+      if (req.user.is_admin){
+          const deletedProduct = await destroyProduct(id);
+          res.send(deletedProduct)
+      }
+  } catch (error) {
+      next(error);
+  }
+});
 
 module.exports = productsRouter;

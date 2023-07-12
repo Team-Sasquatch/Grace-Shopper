@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import "./Nav.css";
 
 const Nav = () => {
@@ -27,6 +27,10 @@ const Nav = () => {
       <Link className="nav-link" to="/apparel">
         Apparel
       </Link>
+      <div className="topnav">
+        <input type="text" placeholder="Sasquatch Hunt Here...." />
+        <button type="submit">Submit</button>
+      </div>
     </nav>
   );
 };

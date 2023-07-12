@@ -3,13 +3,13 @@ const jwt = require("jsonwebtoken");
 const { authRequired } = require("./authRoute");
 const {
   createUser,
+  createAdmin,
   getUser,
   getUserById,
   getUserByUsername,
   updateAddress,
 } = require("../db/adapters/users");
 const { getAllOrdersByUserId } = require("../db/adapters/orders");
-const { users } = require("../db/seedData");
 
 usersRouter.get("/users", (req, res) => {
   res.send("This is the users page!");
@@ -20,6 +20,66 @@ usersRouter.post("/mypost", function (req, res) {
 });
 
 usersRouter.post("/register", async (req, res, next) => {
+  const {
+    username,
+    password,
+    address,
+    address2,
+    city,
+    state,
+    zipcode,
+  } = req.body;
+  if (password.length < 8) {
+    next({
+      name: "PasswordError",
+      message: "Please supply a password that's over 8 characters",
+    });
+  } else {
+    try {
+      console.log("Trying to get user by username");
+      const _user = await getUserByUsername(username);
+      if (_user) {
+        next({
+          name: "UserExistsError",
+          message: "A user by that username already exists",
+        });
+      }
+      const user = await createUser({
+        username,
+        password,
+        address,
+        address2,
+        city,
+        state,
+        zipcode,
+      });
+      if (user){
+        const token = jwt.sign(user, process.env.JWT_SECRET, {
+          expiresIn: "2w",
+        });
+        res.cookie("token", token, {
+          sameSite: "strict",
+          httpOnly: true,
+          signed: true,
+        });
+        res.send({
+          message: "Register Successful",
+          user,
+        });
+      } else{
+        next({
+          name: 'RegisterIssue',
+          message: 'Issue registering user'
+        });
+    }
+      
+    } catch (error) {
+      next(error);
+    }
+  }
+});
+
+usersRouter.post("/register_admin", authRequired, async (req, res, next) => {
   const {
     username,
     password,
@@ -45,7 +105,7 @@ usersRouter.post("/register", async (req, res, next) => {
           message: "A user by that username already exists",
         });
       }
-      const user = await createUser({
+      const user = await createAdmin({
         username,
         password,
         is_admin,
@@ -64,6 +124,7 @@ usersRouter.post("/register", async (req, res, next) => {
     }
   }
 });
+
 
 usersRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
@@ -121,7 +182,9 @@ usersRouter.get("/id/:userId", async (req, res, next) => {
 
 usersRouter.get("/me", authRequired, async (req, res, next) => {
   try {
-    res.send(req.user);
+    const user = await getUserById(req.user.id);
+    user.loggedIn = true;
+    res.send(user);
   } catch (error) {
     next(error);
   }

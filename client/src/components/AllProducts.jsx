@@ -29,9 +29,7 @@ const AllProductsComponent = () => {
           <div className="product-details">
             <h1 className="product-name">{props.product.name}</h1>
             <p className="product-price"> $ {props.product.price}</p>
-            <p className="product-description">
-              Description: {props.product.description}
-            </p>
+            <p className="product-description">{props.product.description}</p>
           </div>
         </Link>
 
@@ -57,6 +55,7 @@ const AllProductsComponent = () => {
                 quantity: prodQty,
                 price: props.product.price,
               });
+              window.location.reload();
             }}
             className="add-to-cart-button"
           >
