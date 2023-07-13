@@ -55,6 +55,7 @@ const {client} = require("../client");
       JSON_AGG(
         JSON_BUILD_OBJECT(
           'id', products.id,
+          'name', products.name,
           'price', products.price,
           'description', products.description,
           'sport_id', products.sport_id

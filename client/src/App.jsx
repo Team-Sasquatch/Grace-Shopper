@@ -25,6 +25,7 @@ import CreateSport from "./components/AdminPortal/CreateSport";
 import SportProducts from "./components/SportProducts";
 import EditProducts from "./components/AdminPortal/EditProducts";
 import EditSingleProduct from "./components/AdminPortal/EditSingleProduct";
+import OrderHistory from "./components/OrderHistory";
 
 function App() {
   const [healthMsg, setHealthMsg] = useState(null);
@@ -122,6 +123,7 @@ function App() {
 
         <Route element={<ProtectedComponent loggedIn={loggedIn} />}>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/orders" element={<OrderHistory />} />
         </Route>
 
         <Route element={<ProtectedAdminComponent loggedIn={loggedIn} user={user}/>}>
