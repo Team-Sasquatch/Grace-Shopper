@@ -32,7 +32,7 @@ export default function OrderHistory(){
                                 return(
                                     <div>
                                         <h5>Product: {product.name}</h5>
-                                        <p>Quantity: {product.quantity}</p>
+                                        <h5>Quantity: {product.quantity}</h5>
                                     </div>
                                 )
                             })}
