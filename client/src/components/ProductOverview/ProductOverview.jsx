@@ -54,6 +54,7 @@ export default function ProductOverview() {
               sx={{ height: 400 }}
               image={`/ProductOverview/${product.name}.jpg`}
               title="product"
+              alt={product.name} 
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
