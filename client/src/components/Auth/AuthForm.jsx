@@ -40,7 +40,7 @@ export default function AuthForm() {
         setUser(result.user);
         navigate("/products");
         let cart = await getCartForUser();
-        localStorage.setItem("shoppingCart", cart);
+        if (cart) localStorage.setItem("shoppingCart", cart);
       } else {
         window.alert("Failed login with username " + username);
       }
