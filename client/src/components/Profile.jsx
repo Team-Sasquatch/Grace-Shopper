@@ -73,6 +73,7 @@ export default function Profile() {
         </div>
       ) : (
         <div>
+          <button onClick={() => nav("/profile/orders")}>Order History</button>
           <h3>Default Address</h3>
           <form onSubmit={handleSubmit}>
             <p>
@@ -118,7 +119,9 @@ export default function Profile() {
             <button>Update Default Address</button>
           </form>
           {user.is_admin === true ? (
-            <button onClick={() => nav("/admin-users")}>Admin Portal</button>
+            <div>
+              <button onClick={() => nav("/admin-users")}>Admin Portal</button>
+            </div>
           ) : (
             <div />
           )}
