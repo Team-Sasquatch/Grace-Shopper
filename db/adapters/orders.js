@@ -58,7 +58,8 @@ const {client} = require("../client");
           'name', products.name,
           'price', products.price,
           'description', products.description,
-          'sport_id', products.sport_id
+          'sport_id', products.sport_id,
+          'quantity', order_products.quantity
         )
       ) END AS products
       FROM orders
@@ -142,6 +143,7 @@ const {client} = require("../client");
           'price', products.price,
           'description', products.description,
           'sport_id', products.sport_id
+          'quantity', order_products.quantity
         )
       ) END AS products
       FROM orders
