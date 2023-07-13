@@ -14,11 +14,9 @@ const AllProductsComponent = () => {
     }
     fetchAllProducts();
   }, []);
-  console.log("product", products);
 
   function Prods(props) {
     var prodQty = props.quantity;
-    console.log(props);
     return (
       <div key={props.index} className="product-item">
         <Link to={`/overview/${props.product.id}`}>
