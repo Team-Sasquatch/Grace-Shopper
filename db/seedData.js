@@ -30,9 +30,9 @@ const products = [
   },
 
   {
-    name: "Protein Supplement",
-    price: "55",
-    description: "Prime protein for the prime Sasquatch",
+    name: "Caffeine Supplement",
+    price: "40",
+    description: "Premium quality coffee to help power your workouts",
     sport_id: null,
     category: "supplement",
     flavor: "strawberry",

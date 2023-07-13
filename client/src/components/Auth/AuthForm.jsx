@@ -38,10 +38,11 @@ export default function AuthForm() {
 
       if (result.user && username === result.user.username) {
         setLoggedIn(true);
+
         setUser(result.user);
         navigate("/products");
         let cart = await getCartForUser();
-        localStorage.setItem("shoppingCart", cart);
+        //localStorage.setItem("shoppingCart", cart);
       } else {
         setError("Incorrect login credentials.");
       }
