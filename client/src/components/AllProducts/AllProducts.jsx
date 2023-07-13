@@ -1,8 +1,8 @@
-import getAllProducts from "../api/products";
+import getAllProducts from "../../api/products";
 import { useState, useEffect } from "react";
-import "../AllProducts.css";
+import "./AllProducts.css";
 import { Link } from "react-router-dom";
-import addToCart from "../hooks/addingToCart";
+import addToCart from "../../hooks/addingToCart";
 
 const AllProductsComponent = () => {
   const [products, setProduct] = useState([]);

@@ -1,0 +1,113 @@
+import React, { useState, useEffect } from "react";
+import getAllProducts from "../../../api/products";
+import { Link, useNavigate } from "react-router-dom";
+import "./confirmation.css";
+//import PaymentDetail from "./ShipAndPay";
+
+export default function Confirmation() {
+  // Retrieve the shoppiingCart from storage
+  var shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
+
+  var contents = shoppingCart.map((prod, index) => {
+    return (
+      <div>
+        <h2>{prod.name}</h2>
+        <p>Quantity: {prod.quantity}</p>
+        <p>Price: $ {prod.price}</p>
+      </div>
+    );
+  });
+
+  var totalCost = shoppingCart.reduce((acc, prod) => {
+    return acc + prod.price * prod.quantity;
+  }, 0);
+
+  contents.push(<p>Total Cost: $ {totalCost}</p>);
+
+  contents.push(submitForm());
+  contents.push(PaymentDetail());
+
+  contents.push(
+    <Link to="/ThankYou">
+      <button className="nav-link">Submit Order</button>
+    </Link>
+  );
+
+  return contents;
+}
+
+function submitForm() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert("You have submitted the form.");
+    git;
+  };
+
+  return (
+    <div className="shipment-form">
+      <h1>Shipping Info</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <p>Name</p>
+          <input name="name" />
+        </label>
+
+        <label>
+          <p>Address 1</p>
+          <input address="address" />
+        </label>
+
+        <label>
+          <p>Address2 / apartment number</p>
+          <input address2="address" />
+        </label>
+
+        <label>
+          <p>City</p>
+          <input city="city" />
+        </label>
+
+        <label>
+          <p>State</p>
+          <input state="state" />
+        </label>
+
+        <label>
+          <p>Zip</p>
+          <input zip="zip" />
+        </label>
+      </form>
+    </div>
+  );
+}
+
+function PaymentDetail() {
+  return (
+    <div className="payment-form">
+      <h1>Billing Info </h1>
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          await PaymentDetail(fullname, cardnumber, expiration, cvv, zipcode);
+        }}
+      >
+        <label>Name on Credit Card:</label>
+        <input name="fullname" />
+
+        <label>Credit Card Number:</label>
+        <input cardnumber="cardnumber" />
+
+        <label>Expiration Date:</label>
+        <input expiration="expiration" />
+
+        <label>CVV code:</label>
+        <input cvv="cvv" />
+
+        <label>Billing Zip Code:</label>
+        <input zip="zipcode" />
+
+        <br></br>
+      </form>
+    </div>
+  );
+}

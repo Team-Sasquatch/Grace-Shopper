@@ -28,8 +28,8 @@ const Nav = () => {
         Apparel
       </Link>
       <div class="topnav">
-        <input type="text" placeholder="Sasquatch Hunt Here...." />
-        <button type="submit">Submit</button>
+        {/* <input type="text" placeholder="Sasquatch Hunt Here...." />
+        <button type="submit">Submit</button> */}
       </div>
     </nav>
   );

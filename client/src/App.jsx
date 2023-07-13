@@ -7,17 +7,18 @@ import LoginButton from "./components/Auth/LoginButton";
 import AuthForm from "./components/Auth/AuthForm";
 import SportsComponent from "./components/Sports";
 import SupplementsComponent from "./components/Supplements";
-import AllProductsComponent from "./components/AllProducts";
+import AllProductsComponent from "./components/AllProducts/AllProducts";
 import ProductOverview from "./components/ProductOverview/ProductOverview";
-import Checkout from "./components/Checkout";
-import OrderConfirmation from "./components/Order/OrderConfirmation";
-import OrderFulfillment from "./components/Order/OrderFulfillment";
+import Checkout from "./components/Ordering/Checkout/Checkout.jsx";
+import OrderConfirmation from "./components/Ordering/Confirmation/OrderConfirmation";
+// import PaymentDetail from "./components/Ordering/Confirmation/OrderConfirmation";
+import OrderFulfillment from "./components/Ordering/OrderFulfillment";
 import CheckoutButton from "./components/CheckoutButton";
 import EquipmentComponent from "./components/Equipment";
 import ApparelComponent from "./components/Apparel";
 import useAuth from "./hooks/useAuth";
 import { logOut } from "./api/auth";
-import PaymentDetail from "./components/Order/ShipAndPay";
+
 import Profile from "./components/Profile";
 import CreateAdmin from "./components/AdminPortal/CreateAdmin";
 import CreateProduct from "./components/AdminPortal/CreateProduct";
@@ -115,7 +116,7 @@ function App() {
         <Route path="/overview/:id" element={<ProductOverview />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/confirmation" element={<OrderConfirmation />} />
-
+        <Route path="/ThankYou" element={<OrderFulfillment />} />
         <Route element={<ProtectedComponent loggedIn={loggedIn} />}>
           <Route path="/profile" element={<Profile />} />
         </Route>
@@ -127,9 +128,6 @@ function App() {
           <Route path="/admin-sports" element={<CreateSport />} />
           <Route path="/admin-products" element={<CreateProduct />} />
         </Route>
-
-        <Route path="/payment" element={<PaymentDetail />} />
-        <Route path="/ThankYou" element={<OrderFulfillment />} />
       </Routes>
     </div>
   );

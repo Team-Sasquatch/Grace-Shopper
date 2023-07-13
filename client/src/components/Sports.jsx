@@ -1,7 +1,6 @@
-import {getSports} from "../api/sportsAPI";
+import { getSports } from "../api/sportsAPI";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../AllProducts.css";
 
 const SportsComponent = () => {
   const [sport, setSports] = useState({ sports: [] });

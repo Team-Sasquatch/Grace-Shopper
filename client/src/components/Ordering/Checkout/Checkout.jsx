@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import useAuth from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
-import { getProductById } from "../api/products";
+import { getProductById } from "../../../api/products";
+import "./Order.css";
 
 export default function Checkout() {
   const [quantity, setQuantity] = useState(null);
@@ -78,9 +78,13 @@ export default function Checkout() {
             {retrievedCart.map((prod, index) => {
               return (
                 <div key={prod.id}>
-                  <p>Product: {prod.name}</p>
-                  <p> Price: ${prod.price}</p>
-                  <p>
+                  <th>Product:</th>
+                  <td> {prod.name}</td>
+
+                  <th> Price: </th>
+                  <td>${prod.price}</td>
+
+                  <th>
                     Quantity:{" "}
                     <input
                       type="text"
@@ -92,7 +96,7 @@ export default function Checkout() {
                           ));
                       }}
                     />
-                  </p>
+                  </th>
                   <button
                     onClick={() => {
                       deleteItem(prod);

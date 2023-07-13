@@ -3,17 +3,14 @@ nav {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  /* top: 0;
-  left: 0; */
   min-width: 100vw;
   background-color: rgb(105, 197, 197);
-  /* padding: 10px 20px 10px 20px; */
 }
 
 .nav-link {
   margin: 0 10px;
   color: #333;
-  font-size: 20px;
+  font-size: 30px;
   justify-content: right;
   text-decoration: none;
   transition: color 0.3s;
