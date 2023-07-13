@@ -39,6 +39,7 @@ export default function Profile(){
     return(
     <div>
         <div>
+            <button onClick={()=>nav("/profile/orders")}>Order History</button>
             <h3>Default Address</h3>
             <form onSubmit={handleSubmit}>
                 <p>Address: <input type='text' value={address} onChange={(e)=>setAddress(e.target.value)}/></p>
