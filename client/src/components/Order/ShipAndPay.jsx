@@ -14,8 +14,10 @@ export default function PaymentDetail() {
   const [cvv, setCvv] = useState("");
   const [zipcode, setZipCode] = useState("");
 
+  let addressInfo=JSON.parse(localStorage.getItem("tempJankSolutionAddress"));
+
   function generateConfirmationNumber() {
-    //using this just so the code works for testing. Needs to pull number correctly from a sequential-non-duplicate source
+    //-----------------------------using this just so the code works for testing. Needs to pull number correctly from a sequential-non-duplicate source
     let max = 10000;
     let min = 100;
     let confirmationNumber = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -25,14 +27,17 @@ export default function PaymentDetail() {
   async function handleSubmitOrder(e){
     e.preventDefault();
     try {
+      //----------------------------Fill in total cost of order
+      if (addressInfo){
+        const newOrder = await createOrder(user.id,'1',generateConfirmationNumber(),'Processing',addressInfo.address,addressInfo.address2,addressInfo.city,addressInfo.state,addressInfo.zipcode);
+        localStorage.removeItem("tempJankSolutionAddress");
+        console.log('new order',newOrder);
+        //----------------------------Fill in quantity and correct product IDs
+        const newOrderProduct = await createOrderProduct(newOrder.data.id,4,45)
+        console.log('newOrderProductConnection',newOrderProduct);
+        nav("/ThankYou");
+      }
       
-      //----------------------------Fill in address information and total cost of order
-      const newOrder = await createOrder(user.id,'1',generateConfirmationNumber(),'Processing','address','address2','city','state','zipcode');
-      console.log('new order',newOrder);
-      //----------------------------Fill in quantity and correct product IDs
-      const newOrderProduct = await createOrderProduct(newOrder.data.id,4,45)
-      console.log('newOrderProductConnection',newOrderProduct);
-      nav("/ThankYou");
     } catch (error) {
       console.error(error)
     }
