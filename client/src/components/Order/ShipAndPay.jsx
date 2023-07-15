@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../../App.css";
 import { createOrder } from "../../api/orders";
 import { createOrderProduct } from "../../api/order_products";
 import useAuth from "../../hooks/useAuth";
 
 export default function PaymentDetail() {
-  const {user}=useAuth();
-  const nav=useNavigate();
+  const { user } = useAuth();
+  const nav = useNavigate();
+  const location = useLocation();
+  const formState = location.state;
   const [fullname, setFullName] = useState("");
   const [cardnumber, setCardNumber] = useState("");
   const [expiration, setExpiration] = useState("");
@@ -29,32 +31,36 @@ export default function PaymentDetail() {
     return confirmationNumber;
   }
 
-  async function handleSubmitOrder(e){
+  async function handleSubmitOrder(e) {
     e.preventDefault();
     try {
-      if (addressInfo){
-        const newOrder = await createOrder(user.id,cartTotal.toFixed(2),generateConfirmationNumber(),'Processing',addressInfo.address,addressInfo.address2,addressInfo.city,addressInfo.state,addressInfo.zipcode);
-        localStorage.removeItem("tempJankSolutionAddress");
-        console.log('new order',newOrder);
-        for (let i=0;i<cart.length;i++){
-          await createOrderProduct(newOrder.data.id,cart[i].id,cart[i].quantity)
-        }
-        nav("/ThankYou");
-      }
-      
+      //----------------------------Fill in address information and total cost of order
+      let confirmationNumber = generateConfirmationNumber();
+      const newOrder = await createOrder(
+        user.id,
+        "1",
+        confirmationNumber,
+        "Processing",
+        formState.address,
+        formState.address2,
+        formState.city,
+        formState.state,
+        formState.zip
+      );
+      console.log("new order", newOrder);
+      //----------------------------Fill in quantity and correct product IDs
+      const newOrderProduct = await createOrderProduct(newOrder.data.id, 4, 45);
+      console.log("newOrderProductConnection", newOrderProduct);
+      nav("/ThankYou", { state: { confirmationNumber: confirmationNumber } });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-    
   }
 
   return (
     <div className="payment-form">
       <h1>Billing Info </h1>
-      <form
-        className="payment-form"
-        onSubmit={handleSubmitOrder}
-      >
+      <form className="payment-form" onSubmit={handleSubmitOrder}>
         <label>Name on Credit Card:</label>
         <input name="fullname" />
 

@@ -6,7 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { getProductById } from "../../api/products";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { createContext, useState, useEffect } from "react";
 import Reviews from "./Reviews";
 import "./productOverview.css";
@@ -15,7 +15,6 @@ import CloseIcon from "@mui/icons-material/Close";
 
 export default function ProductOverview() {
   const [product, setProduct] = useState({});
-  const navigate = useNavigate();
 
   let { id } = useParams();
   useEffect(() => {
@@ -27,26 +26,8 @@ export default function ProductOverview() {
     getProduct();
   }, []);
 
-  const handleGoBack = () => {
-    navigate(-1);
-  };
-
   return (
     <div className="product-overview-container">
-      <IconButton
-        sx={{
-          position: "absolute",
-
-          backgroundColor: "#ff0000",
-          color: "#fff",
-          borderRadius: "50%",
-          padding: "5px",
-          fontSize: "20px",
-        }}
-        onClick={handleGoBack}
-      >
-        <CloseIcon />
-      </IconButton>
       <Grid container spacing={2} justifyContent="center" alignItems="center">
         <Grid item xs={12} sm={6}>
           <Card sx={{ maxWidth: 600 }}>
@@ -54,6 +35,7 @@ export default function ProductOverview() {
               sx={{ height: 400 }}
               image={`/ProductOverview/${product.name}.jpg`}
               title="product"
+              alt={product.name} 
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">

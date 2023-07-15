@@ -1,20 +1,21 @@
 import { fetchOrderByUserId } from "../api/orders";
 import useAuth from "../hooks/useAuth";
+
 import "../AllProducts.css";
 import { useEffect,useState } from "react";
 
-export default function OrderHistory(){
-    const {user} = useAuth();
-    const [orders,setOrders]=useState([]);
+export default function OrderHistory() {
+  const { user } = useAuth();
+  const [orders, setOrders] = useState([]);
 
-    useEffect(()=>{
-        async function fetchOrders(){
-            const result = await fetchOrderByUserId(user.id);
-            setOrders(result.orders);
-            console.log("orders",result.orders);
-        }
-        fetchOrders();
-    },[]);
+  useEffect(() => {
+    async function fetchOrders() {
+      const result = await fetchOrderByUserId(user.id);
+      setOrders(result.orders);
+      console.log("orders", result.orders);
+    }
+    fetchOrders();
+  }, []);
 
     return(
         <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
@@ -46,3 +47,4 @@ export default function OrderHistory(){
         </div>
     )
 }
+
