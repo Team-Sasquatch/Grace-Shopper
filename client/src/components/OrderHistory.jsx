@@ -22,7 +22,7 @@ export default function OrderHistory() {
             {orders.map((order)=>{
                 return(
                     <div className="product-item">
-                        <h3>Order Number: {order.order_number}</h3>
+                        <h2>Order Number: {order.order_number}</h2>
                         <p>Staus: {order.status}</p>
                         <div>
                             <p>Address:</p>
@@ -40,7 +40,7 @@ export default function OrderHistory() {
                                 )
                             })}
                         </div>
-                        <p>Total Cost: ${(order.cost).toFixed(2)}</p>
+                        <h3>Total Cost: ${(order.cost).toFixed(2)}</h3>
                     </div>
                 )
             })}

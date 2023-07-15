@@ -16,7 +16,6 @@ export default function PaymentDetail() {
   const [cvv, setCvv] = useState("");
   const [zipcode, setZipCode] = useState("");
 
-  let addressInfo=JSON.parse(localStorage.getItem("tempJankSolutionAddress"));
   let cart = JSON.parse(localStorage.getItem("shoppingCart"));
   let cartTotal=0;
   for (let i=0;i<cart.length;i++){
@@ -24,7 +23,6 @@ export default function PaymentDetail() {
   }
 
   function generateConfirmationNumber() {
-    //-----------------------------using this just so the code works for testing. Needs to pull number correctly from a sequential-non-duplicate source
     let max = 10000;
     let min = 100;
     let confirmationNumber = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -34,11 +32,10 @@ export default function PaymentDetail() {
   async function handleSubmitOrder(e) {
     e.preventDefault();
     try {
-      //----------------------------Fill in address information and total cost of order
       let confirmationNumber = generateConfirmationNumber();
       const newOrder = await createOrder(
         user.id,
-        "1",
+        cartTotal.toFixed(2),
         confirmationNumber,
         "Processing",
         formState.address,
@@ -47,10 +44,9 @@ export default function PaymentDetail() {
         formState.state,
         formState.zip
       );
-      console.log("new order", newOrder);
-      //----------------------------Fill in quantity and correct product IDs
-      const newOrderProduct = await createOrderProduct(newOrder.data.id, 4, 45);
-      console.log("newOrderProductConnection", newOrderProduct);
+      for (let i=0;i<cart.length;i++){
+        await createOrderProduct(newOrder.data.id,cart[i].id,cart[i].quantity)
+      }
       nav("/ThankYou", { state: { confirmationNumber: confirmationNumber } });
     } catch (error) {
       console.error(error);
