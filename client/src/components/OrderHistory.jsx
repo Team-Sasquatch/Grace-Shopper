@@ -1,6 +1,8 @@
 import { fetchOrderByUserId } from "../api/orders";
 import useAuth from "../hooks/useAuth";
-import { useEffect, useState } from "react";
+
+import "../AllProducts.css";
+import { useEffect,useState } from "react";
 
 export default function OrderHistory() {
   const { user } = useAuth();
@@ -15,36 +17,34 @@ export default function OrderHistory() {
     fetchOrders();
   }, []);
 
-  return (
-    <div>
-      {orders.map((order) => {
-        return (
-          <div>
-            <h3>Order Number: {order.order_number}</h3>
-            <p>Staus: {order.status}</p>
-            <div>
-              <p>Address:</p>
-              <p>
-                {order.address} {order.address2}
-              </p>
-              <p>
-                {order.city}, {order.state} {order.zipcode}
-              </p>
-            </div>
-            <div>
-              {order.products.map((product) => {
-                return (
-                  <div>
-                    <h5>Product: {product.name}</h5>
-                    <h5>Quantity: {product.quantity}</h5>
-                  </div>
-                );
-              })}
-            </div>
-            <p>Total Cost: ${order.cost}</p>
-          </div>
-        );
-      })}
-    </div>
-  );
+    return(
+        <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+            {orders.map((order)=>{
+                return(
+                    <div className="product-item">
+                        <h3>Order Number: {order.order_number}</h3>
+                        <p>Staus: {order.status}</p>
+                        <div>
+                            <p>Address:</p>
+                            <p>{order.address} {order.address2}</p>
+                            <p>{order.city}, {order.state} {order.zipcode}</p>
+                        </div>
+                        <div>
+                            {order.products.map((product)=>{
+                                return(
+                                    <div>
+                                        <h4>Product: {product.name}</h4>
+                                        <h5>Price: ${(product.price).toFixed(2)}</h5>
+                                        <h5>Quantity: {product.quantity}</h5>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <p>Total Cost: ${(order.cost).toFixed(2)}</p>
+                    </div>
+                )
+            })}
+        </div>
+    )
 }
+

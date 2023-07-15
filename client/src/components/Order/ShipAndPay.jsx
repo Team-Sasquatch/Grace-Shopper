@@ -16,8 +16,15 @@ export default function PaymentDetail() {
   const [cvv, setCvv] = useState("");
   const [zipcode, setZipCode] = useState("");
 
+  let addressInfo=JSON.parse(localStorage.getItem("tempJankSolutionAddress"));
+  let cart = JSON.parse(localStorage.getItem("shoppingCart"));
+  let cartTotal=0;
+  for (let i=0;i<cart.length;i++){
+    cartTotal += (cart[i].quantity*cart[i].price);
+  }
+
   function generateConfirmationNumber() {
-    //using this just so the code works for testing. Needs to pull number correctly from a sequential-non-duplicate source
+    //-----------------------------using this just so the code works for testing. Needs to pull number correctly from a sequential-non-duplicate source
     let max = 10000;
     let min = 100;
     let confirmationNumber = Math.floor(Math.random() * (max - min + 1)) + min;

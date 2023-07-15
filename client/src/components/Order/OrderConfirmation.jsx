@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../App.css";
+import useAuth from "../../hooks/useAuth";
 
 export default function Confirmation() {
-  // Retrieve the shoppingCart from storage
+
   var shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
   const navigate = useNavigate();
   const [formState, setFormState] = useState({});

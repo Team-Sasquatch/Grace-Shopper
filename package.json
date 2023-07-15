@@ -36,6 +36,7 @@
   },
   "description": "",
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.3.3",
     "prop-types": "^15.8.1"
   }
 }
