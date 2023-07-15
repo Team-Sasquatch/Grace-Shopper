@@ -3,8 +3,9 @@
 const users = [
   { username: "test1", password: 12345678, is_admin: false },
   { username: "test2", password: 12345678, is_admin: false },
-  { username: "admin", password: 12345678, is_admin: true },
 ];
+
+const admins = [{ username: "admin", password: 12345678, is_admin: true }];
 
 const orders = [
   { user_id: 1, cost: 1222, order_number: 1, status: "Created" },
@@ -127,4 +128,4 @@ const reviews = [
   { product_id: 1, user_id: 1, rating: 1, comment: "wack", edited: false },
 ];
 
-module.exports = { users, products, orders, order_products, sports, reviews };
+module.exports = { users, admins, products, orders, order_products, sports, reviews };

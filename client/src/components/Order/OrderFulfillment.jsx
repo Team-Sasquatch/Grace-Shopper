@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../../App.css";
 
 export default function OrderFulfillment() {
-  const [num, setNum] = useState(0);
+  const location = useLocation();
+  const confirmationNumber = location.state.confirmationNumber;
 
-  useEffect(() => {
-    setNum(generateConfirmationNumber());
-  }, []);
-
-  // Clear the  shopping cart
+  // Clear the shopping cart
   localStorage.removeItem("shoppingCart");
 
   return (
     <div className="order-form">
       <h1 className="thank-you">THANKS FOR YOUR ORDER</h1>
-      <h2>Sasquatch number {num}</h2>
+      <h2>Sasquatch number {confirmationNumber}</h2>
 
       <p>
         We appreciate your order. Please allow 2-3 business days for our team of
@@ -25,15 +22,6 @@ export default function OrderFulfillment() {
       {<Footer />}
     </div>
   );
-}
-
-function generateConfirmationNumber() {
-  let max = 10000;
-  let min = 1000;
-
-  let confirmationNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-
-  return confirmationNumber;
 }
 
 function Footer() {

@@ -8,7 +8,7 @@ import { useState,useEffect } from "react";
 export default function CreateProduct(){
     const {user}=useAuth();
     const [productName,setProductName]=useState('');
-    const [productPrice,setProductPrice]=useState(0.00);
+    const [productPrice,setProductPrice]=useState(0);
     const [productDescription,setProductDescription]=useState('');
     const [submitted,setSubmitted]=useState(false);
     const [sportList,setSportList]=useState([{}]);
