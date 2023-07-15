@@ -15,6 +15,11 @@ export default function PaymentDetail() {
   const [zipcode, setZipCode] = useState("");
 
   let addressInfo=JSON.parse(localStorage.getItem("tempJankSolutionAddress"));
+  let cart = JSON.parse(localStorage.getItem("shoppingCart"));
+  let cartTotal=0;
+  for (let i=0;i<cart.length;i++){
+    cartTotal += (cart[i].quantity*cart[i].price);
+  }
 
   function generateConfirmationNumber() {
     //-----------------------------using this just so the code works for testing. Needs to pull number correctly from a sequential-non-duplicate source
@@ -27,14 +32,13 @@ export default function PaymentDetail() {
   async function handleSubmitOrder(e){
     e.preventDefault();
     try {
-      //----------------------------Fill in total cost of order
       if (addressInfo){
-        const newOrder = await createOrder(user.id,'1',generateConfirmationNumber(),'Processing',addressInfo.address,addressInfo.address2,addressInfo.city,addressInfo.state,addressInfo.zipcode);
+        const newOrder = await createOrder(user.id,cartTotal.toFixed(2),generateConfirmationNumber(),'Processing',addressInfo.address,addressInfo.address2,addressInfo.city,addressInfo.state,addressInfo.zipcode);
         localStorage.removeItem("tempJankSolutionAddress");
         console.log('new order',newOrder);
-        //----------------------------Fill in quantity and correct product IDs
-        const newOrderProduct = await createOrderProduct(newOrder.data.id,4,45)
-        console.log('newOrderProductConnection',newOrderProduct);
+        for (let i=0;i<cart.length;i++){
+          await createOrderProduct(newOrder.data.id,cart[i].id,cart[i].quantity)
+        }
         nav("/ThankYou");
       }
       

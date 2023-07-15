@@ -22,6 +22,7 @@ const {client} = require("../client");
           'price', products.price,
           'description', products.description,
           'sport_id', products.sport_id
+          'quantity', order_products.quantity
         )
       ) END AS products
       FROM orders
@@ -78,23 +79,35 @@ const {client} = require("../client");
   async function getOrderById(orderId) {
     try {
       const {rows:[order]} = await client.query(`
-            SELECT *
-            FROM orders
-            WHERE id = $1;
+      SELECT
+        orders.id as id,
+        orders.user_id as user_id,
+        orders.cost as cost,
+        orders.order_number as order_number,
+        orders.status as status,
+        orders.address as address,
+        orders.address2 as address2,
+        orders.city as city,
+        orders.state as state,
+        orders.zipcode as zipcode,
+      CASE WHEN order_products.order_id IS NULL THEN '[]'::json
+      ELSE
+      JSON_AGG(
+        JSON_BUILD_OBJECT(
+          'id', products.id,
+          'name', products.name,
+          'price', products.price,
+          'description', products.description,
+          'sport_id', products.sport_id,
+          'quantity', order_products.quantity
+        )
+      ) END AS products
+      FROM orders
+      LEFT JOIN order_products ON orders.id = order_products.order_id
+      LEFT JOIN products ON order_products.product_id = products.id
+      WHERE orders.id = $1
+      GROUP BY orders.id, order_products.order_id;
         `,[orderId]);
-        if(!order){
-            throw{
-                name:"OrderNotFoundError",
-                message:"Could not find order with that orderId"
-            };
-        }
-        const {rows:[products]} = await client.query(`
-            SELECT products.*
-            FROM products
-            JOIN order_products ON products.id=order_products.product_id
-            WHERE order_products.order_id=$1;
-        `,[orderId]);
-        order.products = products;
       return order;
     } catch (error) {
       throw error;
