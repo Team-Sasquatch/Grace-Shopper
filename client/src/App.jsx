@@ -100,7 +100,7 @@ function App() {
             Logout
           </button>
           <button className="profile-button" onClick={() => nav("/profile")}>
-            My Profile 🤡
+            My Account
           </button>
         </div>
       ) : (
@@ -126,13 +126,15 @@ function App() {
           <Route path="/profile/orders" element={<OrderHistory />} />
         </Route>
 
-        <Route element={<ProtectedAdminComponent loggedIn={loggedIn} user={user}/>}>
-          <Route path="/admin-users" element={<CreateAdmin/>}/>
-          <Route path="/admin-sports" element={<CreateSport/>}/>
-          <Route path="/admin-products" element={<CreateProduct/>}/>
-          <Route path="/admin-sports/edit"/>
-          <Route path="/admin-products/edit" element={<EditProducts/>}/>
-          <Route path="/admin-product/:id" element={<EditSingleProduct/>}/>
+        <Route
+          element={<ProtectedAdminComponent loggedIn={loggedIn} user={user} />}
+        >
+          <Route path="/admin-users" element={<CreateAdmin />} />
+          <Route path="/admin-sports" element={<CreateSport />} />
+          <Route path="/admin-products" element={<CreateProduct />} />
+          <Route path="/admin-sports/edit" />
+          <Route path="/admin-products/edit" element={<EditProducts />} />
+          <Route path="/admin-product/:id" element={<EditSingleProduct />} />
         </Route>
 
         <Route path="/payment" element={<PaymentDetail />} />
