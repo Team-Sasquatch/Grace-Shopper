@@ -1,6 +1,6 @@
 import React from 'react';
 import useAuth from "../../hooks/useAuth";
-import { createContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getReviewsByProductId, submitReview } from '../../api/reviews';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';

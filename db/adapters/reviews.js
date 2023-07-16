@@ -1,5 +1,4 @@
 const {client} = require("../client");
-const { reviews } = require("../seedData");
 
 async function createReview({product_id,user_id,rating,comment,edited}){
     try {

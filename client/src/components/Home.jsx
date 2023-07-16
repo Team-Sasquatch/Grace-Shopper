@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import ProductsCarousel from "./ProductsCarousel";
 import image1 from "../assets/carousel1.jpg";
 import image2 from "../assets/carousel2.jpg";

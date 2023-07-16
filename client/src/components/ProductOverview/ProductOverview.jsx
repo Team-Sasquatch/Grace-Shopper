@@ -7,11 +7,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { getProductById } from "../../api/products";
 import { useParams } from "react-router-dom";
-import { createContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Reviews from "./Reviews";
 import "./productOverview.css";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 
 export default function ProductOverview() {
   const [product, setProduct] = useState({});

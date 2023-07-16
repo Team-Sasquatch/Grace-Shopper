@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../App.css";
 import useAuth from "../../hooks/useAuth";
-import { useRadioGroup } from "@mui/material";
 
 export default function Confirmation() {
 

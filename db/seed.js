@@ -1,4 +1,4 @@
-const { createProduct, getAllProducts, getProductBySport } = require("./adapters/products");
+const { createProduct, getAllProducts } = require("./adapters/products");
 const { client } = require("./client");
 const {
   addProductToOrder,

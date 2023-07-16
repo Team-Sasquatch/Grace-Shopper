@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../../App.css";
 import { createOrder } from "../../api/orders";
 import { createOrderProduct } from "../../api/order_products";
