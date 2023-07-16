@@ -8,7 +8,7 @@
     "start": "node server.js",
     "start:dev": "(npm run dev --prefix client) & nodemon server.js",
     "build": "npm install --production=false --prefix client && npm run build --prefix client",
-    "prod": "npm seed & npm run start:dev"
+    "prod": "npm run seed & npm run start:dev"
   },
   "keywords": [],
   "author": "",
