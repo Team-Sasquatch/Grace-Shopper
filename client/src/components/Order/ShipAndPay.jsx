@@ -10,11 +10,6 @@ export default function PaymentDetail() {
   const nav = useNavigate();
   const location = useLocation();
   const formState = location.state;
-  const [fullname, setFullName] = useState("");
-  const [cardnumber, setCardNumber] = useState("");
-  const [expiration, setExpiration] = useState("");
-  const [cvv, setCvv] = useState("");
-  const [zipcode, setZipCode] = useState("");
 
   let cart = JSON.parse(localStorage.getItem("shoppingCart"));
   let cartTotal=0;

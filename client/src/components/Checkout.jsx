@@ -4,7 +4,6 @@ import { getProductById } from "../api/products";
 import { addToCartAPI, clearCartAPI } from "../api/cart";
 
 export default function Checkout() {
-  const [quantity, setQuantity] = useState(null);
   const [retrievedCart, setRetrievedCart] = useState([]);
   const [updateCheckout, setUpdateCheckout] = useState(false);
   const nav = useNavigate();

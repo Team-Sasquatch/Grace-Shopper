@@ -1,4 +1,4 @@
-import getAllProducts, { deleteProduct, updateProduct } from "../../api/products";
+import getAllProducts, { deleteProduct } from "../../api/products";
 import { useState, useEffect } from "react";
 import "../../AllProducts.css";
 import { useNavigate } from "react-router-dom";

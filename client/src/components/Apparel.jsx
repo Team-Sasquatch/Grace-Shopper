@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 const ApparelComponent = () => {
   const [apparel, setApparel] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     async function fetchApparel() {
