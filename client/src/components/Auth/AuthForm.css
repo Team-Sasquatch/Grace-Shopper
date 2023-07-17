@@ -7,7 +7,6 @@ auth-form {
 }
 
 input,
-/* input:hover, */
 input:focus {
   font-weight: 500;
   font-size: 15px;
@@ -29,24 +28,6 @@ input:hover {
 input:focus {
   background: rgb(82, 161, 161);
 }
-
-/* .show-hide {
-  width: 100%;
-  text-align: right;
-  font-size: 12px;
-  color: #9c9c9c;
-  margin-top: -1rem;
-  transition: all 0.15s ease;
-} */
-
-/* .show-hide:hover {
-  cursor: hand;
-  color: #d8d8d8;
-} */
-
-/* *************************** */
-
-
 
 form {
   display: flex;
@@ -74,42 +55,3 @@ form {
   background-color: rgb(105, 197, 197);
 }
 
-/* 
-.main-div {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-
-  padding: 60px;
-
-  align-items: center;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  color: black;
-}
-
-h2 {
-  color: rgb(56, 160, 160);
-}
-
-p {
-  color: rgb(56, 160, 160);
-  font-size: 30px;
-  margin: 0;
-}
-
-.registerButton,
-.conButton {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 50 px;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: blanchedalmond;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
