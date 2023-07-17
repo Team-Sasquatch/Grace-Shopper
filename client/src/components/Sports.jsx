@@ -1,6 +1,7 @@
 import { getSports } from "../api/sportsAPI";
 import { useState, useEffect } from "react";
 import "../AllProducts.css";
+import { Link } from "react-router-dom";
 
 const SportsComponent = () => {
   const [sport, setSports] = useState({ sports: [] });
@@ -14,22 +15,6 @@ const SportsComponent = () => {
   }, []);
   console.log("sports??", sport);
 
-  function Sports(props) {
-    var Qty = props.quantity;
-    return (
-      <div>
-        <div key={props.idx} className="product-item">
-          {/* <Link to={`/sport_product/${props.sporty.id}`}> */}
-          <h1 className="product-name">Name: {props.sporty.name}</h1>
-          <p className="product-description">
-            Description: {props.sporty.description}
-          </p>
-          {/* </Link> */}
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="products-container">
       {sport.sports.map((sport, idx) => (
@@ -38,5 +23,21 @@ const SportsComponent = () => {
     </div>
   );
 };
+
+function Sports(props) {
+    var Qty = props.quantity;
+    return (
+      <div>
+        <div key={props.idx} className="product-item">
+          <Link to={`/sport_product/${props.sporty.id}`}>
+          <h1 className="product-name">Name: {props.sporty.name}</h1>
+          <p className="product-description">
+            Description: {props.sporty.description}
+          </p>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
 export default SportsComponent;

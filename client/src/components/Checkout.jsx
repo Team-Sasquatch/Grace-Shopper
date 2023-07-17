@@ -58,7 +58,7 @@ export default function Checkout() {
 
   return (
     <div>
-      {retrievedCart.length>0 ? (
+      {retrievedCart ? (
         <div>
           <p>
             <Link to="/confirmation">

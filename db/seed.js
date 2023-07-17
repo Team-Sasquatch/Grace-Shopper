@@ -142,43 +142,43 @@ async function populateTables() {
     for (const sport of sports) {
       await createSport(sport);
     }
-    console.log("...sports populated");
-    console.log("Getting sportById(1)", await getSportById(1));
-    console.log("Getting allSports", await getAllSports());
-    console.log(
-      "Updating Sport(1)",
-      await updateSport(1, "rock climbing", "climbing rocks!")
-    );
-    await destroySport(3);
-    console.log("Getting all Sports, second iteration", await getAllSports());
+    // console.log("...sports populated");
+    // console.log("Getting sportById(1)", await getSportById(1));
+    // console.log("Getting allSports", await getAllSports());
+    // console.log(
+    //   "Updating Sport(1)",
+    //   await updateSport(1, "rock climbing", "climbing rocks!")
+    // );
+    // await destroySport(3);
+    // console.log("Getting all Sports, second iteration", await getAllSports());
 
-    console.log("populating products table...");
+    // console.log("populating products table...");
     for (const product of products) {
       await createProduct(product);
     }
-    console.log("all products: ", await getAllProducts());
-    console.log("...products table populated");
+    // console.log("all products: ", await getAllProducts());
+    // console.log("...products table populated");
 
-    console.log("Getting sportById(1)", await getSportById(1));
-    console.log("Getting all Sports, second iteration", await getAllSports());
+    // console.log("Getting sportById(1)", await getSportById(1));
+    // console.log("Getting all Sports, second iteration", await getAllSports());
 
-    // ----------------------- Added by Daven for Testing---------------------------
-    console.log("populating users table...");
+    // // ----------------------- Added by Daven for Testing---------------------------
+    // console.log("populating users table...");
     for (const user of users) {
       await createUser(user);
     }
     for (const admin of admins) {
       await createAdmin(admin);
     }
-    console.log("finished populating users table");
-    console.log(
-      "Getting user validation,",
-      await getUser({ username: "test1", password: 12345678 })
-    );
+    // console.log("finished populating users table");
+    // console.log(
+    //   "Getting user validation,",
+    //   await getUser({ username: "test1", password: 12345678 })
+    // );
     // console.log("Getting user by id user[3], ", await getUserById(3));
     // console.log("Getting user by username, ", await getUserByUsername("test2"));
 
-    console.log("populating orders table...");
+    // console.log("populating orders table...");
     for (const order of orders) {
       await createOrder(order);
     }
