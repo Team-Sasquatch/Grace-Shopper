@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "../checkoutButton.css";
 import ShoppingCartIcon from "../assets/shopping-cart-outline.svg";
 
-const CheckoutButton = ({ totalItems }) => {
+const CheckoutButton = () => {
   let checkoutCart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
 
   let cartTotals = checkoutCart.reduce((acc, prod) => {

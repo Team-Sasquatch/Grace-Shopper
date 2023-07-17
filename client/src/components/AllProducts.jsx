@@ -4,7 +4,7 @@ import "../AllProducts.css";
 import { Link } from "react-router-dom";
 import addToCart from "../hooks/addingToCart";
 
-const AllProductsComponent = () => {
+const AllProductsComponent = ({ searchQuery }) => {
   const [products, setProduct] = useState([]);
 
   useEffect(() => {
@@ -14,6 +14,10 @@ const AllProductsComponent = () => {
     }
     fetchAllProducts();
   }, []);
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   function Prods(props) {
     var prodQty = props.quantity;
@@ -66,7 +70,7 @@ const AllProductsComponent = () => {
 
   return (
     <div className="products-container">
-      {products.map((product, idx) => (
+      {filteredProducts.map((product, idx) => (
         <div key={idx}>
           <Prods quantity={1} index={idx} product={product} />
         </div>

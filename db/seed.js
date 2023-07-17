@@ -1,4 +1,4 @@
-const { createProduct, getAllProducts, getProductBySport } = require("./adapters/products");
+const { createProduct, getAllProducts } = require("./adapters/products");
 const { client } = require("./client");
 const {
   addProductToOrder,
@@ -9,6 +9,7 @@ const {
 } = require("./adapters/order_products");
 const {
   users,
+  admins,
   orders,
   products,
   order_products,
@@ -32,6 +33,7 @@ const {
 } = require("./adapters/orders");
 const {
   createUser,
+  createAdmin,
   getUser,
   getUserById,
   getUserByUsername,
@@ -82,7 +84,7 @@ async function createTables() {
     CREATE TABLE orders(
       id SERIAL PRIMARY KEY,
       user_id INTEGER REFERENCES users(id),
-      cost INTEGER NOT NULL,
+      cost DOUBLE PRECISION NOT NULL,
       order_number VARCHAR(255) UNIQUE NOT NULL,
       status VARCHAR(255) NOT NULL,
       address VARCHAR(255),
@@ -94,14 +96,14 @@ async function createTables() {
     CREATE TABLE sports(
       id SERIAL PRIMARY KEY,
       name VARCHAR(255) UNIQUE NOT NULL,
-      description VARCHAR(255)
+      description TEXT
     );
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
       sport_id INTEGER REFERENCES sports(id),
       name VARCHAR(255) UNIQUE NOT NULL,
-      price INTEGER,
-      description VARCHAR(255),
+      price DOUBLE PRECISION,
+      description TEXT,
       category VARCHAR(255),
       flavor VARCHAR(255)
     );
@@ -165,12 +167,15 @@ async function populateTables() {
     for (const user of users) {
       await createUser(user);
     }
+    for (const admin of admins) {
+      await createAdmin(admin);
+    }
     console.log("finished populating users table");
     console.log(
       "Getting user validation,",
       await getUser({ username: "test1", password: 12345678 })
     );
-    console.log("Getting user by id user[1], ", await getUserById(1));
+    console.log("Getting user by id user[3], ", await getUserById(3));
     console.log("Getting user by username, ", await getUserByUsername("test2"));
 
     console.log("populating orders table...");

@@ -1,6 +1,6 @@
 import React from 'react';
 import useAuth from "../../hooks/useAuth";
-import { createContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getReviewsByProductId, submitReview } from '../../api/reviews';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
@@ -10,7 +10,7 @@ const Reviews = ({ id }) => {
   const [reviews, setReviews] = useState([]);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
-  const { setLoggedIn, loggedIn,setUser,user } = useAuth();
+  const { loggedIn } = useAuth();
 
     useEffect(() => {
         async function getReviews() {

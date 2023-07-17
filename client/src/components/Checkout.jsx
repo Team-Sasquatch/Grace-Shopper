@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import useAuth from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import { getProductById } from "../api/products";
 import { addToCartAPI, clearCartAPI } from "../api/cart";
 
 export default function Checkout() {
-  const [quantity, setQuantity] = useState(null);
   const [retrievedCart, setRetrievedCart] = useState([]);
   const [updateCheckout, setUpdateCheckout] = useState(false);
   const nav = useNavigate();
@@ -60,7 +58,7 @@ export default function Checkout() {
 
   return (
     <div>
-      {retrievedCart ? (
+      {retrievedCart.length>0 ? (
         <div>
           <p>
             <Link to="/confirmation">

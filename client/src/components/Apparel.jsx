@@ -2,11 +2,9 @@ import { useState, useEffect } from "react";
 import { getProductsByApparel } from "../api/products";
 import addToCart from "../hooks/addingToCart";
 import { Link } from "react-router-dom";
-import CheckoutButton from "./CheckoutButton";
 
 const ApparelComponent = () => {
   const [apparel, setApparel] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     async function fetchApparel() {

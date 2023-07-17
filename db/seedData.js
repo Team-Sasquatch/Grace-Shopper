@@ -3,8 +3,9 @@
 const users = [
   { username: "test1", password: 12345678, is_admin: false },
   { username: "test2", password: 12345678, is_admin: false },
-  { username: "admin", password: 12345678, is_admin: true },
 ];
+
+const admins = [{ username: "admin", password: 12345678, is_admin: true }];
 
 const orders = [
   { user_id: 1, cost: 1222, order_number: 1, status: "Created" },
@@ -22,79 +23,79 @@ const sports = [
 const products = [
   {
     name: "Whey Protein",
-    price: "15",
-    description: "prime protein for the prime Sasquatch",
+    price: "65",
+    description: "Prime protein for the prime Sasquatch",
     sport_id: null,
     category: "supplement",
     flavor: "strawberry",
   },
 
   {
-    name: "Protein Supplement",
-    price: "31",
-    description: "prime protein for the prime Sasquatch",
+    name: "Caffeine Supplement",
+    price: "40",
+    description: "Premium quality coffee to help power your workouts",
     sport_id: null,
     category: "supplement",
     flavor: "strawberry",
   },
   {
-    name: "tank top",
+    name: "Tank Top",
     price: "12",
-    description: "gets you jacked2",
+    description: "Makes you look jack3d",
     sport_id: 2,
     category: "apparel",
   },
   {
-    name: "soccer ball",
+    name: "Soccer Ball",
     price: "31",
-    description: "gets you jacked3",
+    description: "Traditional soccer ball for training or recreation",
     sport_id: 1,
     category: "equipment",
   },
   {
     name: "Casein Protein",
-    price: "144",
-    description: "gets you jacked4",
+    price: "80",
+    description: "Slow digesting protein to keep you feeling full longer",
     sport_id: 1,
     category: "supplement",
     flavor: "mocha",
   },
   {
     name: "Creatine",
-    price: "144",
-    description: "gets you swole!",
+    price: "25",
+    description: "You know you need it",
     sport_id: 1,
     category: "supplement",
     flavor: "mocha",
   },
   {
-    name: "exercise bike",
-    price: "144",
-    description: "hit those quads",
+    name: "Exercise Bike",
+    price: "250",
+    description: "Hit those quads anytime anywhere",
     sport_id: 1,
     category: "equipment",
     flavor: "mocha",
   },
   {
-    name: "pull up bar",
-    price: "144",
-    description: "gets you jacked4",
+    name: "Pullup Bar",
+    price: "45",
+    description: "Great for pullups and pushups",
     sport_id: 1,
     category: "equipment",
     flavor: "mocha",
   },
   {
-    name: "baseball T",
-    price: "144",
-    description: "gets you jacked4",
+    name: "Baseball T",
+    price: "20",
+    description: "Classic Baseball T",
     sport_id: 1,
     category: "apparel",
     flavor: "mocha",
   },
   {
-    name: "baseball cap",
-    price: "100",
-    description: "gets you jacked4",
+    name: "Baseball Cap",
+    price: "30",
+    description: "Classic Baseball Cap",
     sport_id: 1,
     category: "apparel",
     flavor: "mocha",
@@ -127,4 +128,4 @@ const reviews = [
   { product_id: 1, user_id: 1, rating: 1, comment: "wack", edited: false },
 ];
 
-module.exports = { users, products, orders, order_products, sports, reviews };
+module.exports = { users, admins, products, orders, order_products, sports, reviews };

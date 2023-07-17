@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import ProductsCarousel from "./ProductsCarousel";
 import image1 from "../assets/carousel1.jpg";
 import image2 from "../assets/carousel2.jpg";
@@ -18,7 +17,7 @@ const Home = () => {
 
   return (
     <div>
-      <ProductsCarousel images={carouselImages} interval={3000} />
+      <ProductsCarousel images={carouselImages} interval={5000} />
     </div>
   );
 };

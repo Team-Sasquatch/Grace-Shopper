@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Routes, Route, useNavigate, Navigate, Outlet } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home";
@@ -32,6 +32,7 @@ function App() {
   const [err, setErr] = useState(null);
   const { setLoggedIn, loggedIn, setUser, user } = useAuth();
   const nav = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
   // useEffect(() => {
   //   async function checkHealth() {
   //     try {
@@ -92,7 +93,7 @@ function App() {
       <h1>Sasquatch Sports</h1>
       {healthMsg && <p>{healthMsg}</p>}
       {err && <p>{err}</p>}
-      <Nav />
+      <Nav setSearchQuery={setSearchQuery} />
       <CheckoutButton />
       {loggedIn === true ? (
         <div className="logout-button">
@@ -100,7 +101,7 @@ function App() {
             Logout
           </button>
           <button className="profile-button" onClick={() => nav("/profile")}>
-            My Profile 🤡
+            My Account
           </button>
         </div>
       ) : (
@@ -108,7 +109,10 @@ function App() {
       )}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/products" element={<AllProductsComponent />} />
+        <Route
+          path="/products"
+          element={<AllProductsComponent searchQuery={searchQuery} />}
+        />
         <Route path="/login" element={<AuthForm />} />
         <Route path="/register" element={<AuthForm />} />
         <Route path="/profile" element={<Profile />} />
@@ -126,13 +130,15 @@ function App() {
           <Route path="/profile/orders" element={<OrderHistory />} />
         </Route>
 
-        <Route element={<ProtectedAdminComponent loggedIn={loggedIn} user={user}/>}>
-          <Route path="/admin-users" element={<CreateAdmin/>}/>
-          <Route path="/admin-sports" element={<CreateSport/>}/>
-          <Route path="/admin-products" element={<CreateProduct/>}/>
-          <Route path="/admin-sports/edit"/>
-          <Route path="/admin-products/edit" element={<EditProducts/>}/>
-          <Route path="/admin-product/:id" element={<EditSingleProduct/>}/>
+        <Route
+          element={<ProtectedAdminComponent loggedIn={loggedIn} user={user} />}
+        >
+          <Route path="/admin-users" element={<CreateAdmin />} />
+          <Route path="/admin-sports" element={<CreateSport />} />
+          <Route path="/admin-products" element={<CreateProduct />} />
+          <Route path="/admin-sports/edit" />
+          <Route path="/admin-products/edit" element={<EditProducts />} />
+          <Route path="/admin-product/:id" element={<EditSingleProduct />} />
         </Route>
 
         <Route path="/payment" element={<PaymentDetail />} />
