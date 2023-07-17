@@ -17,7 +17,7 @@ const Home = () => {
 
   return (
     <div>
-      <ProductsCarousel images={carouselImages} interval={3000} />
+      <ProductsCarousel images={carouselImages} interval={5000} />
     </div>
   );
 };
