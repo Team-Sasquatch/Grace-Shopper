@@ -16,58 +16,6 @@ const ApparelComponent = () => {
 
   console.log("apparel", apparel);
 
-  function App(props) {
-    var qty = props.quantity;
-    return (
-      <div key={props.index} className="product-item">
-        <Link to={`/overview/${props.apparel.id}`} className="product-link">
-          <div className="product-image">
-            <img
-              src={`/ProductOverview/${props.apparel.name}.jpg`}
-              style={{ "max-width": "100%", height: "100px" }}
-              alt="Product Thumbnail"
-            />
-          </div>
-          <div className="product-details">
-            <h1 className="product-name">Name: {props.apparel.name}</h1>
-            <p className="product-price">$ {props.apparel.price}</p>
-            <p className="product-description">
-              Description: {props.apparel.description}
-            </p>
-          </div>
-        </Link>
-
-        <div className="product-quantity">
-          <p>
-            Quantity:{" "}
-            <input
-              type="number"
-              min="0"
-              max="9"
-              name="quantity"
-              defaultValue={props.quantity}
-              onChange={(e) => {
-                e.target.value, (qty = parseInt(e.target.value));
-              }}
-            />
-          </p>
-          <button
-            onClick={() => {
-              addToCart({
-                id: props.apparel.id,
-                name: props.apparel.name,
-                quantity: qty,
-              });
-              window.location.reload();
-            }}
-            className="add-to-cart-button"
-          >
-            Add to Cart
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   // function addToCart(cartObj) {
   //   console.log("cartObject: ", cartObj);
@@ -84,5 +32,58 @@ const ApparelComponent = () => {
     </div>
   );
 };
+
+function App(props) {
+  var qty = props.quantity;
+  return (
+    <div key={props.index} className="product-item">
+      <Link to={`/overview/${props.apparel.id}`} className="product-link">
+        <div className="product-image">
+          <img
+            src={`/ProductOverview/${props.apparel.name}.jpg`}
+            style={{ "max-width": "100%", height: "100px" }}
+            alt="Product Thumbnail"
+          />
+        </div>
+        <div className="product-details">
+          <h1 className="product-name">Name: {props.apparel.name}</h1>
+          <p className="product-price">$ {props.apparel.price}</p>
+          <p className="product-description">
+            Description: {props.apparel.description}
+          </p>
+        </div>
+      </Link>
+
+      <div className="product-quantity">
+        <p>
+          Quantity:{" "}
+          <input
+            type="number"
+            min="0"
+            max="9"
+            name="quantity"
+            defaultValue={props.quantity}
+            onChange={(e) => {
+              e.target.value, (qty = parseInt(e.target.value));
+            }}
+          />
+        </p>
+        <button
+          onClick={() => {
+            addToCart({
+              id: props.apparel.id,
+              name: props.apparel.name,
+              quantity: qty,
+            });
+            window.location.reload();
+          }}
+          className="add-to-cart-button"
+        >
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default ApparelComponent;
