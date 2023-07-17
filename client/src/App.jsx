@@ -32,6 +32,7 @@ function App() {
   const [err, setErr] = useState(null);
   const { setLoggedIn, loggedIn, setUser, user } = useAuth();
   const nav = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
   // useEffect(() => {
   //   async function checkHealth() {
   //     try {
@@ -92,7 +93,7 @@ function App() {
       <h1>Sasquatch Sports</h1>
       {healthMsg && <p>{healthMsg}</p>}
       {err && <p>{err}</p>}
-      <Nav />
+      <Nav setSearchQuery={setSearchQuery} />
       <CheckoutButton />
       {loggedIn === true ? (
         <div className="logout-button">
@@ -108,7 +109,10 @@ function App() {
       )}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/products" element={<AllProductsComponent />} />
+        <Route
+          path="/products"
+          element={<AllProductsComponent searchQuery={searchQuery} />}
+        />
         <Route path="/login" element={<AuthForm />} />
         <Route path="/register" element={<AuthForm />} />
         <Route path="/profile" element={<Profile />} />

@@ -64,9 +64,6 @@ export default function Profile() {
 
   return (
     <div>
-      <button className="registerButton" onClick={() => nav("/profile/orders")}>
-        Order History
-      </button>
       {user.address && !editing ? (
         <div>
           <h3>Your Address</h3>
@@ -77,6 +74,12 @@ export default function Profile() {
           <p>Zip Code: {zipcode}</p>
           <button className="registerButton" onClick={handleUpdateAddress}>
             Update Address
+          </button>
+          <button
+            className="registerButton"
+            onClick={() => nav("/profile/orders")}
+          >
+            Order History
           </button>
         </div>
       ) : (
@@ -124,7 +127,7 @@ export default function Profile() {
                   onChange={(e) => setZipCode(e.target.value)}
                 />
               </p>
-              <button>Update Your Address</button>
+              <button className="registerButton">Update Your Address</button>
             </form>
           ) : (
             <p>Please add your address</p>
