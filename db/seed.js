@@ -175,73 +175,73 @@ async function populateTables() {
       "Getting user validation,",
       await getUser({ username: "test1", password: 12345678 })
     );
-    console.log("Getting user by id user[3], ", await getUserById(3));
-    console.log("Getting user by username, ", await getUserByUsername("test2"));
+    // console.log("Getting user by id user[3], ", await getUserById(3));
+    // console.log("Getting user by username, ", await getUserByUsername("test2"));
 
     console.log("populating orders table...");
     for (const order of orders) {
       await createOrder(order);
     }
-    console.log("...finished populating orders table");
-    console.log("getting all orders, ", await getAllOrders());
-    console.log("getAllOrdersByUserId, ", await getAllOrdersByUserId(2));
-    console.log("getting order by id[1], ", await getOrderById(1));
-    console.log(
-      "getting orders by status[Processing]",
-      await getOrdersByStatus("Processing")
-    );
-    console.log(
-      "updating order status, ",
-      await updateOrderStatus({
-        id: 2,
-        user_id: 3,
-        cost: 6666,
-        order_number: 321,
-        status: "Completed",
-      })
-    );
+    // console.log("...finished populating orders table");
+    // console.log("getting all orders, ", await getAllOrders());
+    // console.log("getAllOrdersByUserId, ", await getAllOrdersByUserId(2));
+    // console.log("getting order by id[1], ", await getOrderById(1));
+    // console.log(
+    //   "getting orders by status[Processing]",
+    //   await getOrdersByStatus("Processing")
+    // );
+    // console.log(
+    //   "updating order status, ",
+    //   await updateOrderStatus({
+    //     id: 2,
+    //     user_id: 3,
+    //     cost: 6666,
+    //     order_number: 321,
+    //     status: "Completed",
+    //   })
+    // );
     // -----------------------------------------------------------------------------
 
     for (const order_product of order_products) {
       const createdOrderProduct = await addProductToOrder(order_product);
       console.log("Order_Products being created: ", createdOrderProduct);
     }
-    console.log(
-      "Getting orderproduct by id(1): ",
-      await getOrderProductsById(1)
-    );
-    console.log(
-      "Updating orderproduct by id(1): ",
-      await updateOrderProducts(1, 1337)
-    );
-    console.log(
-      "Getting orderproduct by orderId()",
-      await getOrderProductsByOrder(1)
-    );
-    await destroyOrderProducts(1);
-    console.log(
-      "Getting orderproduct by id(1) (should be destroyed): ",
-      await getOrderProductsById(1)
-    );
-    console.log("gettingAllOrders 2, ", await getAllOrders());
-    console.log("getAllOrdersByUserId, ", await getAllOrdersByUserId(1));
-    console.log("getting order by id[1], ", await getOrderById(1));
-    console.log(
-      "getting orders by status[Completed]",
-      await getOrdersByStatus("Completed")
-    );
+    // console.log(
+    //   "Getting orderproduct by id(1): ",
+    //   await getOrderProductsById(1)
+    // );
+    // console.log(
+    //   "Updating orderproduct by id(1): ",
+    //   await updateOrderProducts(1, 1337)
+    // );
+    // console.log(
+    //   "Getting orderproduct by orderId()",
+    //   await getOrderProductsByOrder(1)
+    // );
+    // await destroyOrderProducts(1);
+    // console.log(
+    //   "Getting orderproduct by id(1) (should be destroyed): ",
+    //   await getOrderProductsById(1)
+    // );
+    // console.log("gettingAllOrders 2, ", await getAllOrders());
+    // console.log("getAllOrdersByUserId, ", await getAllOrdersByUserId(1));
+    // console.log("getting order by id[1], ", await getOrderById(1));
+    // console.log(
+    //   "getting orders by status[Completed]",
+    //   await getOrdersByStatus("Completed")
+    // );
 
     for (const review of reviews) {
       await createReview(review);
     }
-    console.log("Getting all reviews", await getAllReviews());
-    console.log("Getting Reviews by reviewId[1],", await getReviewById(1));
-    console.log(
-      "updating review by id[2]",
-      await updateReview({ id: 2, rating: 2, comment: "eh", edited: false })
-    );
-    console.log("Destroying review[3]", await destroyReview(3));
-    console.log("Getting all reviews", await getAllReviews());
+    // console.log("Getting all reviews", await getAllReviews());
+    // console.log("Getting Reviews by reviewId[1],", await getReviewById(1));
+    // console.log(
+    //   "updating review by id[2]",
+    //   await updateReview({ id: 2, rating: 2, comment: "eh", edited: false })
+    // );
+    // console.log("Destroying review[3]", await destroyReview(3));
+    // console.log("Getting all reviews", await getAllReviews());
   } catch (error) {
     console.error(error);
   }
