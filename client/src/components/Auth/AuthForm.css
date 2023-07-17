@@ -29,8 +29,6 @@ input:focus {
   background: rgb(82, 161, 161);
 }
 
-
-
 form {
   display: flex;
   flex-direction: column;
